@@ -1,0 +1,44 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %} | EventBook</title>
+    {% tailwind_css %}
+    <script src="{% static 'htmx.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // Custom Tailwind theme configuration
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen flex flex-col">
+
+    {% include 'navbar.html' %}
+    
+    {% block main %}
+        
+    {% endblock main %}
+        
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 mt-auto py-8 border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-6 text-center text-slate-500 dark:text-slate-400">
+            <p>&copy; 2024 EventBook. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+media
+ztesting
+db.sqlite3
+venv
+./*.pyc
+__pycache__
+*.pyc
+__pycache__/
+*.log
+venv/
+.venv/
+*.swp
+*.sqlite3
+*_anc.html
+.env
+.vscode

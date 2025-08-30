@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
+        <section class="font-sans">
+            <!-- Back to Events Link -->
+            <div class="mb-8">
+                <a href="#" class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 font-semibold transition-colors group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 transition-transform group-hover:-translate-x-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    Back to All Events
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
+              
+                <!-- Left Column: Image & Ticket Button -->
+                <div class="lg:col-span-5 mb-8 lg:mb-0">
+                    <div class="lg:sticky lg:top-28 space-y-6">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Flyer for Synthwave Sunset Concert" class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
+                        <a href="#" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
+                            Get Ticket
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Event Details -->
+                <div class="lg:col-span-7">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+                        SYNTHWAVE SUNSET CONCERT
+                    </h1>
+                    
+                    <hr class="my-6 border-slate-200 dark:border-slate-800">
+
+                    <!-- Info List: Date, Time, Location, Price -->
+                    <div class="space-y-5 text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-4">
+                            <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-lg font-medium">Saturday, August 24th, 2024</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-lg font-medium">7:00 PM - 11:00 PM WAT</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="text-lg font-medium">The Waterfront Pavilion, Miami, FL</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08 .402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-lg font-semibold">₦5000.00 <span class="text-sm font-normal text-slate-500">(Max Capacity: 500)</span></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-8 border-slate-200 dark:border-slate-800">
+                    
+                    <!-- About this event -->
+                    <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">About This Event</h2>
+                    <div class="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
+                        <p>Dive into a retro-futuristic dreamscape at the Synthwave Sunset Concert. As the sun dips below the Miami skyline, the Waterfront Pavilion will come alive with the neon-drenched sounds of the 80s, reimagined for today.</p>
+                        <p>Join us for an unforgettable night of pulsating synth beats, hypnotic melodies, and breathtaking visuals. Featuring live performances from top synthwave artists, this open-air concert is the ultimate escape. Feel the rhythm, ride the electronic waves, and get lost in the nostalgia of a future that never was.</p>
+                        <ul>
+                            <li>Live sets from renowned synthwave and retrowave artists.</li>
+                            <li>Immersive laser and light show.</li>
+                            <li>Food trucks and retro-themed cocktails.</li>
+                            <li>Exclusive merchandise available.</li>
+                        </ul>
+                    </div>
+                    
+                    <hr class="my-8 border-slate-200 dark:border-slate-800">
+
+                    <!-- Directions / Map -->
+                    <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Directions</h2>
+                    <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-slate-200 dark:border-slate-800">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.9515159050517!2d-80.18919662497645!3d25.77218697734898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b69c1042b531%3A0x14067936611cf03!2sFPL%20Solar%20Amphitheater%20at%20Bayfront%20Park!5e0!3m2!1sen!2sus!4v1709927181052!5m2!1sen!2sus"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock main %}
+    

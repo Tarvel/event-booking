@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Home
+{% endblock title %}
+    
+
+
+{% block main %}
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
+        <section>
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">Discover Your Next Experience</h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">Browse and book exciting events happening near you!</p>
+            </div>
+
+           <!-- Filters -->
+        
+            <form  hx-post="{% url 'home' %}"
+                hx-swap="innerHTML"
+                hx-target="#event-list">
+
+                {% csrf_token %}
+
+                <div class="mb-12 space-y-6">
+                
+                    <!-- Date Filter (Pill style) -->
+                    <div id="date-filter-nav" class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">All Dates</button>
+                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">Today</button>
+                        <!-- This is the "active" button to show the highlighted style -->
+                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700">This Week</button>
+                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">This Month</button>
+                    </div>
+
+                    <!-- For Category -->
+                    <div id="category-filter-nav" hx-swap-oob="true" class="flex justify-center gap-6 md:gap-8 border-b border-slate-200 dark:border-slate-700">
+                        <button type="submit" name="category" value="all" {% if active_category == "all" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-blue-600 dark:text-blue-500 border-blue-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-900 hover:border-slate-300 dark:hover:text-white dark:hover:border-slate-600" {% endif %}>All Categories</button>
+                        <button type="submit" name="category" value="music" {% if active_category == "music" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-blue-600 dark:text-blue-500 border-blue-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-900 hover:border-slate-300 dark:hover:text-white dark:hover:border-slate-600" {% endif %}>Music</button>
+                        <button type="submit" name="category" value="technology" {% if active_category == "technology" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-blue-600 dark:text-blue-500 border-blue-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-900 hover:border-slate-300 dark:hover:text-white dark:hover:border-slate-600" {% endif %}>Technology</button>
+                        <button type="submit" name="category" value="arts"  {% if active_category == "arts" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-blue-600 dark:text-blue-500 border-blue-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-900 hover:border-slate-300 dark:hover:text-white dark:hover:border-slate-600" {% endif %}>Art & Culture</button>
+                        <button type="submit" name="category" value="food" {% if active_category == "food" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-blue-600 dark:text-blue-500 border-blue-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-900 hover:border-slate-300 dark:hover:text-white dark:hover:border-slate-600" {% endif %}>Food & Drink</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Event Grid -->
+            <div id="event-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                {% include 'events/partials/event_list.html' %}
+                
+
+            </div>
+
+
+        </section>
+    </main>
+{% endblock main %}
+    
+
