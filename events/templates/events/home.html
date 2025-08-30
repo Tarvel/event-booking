@@ -20,9 +20,7 @@
 
            <!-- Filters -->
         
-            <form  hx-post="{% url 'home' %}"
-                hx-swap="innerHTML"
-                hx-target="#event-list">
+            <form  method="post" action="" >
 
                 {% csrf_token %}
 
