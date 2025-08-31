@@ -68,9 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
             
             let val = this.value;
 
-            document.cookie = "tempWord=" + val + "; max-age=3600; path=/";
+            document.cookie = "tempDate=" + val + "; max-age=3600; path=/";
 
-            console.log("Stored in cookie:", val);
+            if (window.location.hostname === "localhost") {
+                console.log("Stored in cookie:", val);
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let buttons = document.querySelectorAll("button[name='category']");
+
+    buttons.forEach(button => {
+        button.addEventListener( "click", function () {
+            let val = this.value;
+
+            document.cookie = "tempCategory=" + val + "; max=age=3600; path=/";
+
+            if (window.location.hostname === "localhost") {
+                console.log("Stored in cookie:", val);
+            }
         });
     });
 });
