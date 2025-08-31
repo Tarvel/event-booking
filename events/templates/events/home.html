@@ -20,21 +20,18 @@
 
            <!-- Filters -->
         
-            <form  hx-post="{% url 'home' %}"
-                hx-swap="innerHTML"
-                hx-target="#event-list">
+            <form  method="post" action="" >
 
                 {% csrf_token %}
 
                 <div class="mb-12 space-y-6">
                 
-                    <!-- Date Filter (Pill style) -->
+                    <!-- Date Filter -->
                     <div id="date-filter-nav" class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
-                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">All Dates</button>
-                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">Today</button>
-                        <!-- This is the "active" button to show the highlighted style -->
-                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700">This Week</button>
-                        <button class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700">This Month</button>
+                        <button type="submit" name="date" value="all" {% if active_date == "all" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700" {% endif %}>All Dates</button>
+                        <button type="submit" name="date" value="today" {% if active_date == "today" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700" {% endif %}>Today</button>
+                        <button type="submit" name="date" value="week" {% if active_date == "week" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700" {% endif %}>This Week</button>
+                        <button type="submit" name="date" value="month" {% if active_date == "month" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-blue-600 text-white shadow-md hover:bg-blue-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700" {% endif %}>This Month</button>
                     </div>
 
                     <!-- For Category -->
@@ -49,7 +46,7 @@
                 </div>
             </form>
 
-            <!-- Event Grid -->
+            <!-- all Event lists -->
             <div id="event-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 {% include 'events/partials/event_list.html' %}
@@ -60,6 +57,43 @@
 
         </section>
     </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    
+    let buttons = document.querySelectorAll("button[name='date']");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            
+            let val = this.value;
+
+            document.cookie = "tempDate=" + val + "; max-age=3600; path=/";
+
+            if (window.location.hostname === "localhost") {
+                console.log("Stored in cookie:", val);
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let buttons = document.querySelectorAll("button[name='category']");
+
+    buttons.forEach(button => {
+        button.addEventListener( "click", function () {
+            let val = this.value;
+
+            document.cookie = "tempCategory=" + val + "; max=age=3600; path=/";
+
+            if (window.location.hostname === "localhost") {
+                console.log("Stored in cookie:", val);
+            }
+        });
+    });
+});
+</script>
+
 {% endblock main %}
     
 
