@@ -63,5 +63,11 @@ def home(request):
     return render(request, "events/home.html", context)
 
 
-def event_detail(request):
-    return render(request, "events/event_detail.html")
+def event_detail(request, slug):
+    event = Events.objects.get(slug=slug)
+    if request.htmx:
+        return render(request, "events/modal/event_detail_modal.html")
+    context = {
+        "event": event,
+    }
+    return render(request, "events/event_detail.html", context)
