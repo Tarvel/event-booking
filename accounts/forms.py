@@ -16,6 +16,16 @@ class RegisterForm(UserCreationForm):
             "is_organizer",
         ]
 
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+        ]
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=150)

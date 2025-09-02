@@ -11,6 +11,13 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+from django.template.loader import get_template
+from weasyprint import HTML
+import qrcode
+from io import BytesIO
+import base64
+from xhtml2pdf import pisa
+
 
 def home(request):
     method = request.method
@@ -40,14 +47,6 @@ def home(request):
         if category == "all" and date == "all"
         else Events.objects.filter(filters).order_by("-created_at")
     )
-    print(
-        f"this is {date}\n compared week {compared_date.isocalendar()[1]}\n today {compared_date}"
-    )
-    print("compared_date:", compared_date)
-    print("filters:", filters)
-    print(
-        "events in DB:", list(Events.objects.values_list("start_date__week", flat=True))
-    )
 
     paginator = Paginator(events, 8)
     events_page = paginator.get_page(page)
@@ -71,3 +70,45 @@ def event_detail(request, slug):
         "event": event,
     }
     return render(request, "events/event_detail.html", context)
+
+
+def download_ticket(request):
+
+    order = "TEST001"
+    user = request.user
+    scan_link = "TEST"
+    img = qrcode.make(scan_link)
+
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    
+    template = get_template("ticket.html")
+    html = template.render(
+        {
+            "user": user,
+            "qr_image": img_base64,
+        }
+    )
+
+    pisa.CreatePDF(html, dest=buffer)
+    response = HttpResponse(buffer.getvalue(), content_type="application/pdf")
+    buffer.close()
+
+    response["Content-Disposition"] = (
+        f'attachment; filename="{user.first_name}_ticket.pdf"'
+    )
+    return response
+
+
+scan_link = "TEST"
+img = qrcode.make(scan_link)
+
+# Convert to BytesIO buffer
+buffer = BytesIO()
+img.save(buffer, format="PNG")
+img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+buffer.close()
+context = {
+    "qr_image": img_base64,
+}

@@ -28,7 +28,9 @@
             <form method="post" action="{% url 'login' %}">
 
                 {% csrf_token %}
-
+                
+                <input type="hidden" name="next" value="{{ next }}">
+                
                 <div class="mb-4">
                     <label for="{{ form.email.id_for_label}}" 
                         class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
