@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 import uuid
 from datetime import datetime
 from .models import Events
+from booking.models import Registration, Ticket
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -63,31 +64,42 @@ def home(request):
 
 
 def event_detail(request, slug):
+    user = request.user
     event = Events.objects.get(slug=slug)
+    if user.is_authenticated:
+        registration = Registration.objects.filter(
+            user=user, event=event, status="approved"
+        )
+    else:
+        registration = None
+
     if request.htmx:
         return render(request, "events/modal/event_detail_modal.html")
     context = {
         "event": event,
+        "registration": registration,
     }
     return render(request, "events/event_detail.html", context)
 
 
-def download_ticket(request):
-
-    order = "TEST001"
+def download_ticket(request, slug):
+    reg = Registration.objects.filter(event__slug=slug).first()
+    tic = Ticket.objects.get(registration=reg)
+    ticket_code = tic.unique_code
     user = request.user
-    scan_link = "TEST"
-    img = qrcode.make(scan_link)
+
+    img = qrcode.make(ticket_code)
 
     buffer = BytesIO()
     img.save(buffer, format="PNG")
     img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-    
+
     template = get_template("ticket.html")
     html = template.render(
         {
             "user": user,
             "qr_image": img_base64,
+            "reg": reg,
         }
     )
 
@@ -96,19 +108,47 @@ def download_ticket(request):
     buffer.close()
 
     response["Content-Disposition"] = (
-        f'attachment; filename="{user.first_name}_ticket.pdf"'
+        f'attachment; filename="{user.first_name}_s_Ticket_For_{reg.event.title.title()}.pdf"'
     )
     return response
 
 
-scan_link = "TEST"
-img = qrcode.make(scan_link)
+@login_required(login_url="login")
+def validateTicket(request):
+    if not request.user.is_organizer:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    if request.method == "POST":
+        qr_data = request.POST.get("qr_data")
+        ticket = Ticket.objects.filter(
+            registration__user=request.user, unique_code=qr_data
+        )
+        if ticket.exists():
+            return redirect("valid_ticket", ticket.first().registration.event.slug)
+    return render(request, "events/validate_ticket.html")
 
-# Convert to BytesIO buffer
-buffer = BytesIO()
-img.save(buffer, format="PNG")
-img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-buffer.close()
-context = {
-    "qr_image": img_base64,
-}
+
+@login_required(login_url="login")
+def validTik(request, slug):
+    if not request.user.is_organizer:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    try:
+        reg = Registration.objects.filter(user=request.user, event__slug=slug)
+    except Registration.DoesNotExist:
+        messages.error(request, "Invalid")
+        return redirect("home")
+    return render(request, "events/valid_ticket.html", {"reg": reg.first()})
+
+
+# scan_link = "TEST"
+# img = qrcode.make(scan_link)
+
+# # Convert to BytesIO buffer
+# buffer = BytesIO()
+# img.save(buffer, format="PNG")
+# img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+# buffer.close()
+# context = {
+#     "qr_image": img_base64,
+# }

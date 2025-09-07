@@ -29,10 +29,29 @@
         </div>
 
         <div class="mt-auto">
-            <div class="flex items-center gap-2 mb-4 text-sm font-medium text-slate-600 dark:text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
-                <span>{{event.max_capacity}} tickets left</span>
+            
+            {% if event.available_ticket > 10 %}
+                <div class="flex items-center gap-2 mb-4 text-sm font-medium text-slate-600 dark:text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
+                    <span>{{event.available_ticket}} tickets available</span>
+                </div>
+            {% endif %}
+                
+            
+            {% if event.available_ticket < 10 and event.available_ticket > 0 %}
+            <div class="inline-flex items-center gap-1.5 mb-4 px-3 py-1 text-xs font-bold rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
+                Only {{event.available_ticket}} tickets left!
             </div>
+            {% endif %}
+
+            {% if event.available_ticket <= 0 %}
+            <div class="flex items-center gap-2 mb-4 text-sm font-bold text-red-600 dark:text-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                <span>SOLD OUT</span>
+            </div>
+            {% endif %}
+
             <a href="{% url 'event_detail' event.slug %}" class="inline-block w-full text-center bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 font-semibold px-4 py-2 rounded-lg text-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">View Details</a>
         </div>
     </div></a>
@@ -42,7 +61,7 @@
 {% if events.has_next %}
   <div 
     hx-get="{% url 'home' %}?page={{ events.next_page_number }}"
-    hx-trigger="revealed delay:0.5s"
+    hx-trigger="revealed"
     hx-swap="outerHTML"
     class="col-span-4 text-center">
     <div role="status">

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-12 px-6">
+        <div class="max-w-md w-full mx-auto bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 text-center">
+            
+            <!-- Success Icon -->
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/50 mb-6">
+                <svg class="h-8 w-8 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+            </div>
+            
+            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3">Payment Successful!</h1>
+            <p class="text-slate-600 dark:text-slate-400 mb-8">
+                Your ticket has been booked. A confirmation email with your ticket PDF has been sent to your inbox.
+                <br>
+                <span class="font-medium">Order {{registration.order_id}}</span>
+            </p>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300">
+                    View My Tickets
+                </a>
+                <a href="{% url 'home' %}" class="w-full sm:w-auto bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Explore More Events
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock main %}
+    

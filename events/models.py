@@ -26,6 +26,7 @@ class Events(models.Model):
     end_time = models.TimeField(null=True, blank=True)
     venue = models.CharField()
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    available_ticket = models.IntegerField(null=True, blank=True)
     max_capacity = models.IntegerField(default=0)
     created_at = models.DateField(auto_now_add=True)
 
@@ -40,7 +41,6 @@ class Events(models.Model):
                 counter += 1
 
             self.slug = slug
-
         super().save(*args, **kwargs)
 
     def __str__(self):

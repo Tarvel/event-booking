@@ -28,15 +28,51 @@
                     <div class="lg:sticky lg:top-28 space-y-6">
                         <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Flyer for Synthwave Sunset Concert" class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
                         
+                        
+                        {% if event.available_ticket > 10 %}
+                        <div class="flex items-center gap-3 p-3 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                            <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
+                            <span>Tickets are available</span>
+                        </div>
+                        {% endif %}
+
+
+                        {% if event.available_ticket < 10 and event.available_ticket > 0 %}
+                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
+                            <span>Only {{event.available_ticket}} tickets left!</span>
+                        </div>
+                        {% endif %}
+
+
+                        {% if event.available_ticket <= 0 %}
+                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                            <span>This event is sold out!</span>
+                        </div>
+
+                        <button disabled class="block w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
+                            Sold Out
+                        </button>
+                        {% endif %}
+
                         {% if request.user.is_authenticated %}
+                        
+                        {% if not registration %}
                         <button id="get-ticket-btn" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
                             Get Ticket
                         </button>
                         {% else %}
-                        <a href="{% url 'login' %}" id="get-ticket-btn" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
+                        <button id="get-ticket-btn" class="block w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
+                            Already Registered
+                        </button>
+                        {% endif %}
+
+                        {% else %}
+                        <a href="{% url 'login' %}" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
                             Sign in to get a ticket
                         </a>
-                        {% endif %}
+                                {% endif %}
                             
                     </div>
                 </div>
@@ -124,7 +160,7 @@
                 <p class="text-slate-600 dark:text-slate-400 mb-8">You are about to register for <strong>{{ event.title|upper }}</strong>. A confirmation will be sent to your email.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button id="cancel-btn" class="w-full sm:w-auto bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Cancel</button>
-                    <a href="#" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">Proceed to Payment</a>
+                    <a href="{% url 'get_ticket' event.slug %}" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">Proceed to Payment</a>
                 </div>
             </div>
 

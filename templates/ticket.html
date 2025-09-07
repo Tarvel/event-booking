@@ -13,7 +13,7 @@
             <tr>
                 <td colspan="2" align="center">
                     <p><small>YOU'RE GOING TO</small></p>
-                    <h1><strong>SYNTHWAVE SUNSET CONCERT</strong></h1>
+                    <h1><strong>{{reg.event.title|upper }}</strong></h1>
                 </td>
             </tr>
 
@@ -45,27 +45,32 @@
             <tr>
                 <td colspan="2">
                     <small>VENUE</small><br>
-                    <b>The Waterfront Pavilion, Miami, FL</b>
+                    <b>{{ reg.event.venue|title }}</b>
                 </td>
             </tr>
             <tr>
                 <td>
                     <small>DATE</small><br>
-                    <b>Aug 24, 2024</b>
+                    
+                    <b>{% if reg.event.start_date %}Start: {% endif %}{{ reg.event.start_date|date:"M" }} {{ reg.event.start_date|date:"j" }}, {{ reg.event.start_date|date:"Y" }}</b>
+                    <br>
+                    {% if reg.event.end_date %}
+                    <b>End: {{ reg.event.end_date|date:"M" }} {{ reg.event.end_date|date:"j" }}, {{ reg.event.end_date|date:"Y" }}</b>
+                    {% endif %}
                 </td>
                 <td align="right">
                     <small>TIME</small><br>
-                    <b>7:00 PM</b>
+                    <b>{{ reg.event.start_time|date:"h:i A" }} - {{ reg.event.end_time|date:"h:i A" }} (WAT)</b>
                 </td>
             </tr>
             <tr>
                 <td>
                     <small>ORDER #</small><br>
-                    <b>EVB-1A2B3C4D</b>
+                    <b>#{{reg.order_id}}</b>
                 </td>
                 <td align="right">
                     <small>REGISTERED</small><br>
-                    <b>Jul 15, 2024</b>
+                    <b>{{ reg.registered_at|date:"M" }} {{ reg.registered_at|date:"j" }}, {{ reg.registered_at|date:"Y" }} </b>
                 </td>
             </tr>
             

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+    <main class="flex-grow flex items-center justify-center py-12 px-6">
+        <div class="max-w-md w-full mx-auto bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+            <div class="text-center">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Ticket Scanner</h1>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">Align the ticket's QR code within the frame to validate.</p>
+            </div>
+            
+            
+            <div id="qr-reader" class="w-full mt-8 rounded-xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-slate-900"></div>
+        </div>
+    </main>
+    
+  
+    <form id="qr-form" method="post" action="{% url 'validate_ticket' %}">
+        {% csrf_token %}
+        <input type="hidden" name="qr_data" id="qr-data">
+    </form>
+
+
+
+    <script>
+    let html5QrCode;
+
+    function onScanSuccess(decodedText, decodedResult) {
+        const readerDiv = document.getElementById("qr-reader");
+        readerDiv.innerHTML = `<div class="p-8 text-center text-green-500 font-semibold">Scan successful! Validating...</div>`;
+        readerDiv.style.borderColor = '#22c55e';
+
+        console.log("Scanned:", decodedText);
+        document.getElementById("qr-data").value = decodedText;
+
+        // Stop scanning so it doesn't keep posting
+        html5QrCode.stop().then(() => {
+            document.getElementById("qr-form").submit();
+        }).catch(err => {
+            console.error("Failed to stop scanner:", err);
+            // fallback: still submit the form
+            document.getElementById("qr-form").submit();
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (typeof Html5Qrcode === "undefined") {
+            console.error("html5-qrcode library not loaded!");
+            document.getElementById("qr-reader").innerText = "Error: QR Scanner library could not be loaded.";
+            return;
+        }
+
+        html5QrCode = new Html5Qrcode("qr-reader");
+
+        Html5Qrcode.getCameras().then(devices => {
+            if (devices && devices.length) {
+                html5QrCode.start(
+                    { facingMode: "environment" }, 
+                    { fps: 10, qrbox: { width: 250, height: 250 } },
+                    onScanSuccess
+                ).catch(err => {
+                    console.error("QR start error:", err);
+                    document.getElementById("qr-reader").innerText = "Error starting camera. Please grant permission and refresh.";
+                });
+            } else {
+                console.error("No cameras found");
+                document.getElementById("qr-reader").innerText = "No cameras found on this device.";
+            }
+        }).catch(err => {
+            console.error("Camera error:", err);
+            document.getElementById("qr-reader").innerText = "Could not access camera. Please check permissions.";
+        });
+    });
+</script>
+{% endblock main %}
+    

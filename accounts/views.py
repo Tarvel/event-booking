@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import RegisterForm, LoginForm, UpdateProfileForm
+from booking.models import Registration
 from django.contrib import messages
+from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 import uuid
@@ -11,7 +13,7 @@ User = get_user_model()
 
 
 def registerPage(request):
-    username = uuid.uuid4()
+    username = str(uuid.uuid4())
     form = RegisterForm()
     method = request.method
     if method == "POST":
@@ -86,11 +88,19 @@ def profilePage(request):
         if user.first_name != "" or user.last_name != ""
         else None
     )
-    print(full_name)
+
+    todays_date = timezone.now().date()
+    todays_time = timezone.now().time()
+    registrations = Registration.objects.filter(user=user, status="approved").order_by(
+        "-registered_at"
+    )
 
     context = {
         "user": user,
         "full_name": full_name,
+        "registrations": registrations,
+        "todays_date": todays_date,
+        "todays_time": todays_time,
     }
     return render(request, "accounts/profile.html", context)
 

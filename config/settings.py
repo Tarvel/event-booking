@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     "theme",
     "accounts",
     "events",
+    "booking",
+    "payment",
+    "notifications",
 ]
 
 if DEBUG:
@@ -66,6 +69,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "notifications.context_processors.notification_context",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -132,3 +136,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
+CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
