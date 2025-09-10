@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Notification
 
 
@@ -18,9 +19,10 @@ def notifications_partial(request):
 def notifications_list(request):
     return render(request, "notifications/notifications.html")
 
+
 def mark_notification_read(request, notif_id):
     mark = Notification.objects.get(id=notif_id)
     mark.is_read = True
     mark.save(update_fields=["is_read"])
     mark.refresh_from_db()
-    pass
+    return HttpResponse(status=200)

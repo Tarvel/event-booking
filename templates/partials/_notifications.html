@@ -1,21 +1,19 @@
-<div class="p-4 border-b border-slate-200 dark:border-slate-700">
-    <h3 class="font-semibold text-slate-900 dark:text-white">Notifications</h3>
+<div class="p-4 border-b border-slate-200">
+    <h3 class="font-semibold text-slate-900">Notifications</h3>
 </div>
 
-<div class="divide-y divide-slate-200 dark:divide-slate-700">
+<div class="divide-y divide-slate-200">
     {% for notification in notifications %}
-        <div id="notif-{{ notification.id }}"
-        {% comment %}  {% endcomment %}
-             hx-post="{% url 'mark_notification_read' notification.id %}"
-             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-             hx-target="#notif-{{ notification.id }}"
-             hx-swap="outerHTML">
+        <div id="notif-{{ notification.id }}">
 
             {% if notification.notification_type == "ticket_ready" %}
                 <a href="{% url 'event_detail' notification.registration.event.slug %}"
-                   class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-700">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600 dark:text-blue-400"{% else %}class="w-6 h-6 text-slate-600 dark:text-slate-400"{% endif %}
+                hx-post="{% url 'mark_notification_read' notification.id %}"
+                hx-trigger="click"
+                hx-swap="none"
+                   class="flex items-center gap-4 p-4 hover:bg-slate-50">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -23,7 +21,7 @@
                         </svg>
                     </div>
                     <div class="flex-grow">
-                        <p class="text-sm text-slate-800 dark:text-slate-200">
+                        <p class="text-sm text-slate-800">
                             Your ticket for <strong>{{ notification.registration.event.title }}</strong> is ready!
                         </p>
                         <p class="text-xs text-slate-500">{{ notification.created_at|timesince }} ago</p>
@@ -36,9 +34,12 @@
 
             {% if notification.notification_type == "event_reminder" %}
                 <a href="{% url 'event_detail' notification.registration.event.slug %}"
-                   class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-700">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600 dark:text-blue-400"{% else %}class="w-6 h-6 text-slate-600 dark:text-slate-400"{% endif %}
+                hx-post="{% url 'mark_notification_read' notification.id %}"
+                hx-trigger="click"
+                hx-swap="none"
+                class="flex items-center gap-4 p-4 hover:bg-slate-50">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
+                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -46,7 +47,7 @@
                         </svg>
                     </div>
                     <div class="flex-grow">
-                        <p class="text-sm text-slate-600 dark:text-slate-300">
+                        <p class="text-sm text-slate-600">
                             <strong>{{ notification.registration.event.title }}</strong>
                             is starting in {{ notification.message }} days.
                         </p>
@@ -59,16 +60,20 @@
             {% endif %}
         </div>
     {% empty %}
-        <p class="p-4 text-sm text-slate-500 dark:text-slate-400">No notifications</p>
+        <p class="p-4 text-sm text-slate-500">No notifications</p>
     {% endfor %}
+
+    {% if notifications %}
+    <div class="p-2 border-t border-slate-200">
+        <a href="{% url 'notifications_list' %}"
+           class="block w-full text-center text-sm font-semibold text-blue-600 hover:bg-slate-100 rounded-md py-2">
+            View all notifications
+        </a>
+    </div>
+    {% endif %}
 </div>
 
-<div class="p-2 border-t border-slate-200 dark:border-slate-700">
-    <a href="{% url 'notifications_list' %}"
-       class="block w-full text-center text-sm font-semibold text-blue-600 dark:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md py-2">
-        View all notifications
-    </a>
-</div>
+
 
 
 {% comment %} Unread notifications count badge {% endcomment %}
@@ -78,5 +83,7 @@
     {% if unread.count > 0 %}
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+    {% else %}
+
     {% endif %}
 </span>

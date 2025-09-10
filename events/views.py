@@ -123,7 +123,8 @@ def validateTicket(request):
         ticket = Ticket.objects.filter(
             registration__user=request.user, unique_code=qr_data
         )
-        if ticket.exists():
+        if ticket:
+            print(qr_data)
             return redirect("valid_ticket", ticket.first().registration.event.slug)
     return render(request, "events/validate_ticket.html")
 

@@ -1,6 +1,6 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
-        
+        // Note: The dark mode config in JS is no longer needed with the class removed,
+        // but is kept here as per the "change nothing but colors" instruction.
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -26,7 +27,7 @@
         }
     </script>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-white text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
     {% include 'navbar.html' %}
     
@@ -36,9 +37,9 @@
         
 
     <!-- Footer -->
-    <footer class="bg-white dark:bg-slate-900 mt-auto py-8 border-t border-slate-200 dark:border-slate-800">
-        <div class="container mx-auto px-6 text-center text-slate-500 dark:text-slate-400">
-            <p>&copy; 2024 EventBook. All rights reserved.</p>
+    <footer class="bg-slate-50 mt-auto py-8 border-t border-slate-200">
+        <div class="container mx-auto px-6 text-center text-slate-500">
+            <p>&copy; 2025 EventBook. All rights reserved.</p>
         </div>
     </footer>
 

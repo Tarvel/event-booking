@@ -1,12 +1,12 @@
 {% comment %} NavBar - Modernized with Profile Dropdown & Notifications {% endcomment %}
-<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-slate-800">
+<header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-slate-200">
     <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="{% url 'home' %}" class="text-2xl font-extrabold text-blue-600 dark:text-blue-500">EventBook</a>
+        <a href="{% url 'home' %}" class="text-2xl font-extrabold text-green-600">EventBook</a>
         
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-            <a href="#" class="hover:text-blue-600 transition-colors">Events</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">About</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">Contact</a>
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+            <a href="#" class="hover:text-green-600 transition-colors">Events</a>
+            <a href="#" class="hover:text-green-600 transition-colors">About</a>
+            <a href="#" class="hover:text-green-600 transition-colors">Contact</a>
         </div>
         
         <!-- Right Section: Auth Links or User Menu -->
@@ -18,7 +18,7 @@
             <div class="relative">
 
             <button id="notification-menu-button"
-                    class="relative p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-900">
+                    class="relative p-2 text-slate-500 hover:text-slate-800 rounded-full hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 <span class="sr-only">View notifications</span>
                 
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -35,7 +35,7 @@
             </button>
 
             <div id="notification-menu"
-                class="hidden absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white dark:bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200 dark:border-slate-700">
+                class="hidden absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200">
 
                 <div id="notifications"
                     hx-get="{% url 'notifications_partial' %}"
@@ -50,26 +50,26 @@
 
 
             <div class="relative">
-                <button id="profile-menu-button" class="flex items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-900">
+                <button id="profile-menu-button" class="flex items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                     <span class="sr-only">Open user menu</span>
                     <img class="h-9 w-9 rounded-full" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User avatar">
                 </button>
 
                 
-                <div id="profile-menu" class="hidden absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200 dark:border-slate-700">
+                <div id="profile-menu" class="hidden absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200">
                  
-                    <div class="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-                        <p class="text-sm font-semibold text-slate-900 dark:text-white">{{request.user.first_name}} {{request.user.last_name}}</p>
-                        <p class="truncate text-sm text-slate-500 dark:text-slate-400">{{request.user.email}}</p>
+                    <div class="px-4 py-3 border-b border-slate-200">
+                        <p class="text-sm font-semibold text-slate-900">{{request.user.first_name}} {{request.user.last_name}}</p>
+                        <p class="truncate text-sm text-slate-500">{{request.user.email}}</p>
                     </div>
                     {% comment %} Menu Links {% endcomment %}
                     <div class="py-1">
-                        <a href="{% url 'profile' %}" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">View Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Settings</a>
+                        <a href="{% url 'profile' %}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">View Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">Settings</a>
                     </div>
 
                     <div class="py-1">
-                        <a href="{% url 'logout' %}" class="block w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <a href="{% url 'logout' %}" class="block w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-100">
                             Logout
                         </a>
                     </div>
@@ -78,8 +78,8 @@
 
             {% else %}
 
-            <a href="{% url 'login' %}" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors">Login</a>
-            <a href="{% url 'register' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm">Register</a>
+            <a href="{% url 'login' %}" class="text-sm font-medium text-slate-600 hover:text-green-600 transition-colors">Login</a>
+            <a href="{% url 'register' %}" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors shadow-sm">Register</a>
 
             {% endif %}
         </div>
@@ -92,25 +92,35 @@
     const notificationMenuButton = document.getElementById('notification-menu-button');
     const notificationMenu = document.getElementById('notification-menu');
 
-    profileMenuButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        profileMenu.classList.toggle('hidden');
-        notificationMenu.classList.add('hidden'); 
-    });
+    if (profileMenuButton) {
+        profileMenuButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            profileMenu.classList.toggle('hidden');
+            if (notificationMenu) notificationMenu.classList.add('hidden'); 
+        });
+    }
 
-
-    notificationMenuButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        notificationMenu.classList.toggle('hidden');
-        profileMenu.classList.add('hidden'); 
-    });
+    if (notificationMenuButton) {
+        notificationMenuButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            notificationMenu.classList.toggle('hidden');
+            if (profileMenu) profileMenu.classList.add('hidden'); 
+        });
+    }
 
     window.addEventListener('click', (event) => {
-        if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+        if (profileMenuButton && !profileMenuButton.contains(event.target) && profileMenu && !profileMenu.contains(event.target)) {
             profileMenu.classList.add('hidden');
         }
-        if (!notificationMenuButton.contains(event.target) && !notificationMenu.contains(event.target)) {
+        if (notificationMenuButton && !notificationMenuButton.contains(event.target) && notificationMenu && !notificationMenu.contains(event.target)) {
             notificationMenu.classList.add('hidden');
         }
     });
+
+    document.body.addEventListener("htmx:afterRequest", function(evt) {
+    if (evt.detail.elt.tagName === "A" && evt.detail.elt.href) {
+            window.location = evt.detail.elt.href;
+        }
+    });
+
 </script>

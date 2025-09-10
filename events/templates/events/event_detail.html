@@ -13,7 +13,7 @@
         <section class="font-sans">
             
             <div class="mb-8">
-                <a href="#" class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 font-semibold transition-colors group">
+                <a href="#" class="inline-flex items-center gap-2 text-slate-500 hover:text-green-600 font-semibold transition-colors group">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 transition-transform group-hover:-translate-x-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
@@ -30,15 +30,15 @@
                         
                         
                         {% if event.available_ticket > 10 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                            <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
+                        <div class="flex items-center gap-3 p-3 text-sm font-medium rounded-lg bg-slate-100 text-slate-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
                             <span>Tickets are available</span>
                         </div>
                         {% endif %}
 
 
                         {% if event.available_ticket < 10 and event.available_ticket > 0 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400">
+                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-amber-100 text-amber-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
                             <span>Only {{event.available_ticket}} tickets left!</span>
                         </div>
@@ -46,12 +46,12 @@
 
 
                         {% if event.available_ticket <= 0 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">
+                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-red-100 text-red-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
                             <span>This event is sold out!</span>
                         </div>
 
-                        <button disabled class="block w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
+                        <button disabled class="block w-full bg-slate-200 text-slate-500 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
                             Sold Out
                         </button>
                         {% endif %}
@@ -59,33 +59,33 @@
                         {% if request.user.is_authenticated %}
                         
                         {% if not registration %}
-                        <button id="get-ticket-btn" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
+                        <button id="get-ticket-btn" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
                             Get Ticket
                         </button>
                         {% else %}
-                        <button id="get-ticket-btn" class="block w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
-                            Already Registered
-                        </button>
+                        <a href="{% url 'login' %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
+                            Already Registered: Download ticket
+                        </a>
                         {% endif %}
 
                         {% else %}
-                        <a href="{% url 'login' %}" class="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:scale-105">
+                        <a href="{% url 'login' %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
                             Sign in to get a ticket
                         </a>
-                                {% endif %}
+                        {% endif %}
                             
                     </div>
                 </div>
 
                {% comment %} Details {% endcomment %}
                 <div class="lg:col-span-7">
-                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
                         {{event.title|upper }}
                     </h1>
                     
-                    <hr class="my-6 border-slate-200 dark:border-slate-800">
+                    <hr class="my-6 border-slate-200">
 
-                    <div class="space-y-5 text-slate-700 dark:text-slate-300">
+                    <div class="space-y-5 text-slate-700">
                         <div class="flex items-start gap-4">
                         <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -114,20 +114,20 @@
                         </div>
                     </div>
 
-                    <hr class="my-8 border-slate-200 dark:border-slate-800">
+                    <hr class="my-8 border-slate-200">
                     
                     {% comment %} Description {% endcomment %}
-                    <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">About This Event</h2>
-                    <div class="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-900">About This Event</h2>
+                    <div class="prose prose-lg max-w-none text-slate-600">
                         <p>{{event.description}}</p>
                         
                     </div>
                     
-                    <hr class="my-8 border-slate-200 dark:border-slate-800">
+                    <hr class="my-8 border-slate-200">
 
                     {% comment %} map {% endcomment %}
-                    <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Directions</h2>
-                    <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-900">Directions</h2>
+                    <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-slate-200">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.9515159050517!2d-80.18919662497645!3d25.77218697734898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b69c1042b531%3A0x14067936611cf03!2sFPL%20Solar%20Amphitheater%20at%20Bayfront%20Park!5e0!3m2!1sen!2sus!4v1709927181052!5m2!1sen!2sus"
                             width="100%" 
@@ -145,34 +145,34 @@
 
     {% comment %} Modal {% endcomment %}
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 hidden">
-        <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-md p-8 text-center border border-slate-200 dark:border-slate-800">
+        <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center border border-slate-200">
             
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
 
             {% if request.user.first_name and request.user.last_name %}
             <div id="modal-content-confirm">
-                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 dark:bg-blue-900/50 mb-6">
-                    <svg class="h-8 w-8 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18m-3 .75h18A2.25 2.25 0 0021 16.5V7.5A2.25 2.25 0 0018.75 5.25H5.25A2.25 2.25 0 003 7.5v9A2.25 2.25 0 005.25 18.75z" /></svg>
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                    <svg class="h-8 w-8 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18m-3 .75h18A2.25 2.25 0 0021 16.5V7.5A2.25 2.25 0 0018.75 5.25H5.25A2.25 2.25 0 003 7.5v9A2.25 2.25 0 005.25 18.75z" /></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Confirm Your Registration</h3>
-                <p class="text-slate-600 dark:text-slate-400 mb-8">You are about to register for <strong>{{ event.title|upper }}</strong>. A confirmation will be sent to your email.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">Confirm Your Registration</h3>
+                <p class="text-slate-600 mb-8">You are about to register for <strong>{{ event.title|upper }}</strong>. A confirmation will be sent to your email.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button id="cancel-btn" class="w-full sm:w-auto bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Cancel</button>
-                    <a href="{% url 'get_ticket' event.slug %}" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">Proceed to Payment</a>
+                    <button id="cancel-btn" class="w-full sm:w-auto bg-slate-100 text-slate-700 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 transition-colors">Cancel</button>
+                    <a href="{% url 'get_ticket' event.slug %}" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors">Proceed to Payment</a>
                 </div>
             </div>
 
             {% else %}
             
             <div id="modal-content-update">
-                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-amber-100 dark:bg-amber-900/50 mb-6">
-                    <svg class="h-8 w-8 text-amber-600 dark:text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-amber-100 mb-6">
+                    <svg class="h-8 w-8 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Update Your Profile</h3>
-                <p class="text-slate-600 dark:text-slate-400 mb-8">Please add your first and last name to your profile before registering. This is required for your ticket.</p>
-                <a href="#" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">Go to Profile</a>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">Update Your Profile</h3>
+                <p class="text-slate-600 mb-8">Please add your first and last name to your profile before registering. This is required for your ticket.</p>
+                <a href="#" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors">Go to Profile</a>
             </div>
             {% endif %}
         </div>
@@ -193,17 +193,24 @@
     };
 
     // Event Listeners
-    getTicketBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
+    if (getTicketBtn) {
+        getTicketBtn.addEventListener('click', openModal);
+    }
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeModal);
+    }
 
     // Close modal if user clicks on the backdrop
-    ticketModal.addEventListener('click', (event) => {
-        if (event.target === ticketModal) {
-            closeModal();
-        }
-    });
+    if (ticketModal) {
+        ticketModal.addEventListener('click', (event) => {
+            if (event.target === ticketModal) {
+                closeModal();
+            }
+        });
+    }
 </script>
 
 {% endblock main %}
-    
