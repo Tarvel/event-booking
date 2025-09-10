@@ -43,7 +43,7 @@ def buyTickets(request, slug):
 
     event = Events.objects.get(slug=slug)
     # generate unique ids for order and payment reference
-    unique_order_id = f"ORD-{str(uuid.uuid4())[0:9]}"
+    unique_order_id = f"ORD-{str(uuid.uuid4())[0:8]}"
     unique_reference_id = f"ref-{str(uuid.uuid4())[0:8]}"
     unique_code = f"TIK-{str(uuid.uuid4())[0:8]}"
 

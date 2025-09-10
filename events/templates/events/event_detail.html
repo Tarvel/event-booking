@@ -63,7 +63,7 @@
                             Get Ticket
                         </button>
                         {% else %}
-                        <a href="{% url 'login' %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
+                        <a href="{% url 'download_ticket' event.slug %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
                             Already Registered: Download ticket
                         </a>
                         {% endif %}

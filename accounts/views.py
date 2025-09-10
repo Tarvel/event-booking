@@ -4,6 +4,7 @@ from .forms import RegisterForm, LoginForm, UpdateProfileForm
 from booking.models import Registration
 from django.contrib import messages
 from django.utils import timezone
+from datetime import datetime
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 import uuid
@@ -89,8 +90,8 @@ def profilePage(request):
         else None
     )
 
-    todays_date = timezone.now().date()
-    todays_time = timezone.now().time()
+    todays_date = datetime.now().date()
+    todays_time = datetime.now().time()
     registrations = Registration.objects.filter(user=user, status="approved").order_by(
         "-registered_at"
     )

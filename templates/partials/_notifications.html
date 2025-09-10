@@ -77,6 +77,8 @@
 
 
 {% comment %} Unread notifications count badge {% endcomment %}
+{% for notification in notifications %}
+{% if not notification.is_read %}
 <span id="notif-badge"
       hx-swap-oob="true"
       class="absolute -top-0.5 -right-0.5 flex h-3 w-3">
@@ -87,3 +89,5 @@
 
     {% endif %}
 </span>
+{% endif %}
+{% endfor %}

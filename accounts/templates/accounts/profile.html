@@ -43,11 +43,11 @@
                                 <div class="flex items-center gap-2 mt-1 text-sm text-slate-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
                                     <span>{{registration.event.start_date|date:"F"}} {{registration.event.start_date|date:"j"}}, {{registration.event.start_date|date:"Y"}}</span>
-                                    {%if registration.event.start_date < todays_date and registration.event.start_time < todays_time %} <span class="font-medium text-slate-500">· Completed</span> {% else %} <span class="font-bold text-green-600">· Confirmed</span>{% endif %}
+                                    {%if registration.event.start_date < todays_date and registration.event.start_time > todays_time %} <span class="font-medium text-slate-500">· Completed</span> {% else %} <span class="font-bold text-green-600">· Confirmed</span>{% endif %}
                                 </div>
                             </div>
 
-                            {%if registration.event.start_date < todays_date and registration.event.start_time < todays_time %} 
+                            {%if registration.event.start_date < todays_date and registration.event.start_time > todays_time %} 
                             <button disabled class="flex-shrink-0 w-full sm:w-auto text-center bg-slate-200 text-slate-500 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
                                 Event Passed
                             </button> 
