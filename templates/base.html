@@ -7,16 +7,12 @@
     <title>{% block title %} {% endblock title %} | EventBook</title>
     {% tailwind_css %}
     <script src="{% static 'htmx.min.js' %}"></script>
-    <!-- <script src="{% static 'html5-qrcode.js' %}" ></script> -->
     <script src="https://unpkg.com/html5-qrcode"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
-        // Note: The dark mode config in JS is no longer needed with the class removed,
-        // but is kept here as per the "change nothing but colors" instruction.
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -36,7 +32,6 @@
     {% endblock main %}
         
 
-    <!-- Footer -->
     <footer class="bg-slate-50 mt-auto py-8 border-t border-slate-200">
         <div class="container mx-auto px-6 text-center text-slate-500">
             <p>&copy; 2025 EventBook. All rights reserved.</p>
