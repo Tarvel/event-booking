@@ -6,5 +6,10 @@ urlpatterns = [
     path("event/<str:slug>", views.event_detail, name="event_detail"),
     path("download/<str:slug>/", views.download_ticket, name="download_ticket"),
     path("validate-ticket/", views.validateTicket, name="validate_ticket"),
+    
     path("validate-ticket/success/<str:slug>", views.validTik, name="valid_ticket"),
+    path("validate-ticket/failure/", views.invalidTik, name="invalid_ticket"),
+    path("validate-ticket/used/<str:slug>", views.usedTik, name="used_ticket"),
+    
+    path("autocomplete/", views.place_autocomplete, name="place_autocomplete"),
 ]

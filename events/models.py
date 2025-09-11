@@ -25,9 +25,12 @@ class Events(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField(null=True, blank=True)
     venue = models.CharField()
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     available_ticket = models.IntegerField(null=True, blank=True)
     max_capacity = models.IntegerField(default=0)
+    is_published = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
 
     def save(self, *args, **kwargs):

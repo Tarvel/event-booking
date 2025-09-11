@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Invalid Ticket
+{% endblock title %}
+
+{% block main %}
+        
+    <main class="flex-grow flex items-center justify-center py-12 px-6">
+        <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
+            
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-100 mb-6">
+                <svg class="h-12 w-12 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            
+            <h1 class="text-3xl font-extrabold text-slate-900 mb-3">Ticket Invalid</h1>
+            <p class="text-slate-600 mb-8">
+                Access Denied. The QR code is not recognized.
+            </p>
+            
+            <div class="p-4 mb-8 text-left rounded-lg bg-red-50 border border-red-200">
+                <p class="font-semibold text-red-800">Reason for Failure</p>
+                <p class="text-red-700">This ticket code was <strong>not found</strong> in the system for this event. Please verify the guest has a ticket for the correct event and date.</p>
+            </div>
+            
+            <div class="text-left space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-slate-500">Scanned Data</label>
+                    <p class="font-mono text-sm text-slate-700 bg-slate-100 p-2 rounded-md break-all">a1b2c3d4-e5f6-7890-1234-567890abcdef</p>
+                </div>
+            </div>
+
+            <a href="{% url 'validate_ticket' %}" class="mt-10 block w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
+                Scan Again
+            </a>
+        </div>
+    </main>
+{% endblock main %}

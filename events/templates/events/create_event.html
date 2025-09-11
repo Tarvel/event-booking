@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    
+    <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Header -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Create a New Event</h1>
+            </div>
+
+            <form action="#" method="post" class="space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+                
+                <!-- Section 1: Event Details -->
+                <div class="space-y-6">
+                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Event Details</h2>
+                    
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-slate-600 mb-2">Event Title</label>
+                        <input type="text" name="title" id="title" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., Annual Tech Summit 2024">
+                    </div>
+                    
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-slate-600 mb-2">Description</label>
+                        <textarea name="description" id="description" rows="5" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Tell your attendees all about this event..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-slate-600 mb-2">Category</label>
+                            <select id="category" name="category" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Music</option>
+                                <option>Technology</option>
+                                <option>Food & Drink</option>
+                                <option>Art & Culture</option>
+                                <option>Sports & Fitness</option>
+                                <option selected>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-2">Event Image / Flyer</label>
+                            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-slate-900/25 px-6 py-10">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-slate-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12A2.25 2.25 0 0120.25 20.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" /></svg>
+                                    <div class="mt-4 flex text-sm leading-6 text-slate-600">
+                                        <label for="image" class="relative cursor-pointer rounded-md font-semibold text-green-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-offset-2 hover:text-green-500">
+                                            <span>Upload a file</span>
+                                            <input id="image" name="image" type="file" class="sr-only">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs leading-5 text-slate-500">PNG, JPG, GIF up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Date & Time -->
+                <div class="space-y-6">
+                     <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Date & Time</h2>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                             <label for="start_date" class="block text-sm font-medium text-slate-600 mb-2">Start Date</label>
+                             <input type="date" name="start_date" id="start_date" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label for="start_time" class="block text-sm font-medium text-slate-600 mb-2">Start Time</label>
+                            <input type="time" name="start_time" id="start_time" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label for="end_date" class="block text-sm font-medium text-slate-600 mb-2">End Date <span class="text-slate-400">(Optional)</span></label>
+                            <input type="date" name="end_date" id="end_date" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                       </div>
+                       <div>
+                           <label for="end_time" class="block text-sm font-medium text-slate-600 mb-2">End Time <span class="text-slate-400">(Optional)</span></label>
+                           <input type="time" name="end_time" id="end_time" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                       </div>
+                     </div>
+                </div>
+
+                <!-- Section 3: Location -->
+                <div class="space-y-6">
+                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Location</h2>
+                    <div>
+                        <label for="venue" class="block text-sm font-medium text-slate-600 mb-2">Venue / Address</label>
+                        <input type="text" name="venue" id="venue" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., 123 Main Street, Anytown, USA">
+                        <div>
+                        <label for="venue" class="block text-sm font-medium text-slate-600 mb-2">Venue / Address</label>
+                        <input type="text" name="venue" id="venue" 
+                            class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" 
+                            placeholder="e.g., 123 Main Street, Anytown, USA">
+                        <p class="mt-2 text-xs text-slate-500">Longitude and latitude will be determined automatically.</p>
+
+                        <!-- hidden fields to store coords -->
+                        <input type="hidden" name="latitude" id="latitude">
+                        <input type="hidden" name="longitude" id="longitude">
+                    </div>
+
+                    <!-- Suggestion box -->
+                    <ul id="suggestions" class="bg-white border rounded mt-2 shadow"></ul>
+
+                        <p class="mt-2 text-xs text-slate-500">Your venue will be shown on a map. Longitude and latitude will be determined automatically.</p>
+                    </div>
+                </div>
+
+                <!-- Section 4: Tickets -->
+                <div class="space-y-6">
+                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Tickets & Capacity</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                             <label for="ticket_price" class="block text-sm font-medium text-slate-600 mb-2">Ticket Price</label>
+                             <div class="relative">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <span class="text-slate-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" name="ticket_price" id="ticket_price" class="w-full pl-7 pr-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="0.00">
+                             </div>
+                        </div>
+                        <div>
+                            <label for="max_capacity" class="block text-sm font-medium text-slate-600 mb-2">Total Tickets Available</label>
+                            <input type="number" name="max_capacity" id="max_capacity" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., 500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="pt-6 flex justify-end gap-4 border-t border-slate-200">
+                    <button type="button" class="bg-slate-100 text-slate-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-slate-200 transition-colors">
+                        Save as Draft
+                    </button>
+                    <button type="submit" class="bg-green-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all">
+                        Publish Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+document.getElementById("venue").addEventListener(
+  "input",
+  debounce(async function() {
+    const query = this.value;
+    if (query.length < 3) return;
+
+    const response = await fetch(`/autocomplete/?q=${query}`);
+    const results = await response.json();
+
+    let suggestions = document.getElementById("suggestions");
+    suggestions.innerHTML = "";
+    results.forEach(place => {
+      let li = document.createElement("li");
+      li.textContent = place.display_name;
+      li.className = "p-2 cursor-pointer hover:bg-gray-100";
+      li.onclick = () => {
+        document.getElementById("venue").value = place.display_name;
+        suggestions.innerHTML = "";
+
+        // update hidden inputs
+        document.getElementById("latitude").value = place.lat;
+        document.getElementById("longitude").value = place.lon;
+      };
+      suggestions.appendChild(li);
+    });
+  }, 400)
+);
+</script>
+
+
+{% endblock main %}
+    

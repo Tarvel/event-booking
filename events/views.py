@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -44,9 +45,7 @@ def home(request):
     elif date == "month":
         filters &= Q(start_date__month=compared_date.month)
 
-    events = (
-        Events.objects.filter(filters).order_by("-created_at")
-    )
+    events = Events.objects.filter(filters).order_by("-created_at")
 
     paginator = Paginator(events, 8)
     events_page = paginator.get_page(page)
@@ -107,7 +106,7 @@ def download_ticket(request, slug):
     buffer.close()
 
     response["Content-Disposition"] = (
-        f'attachment; filename="{user.first_name}_s_Ticket_For_{reg.event.title.title()}.pdf"'
+        f'attachment; filename="{reg.event.title.title()}_Ticket_For_{user.email}.pdf"'
     )
     return response
 
@@ -122,9 +121,20 @@ def validateTicket(request):
         ticket = Ticket.objects.filter(
             registration__user=request.user, unique_code=qr_data
         )
+        actual_ticket = ticket.first()
         if ticket:
-            print(qr_data)
-            return redirect("valid_ticket", ticket.first().registration.event.slug)
+
+            if not actual_ticket.is_used:
+                actual_ticket.is_used = True
+                actual_ticket.scanned_date = timezone.now()
+                actual_ticket.save(update_fields=["is_used", "scanned_date"])
+                return redirect("valid_ticket", actual_ticket.registration.event.slug)
+
+            if actual_ticket.is_used:
+                return redirect("used_ticket", actual_ticket.registration.event.slug)
+        else:
+            return redirect("invalid_ticket")
+
     return render(request, "events/validate_ticket.html")
 
 
@@ -141,6 +151,24 @@ def validTik(request, slug):
     return render(request, "events/valid_ticket.html", {"reg": reg.first()})
 
 
+@login_required(login_url="login")
+def invalidTik(request):
+    return render(request, "events/invalid_ticket.html")
+
+
+@login_required(login_url="login")
+def usedTik(request, slug):
+    if not request.user.is_organizer:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    try:
+        reg = Registration.objects.filter(user=request.user, event__slug=slug)
+    except Registration.DoesNotExist:
+        messages.error(request, "Invalid")
+        return redirect("home")
+    return render(request, "events/used_ticket.html", {"reg": reg.first()})
+
+
 # scan_link = "TEST"
 # img = qrcode.make(scan_link)
 
@@ -152,3 +180,25 @@ def validTik(request, slug):
 # context = {
 #     "qr_image": img_base64,
 # }
+
+# nomatim autocomplete for venue in create event
+import requests
+from django.http import JsonResponse
+
+def place_autocomplete(request):
+    query = request.GET.get("q", "")
+    if not query:
+        return JsonResponse([], safe=False)
+
+    url = "https://nominatim.openstreetmap.org/search"
+    params = {
+        "q": query,
+        "format": "json",
+        "addressdetails": 1,
+        "limit": 5,
+    }
+    headers = {"User-Agent": "EventBooking"}  # required by Nominatim
+
+    response = requests.get(url, params=params, headers=headers)
+    data = response.json()
+    return JsonResponse(data, safe=False)

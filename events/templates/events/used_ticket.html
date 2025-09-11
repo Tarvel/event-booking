@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Used Ticket
+{% endblock title %}
+    
+
+
+{% block main %}
+    <main class="flex-grow flex items-center justify-center py-12 px-6">
+    <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
+        
+        <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-100 mb-6">
+            <svg class="h-12 w-12 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </div>
+        
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-3">Ticket Already Used</h1>
+        <p class="text-slate-600 mb-8">
+            Access Denied. This ticket has already been checked in.
+        </p>
+        
+        <div class="p-4 mb-8 text-left rounded-lg bg-red-50 border border-red-200">
+            <p class="font-semibold text-red-800">Check-in Details</p>
+            <p class="text-red-700">Scanned at <strong>{{ reg.scanned_date|date:"h:i A" }} by Organizer</strong>.</p>
+        </div>
+        
+        <div class="text-left space-y-4">
+             <div>
+                <label class="text-sm font-medium text-slate-500">Attendee</label>
+                <p class="text-lg font-semibold text-slate-900">{{reg.user.first_name}} {{reg.user.last_name}}</p>
+            </div>
+            <div>
+                <label class="text-sm font-medium text-slate-500">Order #</label>
+                <p class="font-mono text-slate-700">{{reg.order_id}}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'validate_ticket' %}" class="mt-10 block w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
+            Scan Again
+        </a>
+    </div>
+</main>
+{% endblock main %}
+    

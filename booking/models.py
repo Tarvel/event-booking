@@ -50,6 +50,7 @@ class Ticket(models.Model):
     unique_code = models.CharField(unique=True, default=uni_code)
     is_used = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    scanned_date = models.DateTimeField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         while Ticket.objects.filter(unique_code=self.unique_code).exclude(pk=self.pk).exists():

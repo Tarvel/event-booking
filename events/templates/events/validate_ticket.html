@@ -4,14 +4,14 @@
 
 {% block main %}
     <main class="flex-grow flex items-center justify-center py-12 px-6">
-        <div class="max-w-md w-full mx-auto bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+        <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
             <div class="text-center">
-                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Ticket Scanner</h1>
-                <p class="mt-2 text-slate-600 dark:text-slate-400">Align the ticket's QR code within the frame to validate.</p>
+                <h1 class="text-3xl font-extrabold text-slate-900">Ticket Scanner</h1>
+                <p class="mt-2 text-slate-600">Align the ticket's QR code within the frame to validate.</p>
             </div>
             
             
-            <div id="qr-reader" class="w-full mt-8 rounded-xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-slate-900"></div>
+            <div id="qr-reader" class="w-full mt-8 rounded-xl overflow-hidden border-2 border-slate-300 bg-slate-950"></div>
         </div>
     </main>
     
@@ -74,4 +74,3 @@
     });
 </script>
 {% endblock main %}
-    
