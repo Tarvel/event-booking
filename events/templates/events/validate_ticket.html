@@ -34,12 +34,12 @@
         console.log("Scanned:", decodedText);
         document.getElementById("qr-data").value = decodedText;
 
-        // Stop scanning so it doesn't keep posting
+
         html5QrCode.stop().then(() => {
             document.getElementById("qr-form").submit();
         }).catch(err => {
             console.error("Failed to stop scanner:", err);
-            // fallback: still submit the form
+            
             document.getElementById("qr-form").submit();
         });
     }

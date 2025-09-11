@@ -10,12 +10,12 @@
 
 {% block main %}
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
+    <main class="flex-grow container mx-auto px-4 sm:px-6 py-12 md:py-16">
         <section>
             <!-- Hero Section -->
             <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Discover Your Next Experience</h1>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Browse and book exciting events happening near you!</p>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Discover Your Next Experience</h1>
+                <p class="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto">Find and book events happening near you</p>
             </div>
 
            <!-- Filters -->
@@ -35,12 +35,12 @@
                     </div>
 
                     <!-- For Category -->
-                    <div id="category-filter-nav" hx-swap-oob="true" class="flex justify-center gap-6 md:gap-8 border-b border-slate-200">
-                        <button type="submit" name="category" value="all" {% if active_category == "all" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>All Categories</button>
-                        <button type="submit" name="category" value="music" {% if active_category == "music" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Music</button>
-                        <button type="submit" name="category" value="technology" {% if active_category == "technology" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Technology</button>
-                        <button type="submit" name="category" value="arts"  {% if active_category == "arts" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Art & Culture</button>
-                        <button type="submit" name="category" value="food" {% if active_category == "food" %} class="category-filter-btn py-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn py-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Food & Drink</button>
+                    <div id="category-filter-nav" hx-swap-oob="true" class="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:gap-x-6 md:gap-8 border-b border-slate-200">
+                        <button type="submit" name="category" value="all" {% if active_category == "all" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>All Categories</button>
+                        <button type="submit" name="category" value="music" {% if active_category == "music" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Music</button>
+                        <button type="submit" name="category" value="technology" {% if active_category == "technology" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Technology</button>
+                        <button type="submit" name="category" value="arts"  {% if active_category == "arts" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Art & Culture</button>
+                        <button type="submit" name="category" value="food" {% if active_category == "food" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Food & Drink</button>
                     </div>
 
                 </div>

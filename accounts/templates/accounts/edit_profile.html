@@ -44,25 +44,25 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <div>
                         <label for="first_name" class="block text-sm font-medium text-slate-600 mb-2">First Name</label>
-                        <input type="text" name="first_name" id="first_name" value="{{form.first_name.value|default:request.user.first_name}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <input type="text" name="first_name" id="first_name" value="{{form.first_name.value|default:request.user.first_name}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
                     </div>
                     <div>
                         <label for="last_name" class="block text-sm font-medium text-slate-600 mb-2">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" value="{{fform.last_name.value|default:request.user.last_name}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <input type="text" name="last_name" id="last_name" value="{{fform.last_name.value|default:request.user.last_name}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
                     </div>
                     <div class="md:col-span-2" hidden>
                         <label for="username" class="block text-sm font-medium text-slate-600 mb-2">Username</label>
-                        <input type="text" name="username" id="username" value="{{ form.username.value }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <input type="text" name="username" id="username" value="{{ form.username.value }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
                     </div>
                     <div class="md:col-span-2">
                         <label for="email" class="block text-sm font-medium text-slate-600 mb-2">Email</label>
-                        <input type="email" name="email" id="email" value="{{ form.email.value|default:request.user.email }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <input type="email" name="email" id="email" value="{{ form.email.value|default:request.user.email }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
                     </div>
                 </div>
 
 
                 <div>
-                    <a href="{% url 'password_change' %}" class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-500">
+                    <a href="{% url 'password_change' %}" class="text-sm font-medium text-green-600 hover:underline dark:text-green-500">
                         Need to change your password?
                     </a>
                 </div>
@@ -71,7 +71,7 @@
                     <a href="#" class="bg-slate-100 text-slate-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-slate-200 transition-colors">
                         Cancel
                     </a>
-                    <button type="submit" class="bg-blue-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300">
+                    <button type="submit" class="bg-green-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
                         Save Changes
                     </button>
                 </div>

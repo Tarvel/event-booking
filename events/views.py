@@ -13,7 +13,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from django.template.loader import get_template
-from weasyprint import HTML
 import qrcode
 from io import BytesIO
 import base64
@@ -30,6 +29,8 @@ def home(request):
     filters = Q()
     compared_date = datetime.now().date()
 
+    filters &= Q(start_date__gte=compared_date)
+
     if category and category != "all":
         filters &= Q(category=category)
 
@@ -44,9 +45,7 @@ def home(request):
         filters &= Q(start_date__month=compared_date.month)
 
     events = (
-        Events.objects.all().order_by("-created_at")
-        if category == "all" and date == "all"
-        else Events.objects.filter(filters).order_by("-created_at")
+        Events.objects.filter(filters).order_by("-created_at")
     )
 
     paginator = Paginator(events, 8)

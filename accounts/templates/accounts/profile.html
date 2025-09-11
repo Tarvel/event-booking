@@ -13,7 +13,6 @@
     <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
         <div class="mb-8">
             <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">My Profile</h1>
-            <p class="mt-2 text-lg text-slate-600">Manage your account and view your event registrations.</p>
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-8">
@@ -21,9 +20,9 @@
             <aside class="lg:col-span-4 mb-8 lg:mb-0">
                 <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
                     <img class="w-24 h-24 rounded-full mx-auto mb-4" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User avatar">
-                    <h2 class="text-2xl font-bold text-slate-900">{{ full_name|default:"No Name"}}</h2>
+                    <h2 class="text-2xl font-bold text-slate-900">{{ full_name|default:"Name not set"}}</h2>
                     <p class="text-slate-500 mb-6">{{ user.email }}</p>
-                    <a href="{% url 'update_profile' %}" class="w-full bg-slate-100 text-slate-700 font-semibold py-2.5 px-4 rounded-lg hover:bg-slate-200 transition-colors">
+                    <a href="{% url 'update_profile' %}" class="w-full bg-slate-100 text-slate-700 font-semibold py-2.5 px-4 rounded-lg hover:bg-green-200 active:bg-green-200 transition-colors">
                         Edit Profile
                     </a>
                 </div>
@@ -36,41 +35,8 @@
                     
                     <div class="space-y-6">
 
-                        {% for registration in registrations %}
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl border border-slate-200">
-                            <div>
-                                <h3 class="font-semibold text-lg text-slate-800">{{ registration.event.title }}</h3>
-                                <div class="flex items-center gap-2 mt-1 text-sm text-slate-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
-                                    <span>{{registration.event.start_date|date:"F"}} {{registration.event.start_date|date:"j"}}, {{registration.event.start_date|date:"Y"}}</span>
-                                    {%if registration.event.start_date < todays_date and registration.event.start_time > todays_time %} <span class="font-medium text-slate-500">· Completed</span> {% else %} <span class="font-bold text-green-600">· Confirmed</span>{% endif %}
-                                </div>
-                            </div>
-
-                            {%if registration.event.start_date < todays_date and registration.event.start_time > todays_time %} 
-                            <button disabled class="flex-shrink-0 w-full sm:w-auto text-center bg-slate-200 text-slate-500 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
-                                Event Passed
-                            </button> 
-                            {% else %} 
-                            <a href="{% url 'download_ticket' registration.event.slug %}" class="flex-shrink-0 w-full sm:w-auto text-center bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                                Download Ticket
-                            </a>
-                            {% endif %}
-                            
-                        </div>
+                        {% include 'partials/registrations.html' %}
                         
-                        
-
-                        {%empty%}
-                        
-                        <div class="text-center py-10">
-                            <p class="text-slate-500">You haven't registered for any events yet.</p>
-                            <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                                Find an Event
-                            </a>
-                        </div>
-                       
-                        {%endfor%}
                     </div>
                 </div>
             </div>

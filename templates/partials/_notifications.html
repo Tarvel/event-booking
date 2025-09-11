@@ -12,8 +12,8 @@
                 hx-trigger="click"
                 hx-swap="none"
                    class="flex items-center gap-4 p-4 hover:bg-slate-50">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -27,7 +27,7 @@
                         <p class="text-xs text-slate-500">{{ notification.created_at|timesince }} ago</p>
                     </div>
                     {% if not notification.is_read %}
-                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     {% endif %}
                 </a>
             {% endif %}
@@ -39,7 +39,7 @@
                 hx-swap="none"
                 class="flex items-center gap-4 p-4 hover:bg-slate-50">
                     <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-blue-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
+                        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,7 +54,7 @@
                         <p class="text-xs text-slate-500">{{ notification.created_at|timesince }} ago</p>
                     </div>
                     {% if not notification.is_read %}
-                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     {% endif %}
                 </a>
             {% endif %}
@@ -66,7 +66,7 @@
     {% if notifications %}
     <div class="p-2 border-t border-slate-200">
         <a href="{% url 'notifications_list' %}"
-           class="block w-full text-center text-sm font-semibold text-blue-600 hover:bg-slate-100 rounded-md py-2">
+           class="block w-full text-center text-sm font-semibold text-green-600 hover:bg-slate-100 rounded-md py-2">
             View all notifications
         </a>
     </div>
