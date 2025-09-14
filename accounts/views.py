@@ -4,10 +4,14 @@ from .forms import RegisterForm, LoginForm, UpdateProfileForm
 from booking.models import Registration
 from django.contrib import messages
 from django.utils import timezone
+
+from django.core.paginator import Paginator
 from datetime import datetime
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 import uuid
+from events.models import Events
+from booking.models import Registration
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -96,10 +100,14 @@ def profilePage(request):
         "-registered_at"
     )
 
+    paginator = Paginator(registrations, 5)
+    page = request.GET.get("page", 1)
+    reg_obj = paginator.get_page(page)
+
     context = {
         "user": user,
         "full_name": full_name,
-        "registrations": registrations,
+        "registrations": reg_obj,
         "todays_date": todays_date,
         "todays_time": todays_time,
     }
@@ -119,10 +127,41 @@ def update_profile(request):
             user.username = user.email
             user.save()
 
-            messages.info(request, "Profile updated successfully")
+            messages.success(request, "Profile updated successfully")
             return redirect("profile")
         else:
             form = UpdateProfileForm()
 
     context = {"form": form}
     return render(request, "accounts/edit_profile.html", context)
+
+
+@login_required(login_url="login")
+def dashboard(request):
+    user = request.user if request.user.is_authenticated else None
+    if user.is_organizer is False:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    events = Events.objects.filter(organizer=user)
+    registrations = Registration.objects.filter(status="approved").order_by(
+        "-registered_at"
+    )
+    published = Events.objects.filter(organizer=user, is_published=True).count()
+    draft = Events.objects.filter(organizer=user, is_published=False).count()
+
+    total_ticket = 0
+    total_revenue = 0
+    for event in events:
+        total_ticket = int(total_ticket) + event.ticket_bought
+        total_revenue = total_revenue + event.revenue
+
+    context = {
+        "events": events.order_by("-created_at")[0:4],
+        "published": published,
+        "draft": draft,
+        "total_ticket": total_ticket,
+        "total_revenue": total_revenue,
+        "registrations": registrations,
+        "user": user,
+    }
+    return render(request, "accounts/dashboard.html", context)

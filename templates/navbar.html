@@ -36,14 +36,18 @@
 
             <div id="notification-menu"
                 class="hidden absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200">
-
-                <div id="notifications"
+            
+            {% if request.user.is_authenticated  %}
+                 <div id="notifications"
                     hx-get="{% url 'notifications_partial' %}"
                     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                     hx-trigger="load, every 10s"
                     hx-swap="innerHTML">
                     {% include "partials/_notifications.html" with notifications=request.user.notifications.all %}
                 </div>
+            {% endif %}
+                
+               
             </div>
         </div>
 
@@ -52,7 +56,8 @@
             <div class="relative">
                 <button id="profile-menu-button" class="flex items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-9 w-9 rounded-full" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User avatar">
+                    <img class="h-9 w-9 rounded-full" src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'No'}}+{{ request.user.last_name|default:'Name' }}&background=random&rounded=true&size=128" 
+     alt="{{ user.get_full_name }}" >
                 </button>
 
                 
@@ -65,7 +70,11 @@
                     {% comment %} Menu Links {% endcomment %}
                     <div class="py-1">
                         <a href="{% url 'profile' %}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">View Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">Settings</a>
+                        
+                        {% if request.user.is_organizer %}
+                            <a href="{% url 'dashboard' %}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">Dashboard</a>
+                        {% endif %}
+                            
                     </div>
 
                     <div class="py-1">

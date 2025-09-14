@@ -11,4 +11,6 @@ urlpatterns = [
     path("profile/update", views.update_profile, name="update_profile"),
     
     path("password/change/", auth_views.PasswordChangeView.as_view(form_class=TailwindPasswordChangeForm), name="password_change"),
+    
+    path("dashboard/", views.dashboard, name="dashboard")
 ]

@@ -1,36 +1,73 @@
 {% for registration in registrations %}
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl border border-slate-200">
-                            <div>
-                                <h3 class="font-semibold text-lg text-slate-800">{{ registration.event.title }}</h3>
-                                <div class="flex items-center gap-2 mt-1 text-sm text-slate-500">
-                                    <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
-                                    <span>{{registration.event.start_date|date:"F"}} {{registration.event.start_date|date:"j"}}, {{registration.event.start_date|date:"Y"}}</span>
-                                    {%if registration.event.start_date < todays_date  %} <span class="font-medium text-slate-500">· Completed</span> {% else %} <span class="font-bold text-green-600">· Confirmed</span>{% endif %}
-                                </div>
-                            </div>
-                          {% comment %} and registration.event.start_time < todays_time and registration.event.start_time < todays_time {% endcomment %}
+<div id="regs" class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl border border-slate-200">
+    <div>
+        <h3 class="font-semibold text-lg text-slate-800">{{ registration.event.title }}</h3>
+        <div class="flex items-center gap-2 mt-1 text-sm text-slate-500">
+            <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
+            <span>{{registration.event.start_date|date:"F"}} {{registration.event.start_date|date:"j"}}, {{registration.event.start_date|date:"Y"}}</span>
+            {%if registration.event.start_date < todays_date  %} <span class="font-medium text-slate-500">· Completed</span> {% else %} <span class="font-bold text-green-600">· Confirmed</span>{% endif %}
+        </div>
+    </div>
+    {% comment %} and registration.event.start_time < todays_time and registration.event.start_time < todays_time {% endcomment %}
 
-                            {%if registration.event.start_date < todays_date  %} 
-                            <button disabled class="flex-shrink-0 w-full sm:w-auto text-center bg-slate-200 text-slate-500 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
-                                Event Passed
-                            </button> 
-                            {% else %} 
-                            <a href="{% url 'download_ticket' registration.event.slug %}" class="flex-shrink-0 w-full sm:w-auto text-center bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 active:bg-blue-700 transition-colors">
-                                Download Ticket
-                            </a>
-                            {% endif %}
-                            
-                        </div>
-                        
-                        
+    {%if registration.event.start_date < todays_date  %} 
+    <button disabled class="flex-shrink-0 w-full sm:w-auto text-center bg-slate-200 text-slate-500 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
+        Event Passed
+    </button> 
+    {% else %} 
+    <a href="{% url 'download_ticket' registration.event.slug %}" class="flex-shrink-0 w-full sm:w-auto text-center bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 active:bg-blue-700 transition-colors">
+        Download Ticket
+    </a>
+    {% endif %}
+    
+</div>
 
-                        {%empty%}
-                        
-                        <div class="text-center py-10">
-                            <p class="text-slate-500">You haven't registered for any events yet.</p>
-                            <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 active:bg-blue-700 transition-colors">
-                                Find an Event
-                            </a>
-                        </div>
-                       
-                        {%endfor%}
+
+
+{%empty%}
+
+<div class="text-center py-10">
+    <p class="text-slate-500">You haven't registered for any events yet.</p>
+    <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 active:bg-blue-700 transition-colors">
+        Find an Event
+    </a>
+</div>
+
+{%endfor%}
+
+ <nav class="flex items-center space-x-4 border border-gray-300 rounded-lg px-4 py-2 bg-white shadow-sm text-sm">
+        {% if rooms.has_previous %}
+            <a href="{% url 'home' %}?page={{ rooms.previous_page_number }}"
+               class="px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700">Previous</a>
+        {% endif %}
+        
+        <span class="px-3 py-1 text-gray-600">
+            Page <strong>{{ rooms.number }}</strong> of <strong>{{ rooms.paginator.num_pages }}</strong>
+        </span>
+        
+        {% if rooms.has_next %}
+            <a href="{% url 'home' %}?page={{ rooms.previous_page_number }}"
+               class="px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700">Next</a>
+        {% endif %}
+    </nav>
+
+{% if registrations.has_previous %}
+
+<div
+    hx-get="{% url 'profile' %}?page={{ registrations.next_page_number }}"
+    hx-trigger="click"
+    hx-swap="outerHTML"
+>Previous</div>
+
+{% endif %}
+
+{% if registrations.has_next %}
+
+<div
+    hx-get="{% url 'profile' %}?page={{ registrations.next_page_number }}"
+    hx-trigger="click"
+    hx-swap="outerHTML"
+>Next</div>
+
+{% endif %}
+    

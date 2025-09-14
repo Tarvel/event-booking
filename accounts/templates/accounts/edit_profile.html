@@ -31,15 +31,16 @@
 
                 {% csrf_token %}
 
-                <div class="flex items-center gap-6 mb-8">
-                    <img class="w-20 h-20 rounded-full" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User avatar">
+               <div class="flex items-center gap-6 mb-8">
+                    <img class="w-20 h-20 rounded-full" 
+                        src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'No'}}+{{ request.user.last_name|default:'Name' }}&background=random&rounded=true&size=128" 
+                        alt="{{ user.get_full_name }}">
                     <div>
-                        <button type="button" class="bg-slate-100 text-slate-700 font-semibold py-2 px-4 rounded-lg hover:bg-slate-200 text-sm transition-colors">
-                            Change photo
-                        </button>
-                        <p class="text-xs text-slate-500 mt-2">JPG, GIF or PNG. 1MB max.</p>
+                        <p class="text-lg font-semibold text-slate-800">{{ user.get_full_name }}</p>
+                        <p class="text-sm text-slate-500">{{ request.user.email }}</p>
                     </div>
                 </div>
+
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <div>

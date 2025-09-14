@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -22,10 +25,30 @@
             }
         }
     </script>
+
+    <style>
+        @keyframes slide-in {
+        0% {
+            transform: translateX(calc(100% + 1rem)) translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0) translateY(0);
+            opacity: 1;
+        }
+        }
+        .animate-slide-in {
+        animation: slide-in 0.2s ease-out forwards;
+        }
+    </style>
+
+
 </head>
 <body class="bg-white text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
     {% include 'navbar.html' %}
+
+    {% include 'partials/_flash_alerts.html' %}
     
     {% block main %}
         
@@ -39,4 +62,29 @@
     </footer>
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const alerts = document.querySelectorAll('.flash-alert');
+        
+        alerts.forEach(alert => {
+            const closeButton = alert.querySelector('.flash-alert-close');
+            
+            const dismissAlert = () => {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    alert.remove();
+                }, 300);
+            };
+            const timer = setTimeout(dismissAlert, 5000);
+
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    clearTimeout(timer); 
+                    dismissAlert();
+                });
+            }
+        });
+    });
+    </script>
 </html>

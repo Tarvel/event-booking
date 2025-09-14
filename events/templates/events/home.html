@@ -41,6 +41,7 @@
                         <button type="submit" name="category" value="technology" {% if active_category == "technology" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Technology</button>
                         <button type="submit" name="category" value="arts"  {% if active_category == "arts" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Art & Culture</button>
                         <button type="submit" name="category" value="food" {% if active_category == "food" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Food & Drink</button>
+                        <button type="submit" name="category" value="sports" {% if active_category == "sports" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Sports & Fitness</button>
                     </div>
 
                 </div>
@@ -50,9 +51,10 @@
             <div id="event-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 {% include 'events/partials/event_list.html' %}
-                
+                    </div>
 
-            </div>
+                </div>
+            </form>
 
 
         </section>

@@ -23,62 +23,94 @@
             
             <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
               
-                {% comment %} get ticket {% endcomment %}
+                {% comment %} Image Column {% endcomment %}
                 <div class="lg:col-span-5 mb-8 lg:mb-0">
                     <div class="lg:sticky lg:top-28 space-y-6">
-                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Flyer for Synthwave Sunset Concert" class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Flyer for {{ event.title }}" class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
                         
-                        
-                        {% if event.available_ticket > 10 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-medium rounded-lg bg-slate-100 text-slate-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
-                            <span>Tickets are available</span>
-                        </div>
-                        {% endif %}
+                        {% comment %} Hide ticket info if event is a draft {% endcomment %}
+                        {% if  event.is_published %}
+                            {% if event.available_ticket > 10 %}
+                            <div class="flex items-center gap-3 p-3 text-sm font-medium rounded-lg bg-slate-100 text-slate-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
+                                <span>Tickets are available</span>
+                            </div>
+                            {% endif %}
 
 
-                        {% if event.available_ticket < 10 and event.available_ticket > 0 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-amber-100 text-amber-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
-                            <span>Only {{event.available_ticket}} tickets left!</span>
-                        </div>
-                        {% endif %}
+                            {% if event.available_ticket < 10 and event.available_ticket > 0 %}
+                            <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-amber-100 text-amber-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
+                                <span>Only {{event.available_ticket}} tickets left!</span>
+                            </div>
+                            {% endif %}
 
 
-                        {% if event.available_ticket <= 0 %}
-                        <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-red-100 text-red-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
-                            <span>This event is sold out!</span>
-                        </div>
+                            {% if event.available_ticket <= 0 %}
+                            <div class="flex items-center gap-3 p-3 text-sm font-bold rounded-lg bg-red-100 text-red-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                                <span>This event is sold out!</span>
+                            </div>
 
-                        <button disabled class="block w-full bg-slate-200 text-slate-500 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
-                            Sold Out
-                        </button>
-                        {% endif %}
+                            <button disabled class="block w-full bg-slate-200 text-slate-500 text-center font-bold py-3 px-4 rounded-lg cursor-not-allowed">
+                                Sold Out
+                            </button>
+                            {% endif %}
 
-                        {% if request.user.is_authenticated %}
-                        
-                        {% if not registration %}
-                        <button id="get-ticket-btn" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
-                            Get Ticket
-                        </button>
-                        {% else %}
-                        <a href="{% url 'download_ticket' event.slug %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
-                            Already Registered: Download ticket
-                        </a>
-                        {% endif %}
-
-                        {% else %}
-                        <a href="{% url 'login' %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
-                            Sign in to get a ticket
-                        </a>
-                        {% endif %}
+                            {% if request.user.is_authenticated %}
                             
+                            {% if not registration %}
+                            <button id="get-ticket-btn" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
+                                Get Ticket
+                            </button>
+                            {% else %}
+                            <a href="{% url 'download_ticket' event.slug %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
+                                Already Registered: Download ticket
+                            </a>
+                            {% endif %}
+
+                            {% else %}
+                            <a href="{% url 'login' %}" class="block w-full bg-green-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 transform hover:scale-105">
+                                Sign in to get a ticket
+                            </a>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
 
-               {% comment %} Details {% endcomment %}
+               {% comment %} Details Column {% endcomment %}
                 <div class="lg:col-span-7">
+                    
+                    {% if not event.is_published %}
+                    <div class="bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4 rounded-md mb-6" role="alert">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <p class="font-bold">Draft Mode</p>
+                                <p class="text-sm">This event is not published and is only visible to you.</p>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <!-- Publish Button -->
+                                <a href="{% url 'publish_event' event.slug %}" class="inline-flex items-center gap-2 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 text-sm transition-colors shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Publish
+                                </a>
+                                <!-- Edit Button -->
+                                <a href="{% url 'edit_event' event.slug %}" class="inline-flex items-center gap-2 bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg hover:bg-slate-50 text-sm transition-colors border border-amber-300 shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                                    Edit
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="#" class="inline-flex items-center gap-2 bg-red-100 text-red-700 font-semibold py-2 px-4 rounded-lg hover:bg-red-200 text-sm transition-colors shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg>
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                                        {% endif %}
+
                     <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
                         {{event.title|upper }}
                     </h1>
@@ -126,18 +158,23 @@
                     <hr class="my-8 border-slate-200">
 
                     {% comment %} map {% endcomment %}
+
                     <h2 class="text-2xl font-bold mb-4 text-slate-900">Directions</h2>
+                    {% if event.longitude and event.latitude %}
+                    
+                    <div id="map" style="height: 300px; width: 100%;"></div>
+
+                        <input type="hidden" id="latitude" value="{{ event.latitude }}">
+                        <input type="hidden" id="longitude" value="{{ event.longitude }}">
+
+                    {% else %}
+                         
                     <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-slate-200">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.9515159050517!2d-80.18919662497645!3d25.77218697734898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b69c1042b531%3A0x14067936611cf03!2sFPL%20Solar%20Amphitheater%20at%20Bayfront%20Park!5e0!3m2!1sen!2sus!4v1709927181052!5m2!1sen!2sus"
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                      <p>Map not Found</p>
                     </div>
+                    {% endif %}
+                        
+                   
                 </div>
             </div>
         </section>
@@ -159,8 +196,19 @@
                 <h3 class="text-2xl font-bold text-slate-900 mb-3">Confirm Your Registration</h3>
                 <p class="text-slate-600 mb-8">You are about to register for <strong>{{ event.title|upper }}</strong>. A confirmation will be sent to your email.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button id="cancel-btn" class="w-full sm:w-auto bg-slate-100 text-slate-700 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 transition-colors">Cancel</button>
-                    <a href="{% url 'get_ticket' event.slug %}" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors">Proceed to Payment</a>
+                    <button id="cancel-btn" 
+                        class="w-full sm:w-auto bg-slate-100 text-slate-700 font-semibold py-3 px-6 rounded-lg hover:bg-slate-200 transition-colors">
+                        Cancel
+                    </button>
+
+                    <a id="pay-btn" 
+                    href="{% url 'get_ticket' event.slug %}" 
+                    class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center">
+                        
+                        <span id="btn-content" class="flex items-center gap-2">
+                            Proceed to Payment
+                        </span>
+                    </a>
                 </div>
             </div>
 
@@ -178,7 +226,35 @@
         </div>
     </div>
 
+    
+
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lat = parseFloat(document.getElementById("latitude").value);
+            let lon = parseFloat(document.getElementById("longitude").value);
+
+            let map = L.map("map").setView([lat, lon], 15);
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+               
+            }).addTo(map);
+
+            L.marker([lat, lon]).addTo(map)
+            .bindPopup("{{ event.venue }}")
+            .openPopup();
+        });
+
+        document.getElementById("pay-btn").addEventListener("click", function() {
+    const btnContent = document.getElementById("btn-content");
+
+    btnContent.innerHTML = `
+        <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin fill-white" viewBox="0 0 100 101" fill="none" xmlns="http://www.w.org/2000/svg">
+            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+        </svg>
+        <span class="sr-only">Loading...</span>
+    `;
+});
     const getTicketBtn = document.getElementById('get-ticket-btn');
     const ticketModal = document.getElementById('ticket-modal');
     const closeModalBtn = document.getElementById('close-modal-btn');

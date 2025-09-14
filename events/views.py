@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-import uuid
+from .forms import EventForm
 from datetime import datetime
 from .models import Events
 from booking.models import Registration, Ticket
@@ -22,8 +22,6 @@ from xhtml2pdf import pisa
 
 def home(request):
     method = request.method
-    page = request.GET.get("page", 1)
-
     category = request.COOKIES.get("tempCategory") or "all"
     date = request.COOKIES.get("tempDate") or "all"
 
@@ -48,6 +46,7 @@ def home(request):
     events = Events.objects.filter(filters).order_by("-created_at")
 
     paginator = Paginator(events, 8)
+    page = request.GET.get("page", 1)
     events_page = paginator.get_page(page)
 
     context = {
@@ -63,6 +62,11 @@ def home(request):
 
 def event_detail(request, slug):
     user = request.user
+    if user.is_authenticated:
+        org_eve = Events.objects.filter(slug=slug, is_published=False).first()
+        if org_eve and org_eve.organizer is not user:
+            messages.error(request, "UNAUTHORIZED")
+            return redirect("home")
     event = Events.objects.get(slug=slug)
     if user.is_authenticated:
         registration = Registration.objects.filter(
@@ -181,9 +185,144 @@ def usedTik(request, slug):
 #     "qr_image": img_base64,
 # }
 
-# nomatim autocomplete for venue in create event
+
+@login_required(login_url="login")
+def create_event(request):
+    user = request.user if request.user.is_authenticated else None
+    if user.is_organizer is False:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+
+    form = EventForm()
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        form = EventForm(request.POST)
+        if form.is_valid():
+            print(form.data)
+            cd = form.cleaned_data
+
+            event = Events.objects.create(
+                organizer=user,
+                title=cd["title"],
+                description=cd["description"],
+                category=cd["category"],
+                # image=cd["image"],
+                start_date=cd["start_date"],
+                start_time=cd["start_time"],
+                end_date=cd["end_date"],
+                end_time=cd["end_time"],
+                venue=cd["venue"],
+                latitude=cd["latitude"],
+                longitude=cd["longitude"],
+                ticket_price=cd["ticket_price"],
+                max_capacity=cd["max_capacity"],
+            )
+
+            if action == "publish":
+                event.is_published = True
+                messages.success(request, "Event has been created and published")
+            else:
+                event.is_published = False
+                messages.success(request, "Event has been created and saved to drafts")
+
+            event.save()
+            
+            return redirect("my_events")
+
+        else:
+            form = EventForm()
+
+    return render(request, "events/create_event.html", {"form": form})
+
+
+@login_required(login_url="login")
+def edit_event(request, slug):
+    page = "edit"
+    user = request.user if request.user.is_authenticated else None
+    if user.is_organizer is False:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    org_eve = Events.objects.filter(slug=slug).first()
+    if org_eve and org_eve.organizer is not user:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    
+    event = Events.objects.filter(organizer=user, slug=slug).first()
+    actual_event = Events.objects.get(slug=slug)
+
+    form = EventForm(instance=event)
+    print(event.category)
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        form = EventForm(request.POST)
+        if form.is_valid():
+            if form.has_changed():
+                cd = form.cleaned_data
+                actual_event.organizer = user
+                actual_event.title = cd["title"]
+                actual_event.description = cd["description"]
+                actual_event.category = cd["category"]
+                # actual_event.image=cd["image"]
+                actual_event.start_date = cd["start_date"]
+                actual_event.start_time = cd["start_time"]
+                actual_event.end_date = cd["end_date"]
+                actual_event.end_time = cd["end_time"]
+                actual_event.venue = cd["venue"]
+                actual_event.latitude = cd["latitude"]
+                actual_event.longitude = cd["longitude"]
+                actual_event.ticket_price = cd["ticket_price"]
+                actual_event.max_capacity = cd["max_capacity"]
+
+                actual_event.save()
+                messages.success(request, "Event has been updated")
+
+            else:
+                messages.info(request, "No changes made")
+
+            return redirect("event_detail", event.slug)
+
+        else:
+            form = EventForm(instance=event)
+    return render(request, "events/create_event.html", {"form": form, "page": page})
+
+
+@login_required(login_url="login")
+def publish_event(request, slug):
+    event = Events.objects.get(slug=slug)
+    event.is_published = True
+    event.published_at = timezone.now()
+    event.save(update_fields=["is_published", "published_at"])
+    messages.success(request, "Event has been published")
+    return redirect("event_detail", event.slug)
+
+
+@login_required(login_url="login")
+def my_events(request):
+    user = request.user if request.user.is_authenticated else None
+    if user.is_organizer is False:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+    active_status = request.GET.get("status")
+    if active_status == "published":
+        events = Events.objects.filter(organizer=user, is_published=True)
+    elif active_status == "drafts":
+        events = Events.objects.filter(organizer=user, is_published=False)
+    else:
+        events = Events.objects.filter(organizer=user, is_published=True)
+
+    return render(
+        request,
+        "events/my_events.html",
+        {"events": events, "active_status": active_status},
+    )
+
+
+# ths parts for nomatim autocomplete for venue in create event
 import requests
 from django.http import JsonResponse
+
 
 def place_autocomplete(request):
     query = request.GET.get("q", "")
@@ -197,7 +336,7 @@ def place_autocomplete(request):
         "addressdetails": 1,
         "limit": 5,
     }
-    headers = {"User-Agent": "EventBooking"}  # required by Nominatim
+    headers = {"User-Agent": "EventBooking"}
 
     response = requests.get(url, params=params, headers=headers)
     data = response.json()

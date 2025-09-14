@@ -19,7 +19,8 @@
             
             <aside class="lg:col-span-4 mb-8 lg:mb-0">
                 <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
-                    <img class="w-24 h-24 rounded-full mx-auto mb-4" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User avatar">
+                    <img class="w-24 h-24 rounded-full mx-auto mb-4" src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'No'}}+{{ request.user.last_name|default:'Name' }}&background=random&rounded=true&size=128" 
+     alt="{{ user.get_full_name }}">
                     <h2 class="text-2xl font-bold text-slate-900">{{ full_name|default:"Name not set"}}</h2>
                     <p class="text-slate-500 mb-6">{{ user.email }}</p>
                     <a href="{% url 'update_profile' %}" class="w-full bg-slate-100 text-slate-700 font-semibold py-2.5 px-4 rounded-lg hover:bg-green-200 active:bg-green-200 transition-colors">

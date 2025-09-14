@@ -4,76 +4,67 @@
     Login
 {% endblock title %}
     
-
-
 {% block main %}
-
     <main class="flex-grow flex items-center justify-center py-12 px-6">
-        <div class="max-w-md w-full mx-auto bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
-            <h1 class="text-3xl font-extrabold mb-6 text-center text-slate-900 dark:text-white">Sign In</h1>
+        <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+            <h1 class="text-3xl font-extrabold mb-6 text-center text-slate-900">Sign In</h1>
             
             <div class="space-y-4 mb-6">
-                <a href="#" class="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <a href="#" class="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-slate-300 rounded-lg hover:bg-slate-100 transition-colors">
                     <svg class="w-5 h-5" viewBox="0 0 48 48"><title>Google Logo</title><clipPath id="g"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></clipPath><g clip-path="url(#g)"><path fill="#FBBC05" d="M0 37V11l17 13z"/><path fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/></g></svg>
-                    <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Sign in with Google</span>
+                    <span class="text-sm font-medium text-slate-700">Sign in with Google</span>
                 </a>
             </div>
 
             <div class="flex items-center my-6">
-                <div class="flex-grow border-t border-slate-300 dark:border-slate-700"></div>
-                <span class="mx-4 text-sm font-medium text-slate-500 dark:text-slate-400">OR</span>
-                <div class="flex-grow border-t border-slate-300 dark:border-slate-700"></div>
+                <div class="flex-grow border-t border-slate-300"></div>
+                <span class="mx-4 text-sm font-medium text-slate-500">OR</span>
+                <div class="flex-grow border-t border-slate-300"></div>
             </div>
 
             <form method="post" action="{% url 'login' %}">
-
                 {% csrf_token %}
-                
                 <input type="hidden" name="next" value="{{ next }}">
                 
                 <div class="mb-4">
                     <label for="{{ form.email.id_for_label}}" 
-                        class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                        class="block text-sm font-medium text-slate-600 mb-2">
                         Email
                     </label>
-
                     <input type="text" 
-                    name="{{form.email.html_name}}" 
-                    id="{{ form.email.id_for_label}}"
-                    value="{{ form.email.value|default:'' }}"
-                    class="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" 
-                    placeholder="you@example.com">
-                    {% for error in form.password.errors %}
-                    <p class="text-red-500 text-sm">{{ error }}</p>
+                           name="{{form.email.html_name}}" 
+                           id="{{ form.email.id_for_label}}"
+                           value="{{ form.email.value|default:'' }}"
+                           class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors" 
+                           placeholder="you@example.com">
+                    {% for error in form.email.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
                     {% endfor %}
                 </div>
 
                 <div class="mb-6">
-                <label for="{{ form.password.id_for_label }}" 
-                    class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
-                Password
-                </label>
-                <input type="password" 
-                    name="{{ form.password.html_name }}" 
-                    id="{{ form.password.id_for_label }}"
-                    value="{{ form.password.value|default:'' }}"
-                    class="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" 
-                    placeholder="••••••••">
-                {% for error in form.password.errors %}
-                <p class="text-red-500 text-sm">{{ error }}</p>
-                {% endfor %}
-            </div>
+                    <label for="{{ form.password.id_for_label }}" 
+                        class="block text-sm font-medium text-slate-600 mb-2">
+                        Password
+                    </label>
+                    <input type="password" 
+                           name="{{ form.password.html_name }}" 
+                           id="{{ form.password.id_for_label }}"
+                           class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors" 
+                           placeholder="••••••••">
+                    {% for error in form.password.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
 
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300">
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
                     Sign In
                 </button>
             </form>
 
-            <p class="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
-                Don't have an account? <a href="{% url 'register' %}" class="font-semibold text-blue-600 hover:underline dark:text-blue-500">Register now</a>
+            <p class="mt-8 text-center text-sm text-slate-600">
+                Don't have an account? <a href="{% url 'register' %}" class="font-semibold text-green-600 hover:underline">Register now</a>
             </p>
         </div>
     </main>
-    
 {% endblock main %}
-    
