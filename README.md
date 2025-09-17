@@ -30,7 +30,7 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 
 ---
 
-## 📦 Installation
+## Installation
 ```bash
 git clone https://github.com/your-username/event-booking.git
 cd event-booking
