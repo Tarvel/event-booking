@@ -3,12 +3,10 @@
 
 A ticketing platform with QR-based ticket validation, downloadable tickets and seamless real-time updates.  
 
----
 
 ##  Live Demo
 (None for now)
 
----
 
 ## Features
 - Generate and validate tickets with unique QR codes
@@ -18,7 +16,6 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 - **Cloudinary** integration for image uploads
 - TailwindCSS for a responsive and modern UI
 
----
 
 ## Tech Stack
 - **Backend:** Django 5.2.5, Django HTMX, Django Tailwind
@@ -28,7 +25,6 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 - **Environment & Utilities:** python-dotenv, requests, arrow
 - **Others:** pyHanko (PDF signing), django-browser-reload (for live dev reloading)
 
----
 
 ## Installation
 ```bash
