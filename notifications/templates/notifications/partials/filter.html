@@ -1,14 +1,18 @@
 <div class="flex items-center gap-2 p-1 bg-slate-100 rounded-full">
-<div hx-get="{% url 'notifications_list' %}?status=all"
+
+    <div hx-get="{% url 'notifications_list' %}?status=all"
+            hx-trigger="click"
+            hx-target="#all-noti"
+            hx-swap="outerHTML"
+            
+            {% if status == "all"  %}class="px-4 py-1.5 text-sm font-semibold rounded-full bg-green-600 text-white shadow" {% else %} class="px-4 py-1.5 text-sm font-semibold rounded-full text-slate-600 hover:bg-white"{% endif %}>All
+    </div>
+
+    <div hx-get="{% url 'notifications_list' %}?status=unread"
         hx-trigger="click"
         hx-target="#all-noti"
-        hx-swap="outerHTML"
-        
-        {% if status == "all"  %}class="px-4 py-1.5 text-sm font-semibold rounded-full bg-green-600 text-white shadow" {% else %} class="px-4 py-1.5 text-sm font-semibold rounded-full text-slate-600 hover:bg-white"{% endif %}>All</div>
+        hx-swap="outerHTML" 
+        {% if status == "unread"  %}class="px-4 py-1.5 text-sm font-semibold rounded-full bg-green-600 text-white shadow" {% else %} class="px-4 py-1.5 text-sm font-semibold rounded-full text-slate-600 hover:bg-white"{% endif %}>Unread
+    </div>
 
-<div hx-get="{% url 'notifications_list' %}?status=unread"
-    hx-trigger="click"
-    hx-target="#all-noti"
-    hx-swap="outerHTML" 
-    {% if status == "unread"  %}class="px-4 py-1.5 text-sm font-semibold rounded-full bg-green-600 text-white shadow" {% else %} class="px-4 py-1.5 text-sm font-semibold rounded-full text-slate-600 hover:bg-white"{% endif %}>Unread</div>
 </div>

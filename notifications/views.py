@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Notification
 from django.contrib.auth.decorators import login_required
@@ -30,7 +30,7 @@ def notifications_list(request):
         if status == "unread"
         else Notification.objects.filter(user=request.user).order_by("-created_at")
     )
-    paginator = Paginator(notifications, 2)
+    paginator = Paginator(notifications, 5)
     page = request.GET.get("page", 1)
     notif_obj = paginator.get_page(page)
 
@@ -50,3 +50,12 @@ def mark_notification_read(request, notif_id):
     mark.save(update_fields=["is_read"])
     mark.refresh_from_db()
     return HttpResponse(status=200)
+
+
+@login_required(login_url="login")
+def mark_all_read(request):
+    notifications = Notification.objects.all()
+    for notification in notifications:
+        notification.is_read = True
+        notification.save()
+        return redirect('notifications_list')
