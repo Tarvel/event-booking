@@ -20,7 +20,7 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Backend:** Django 5.2.5, Django HTMX, Django Tailwind
 - **Frontend:** TailwindCSS, HTMX
 - **Media & Assets:** Cloudinary, Pillow
