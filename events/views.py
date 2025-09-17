@@ -122,9 +122,8 @@ def validateTicket(request):
         return redirect("home")
     if request.method == "POST":
         qr_data = request.POST.get("qr_data")
-        ticket = Ticket.objects.filter(
-            registration__user=request.user, unique_code=qr_data
-        )
+        ticket = Ticket.objects.filter(unique_code=qr_data)
+        print(ticket)
         actual_ticket = ticket.first()
         if ticket:
 
@@ -148,7 +147,7 @@ def validTik(request, slug):
         messages.error(request, "UNAUTHORIZED")
         return redirect("home")
     try:
-        reg = Registration.objects.filter(user=request.user, event__slug=slug)
+        reg = Registration.objects.filter(event__slug=slug)
     except Registration.DoesNotExist:
         messages.error(request, "Invalid")
         return redirect("home")
@@ -207,7 +206,7 @@ def create_event(request):
                 title=cd["title"],
                 description=cd["description"],
                 category=cd["category"],
-                # image=cd["image"],
+                image=cd["image"],
                 start_date=cd["start_date"],
                 start_time=cd["start_time"],
                 end_date=cd["end_date"],
@@ -220,6 +219,7 @@ def create_event(request):
             )
 
             if action == "publish":
+                event.published_at = timezone.now()
                 event.is_published = True
                 messages.success(request, "Event has been created and published")
             else:
@@ -227,7 +227,7 @@ def create_event(request):
                 messages.success(request, "Event has been created and saved to drafts")
 
             event.save()
-            
+
             return redirect("my_events")
 
         else:
@@ -244,10 +244,11 @@ def edit_event(request, slug):
         messages.error(request, "UNAUTHORIZED")
         return redirect("home")
     org_eve = Events.objects.filter(slug=slug).first()
-    if org_eve and org_eve.organizer is not user:
-        messages.error(request, "UNAUTHORIZED")
+    if org_eve.organizer != user:
+        print(f"{user} and {org_eve.organizer}")
+        messages.error(request, "UNAUTHORIZED TEST")
         return redirect("home")
-    
+
     event = Events.objects.filter(organizer=user, slug=slug).first()
     actual_event = Events.objects.get(slug=slug)
 
@@ -256,7 +257,7 @@ def edit_event(request, slug):
 
     if request.method == "POST":
         action = request.POST.get("action")
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             if form.has_changed():
                 cd = form.cleaned_data
@@ -264,7 +265,7 @@ def edit_event(request, slug):
                 actual_event.title = cd["title"]
                 actual_event.description = cd["description"]
                 actual_event.category = cd["category"]
-                # actual_event.image=cd["image"]
+                actual_event.image = cd["image"]
                 actual_event.start_date = cd["start_date"]
                 actual_event.start_time = cd["start_time"]
                 actual_event.end_date = cd["end_date"]
@@ -311,7 +312,7 @@ def my_events(request):
         events = Events.objects.filter(organizer=user, is_published=False)
     else:
         events = Events.objects.filter(organizer=user, is_published=True)
-
+    events = events.order_by("-created_at")
     return render(
         request,
         "events/my_events.html",

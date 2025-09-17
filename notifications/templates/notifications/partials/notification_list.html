@@ -1,0 +1,85 @@
+
+<div id="all-noti" >
+<div id="notification-list">
+
+{% for notification in notifications  %}
+    <div class="space-y-4">
+
+{% if notification.notification_type == "ticket_ready" %}
+<a href="{% url 'event_detail' notification.registration.event.slug %}"
+                hx-post="{% url 'mark_notification_read' notification.id %}"
+                hx-trigger="click"
+                hx-swap="none"
+ class="flex items-start gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-200">
+    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18m-3 .75h18A2.25 2.25 0 0021 16.5V7.5A2.25 2.25 0 0018.75 5.25H5.25A2.25 2.25 0 003 7.5v9A2.25 2.25 0 005.25 18.75z" /></svg>
+    </div>
+    <div class="flex-grow">
+        <p class="text-slate-800">Your ticket for <strong>{{notification.registration.event.title}}</strong> has been confirmed and is available in your profile.</p>
+        <p class="text-sm text-slate-500 mt-1">{{notification.created_at|timesince}} ago</p>
+    </div>
+    {% if not notification.is_read %}<div class="flex-shrink-0 w-3 h-3 rounded-full bg-green-500 mt-1.5" title="Unread"></div>{% endif %}
+
+</a>
+{% endif %}
+
+{% if notification.notification_type == "event_reminder" %}
+<a href="{% url 'event_detail' notification.registration.event.slug %}"
+hx-post="{% url 'mark_notification_read' notification.id %}"
+hx-trigger="click"
+hx-swap="none"
+ class="flex items-start gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-200 opacity-70">
+    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
+        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" /></svg>
+    </div>
+    <div class="flex-grow">
+        <p class="text-slate-700">Reminder: <strong>{{notification.registration.event.title}}</strong> is starting in {{notification.message}} days. Get ready for an exciting event!</p>
+        <p class="text-sm text-slate-500 mt-1">{{notification.created_at|timesince}} ago</p>
+    </div>
+     {% if not notification.is_read %}<div class="flex-shrink-0 w-3 h-3 rounded-full bg-green-500 mt-1.5" title="Unread"></div>{% endif %}
+</a>
+{% endif %}
+
+
+{% empty %}
+
+<div class="text-center py-16 px-6 bg-white rounded-xl border border-slate-200">
+<div class="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
+    <svg class="w-8 h-8 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+</div>
+<h2 class="mt-4 text-2xl font-bold text-slate-900">No notifications yet</h2>
+<p class="mt-2 text-slate-600">We'll let you know when there's something new for you.</p>
+<a href="{% url 'home' %}" class="mt-6 inline-block bg-green-600 text-white font-semibold py-2.5 px-5 rounded-lg hover:bg-green-700 transition-colors">
+    Explore Events
+</a>
+</div>
+</div>
+{% endfor %}
+
+
+<nav class="mt-8 flex items-center justify-between" aria-label="Pagination">
+    <div class="hidden sm:block">
+        <p class="text-sm text-slate-600">
+            Showing <span class="font-medium">{{notifications.start_index}}</span> to <span class="font-medium">{{notifications.end_index}}</span> of <span class="font-medium">{{notifications.paginator.count}}</span> results
+        </p>
+    </div>
+    <div class="flex flex-1 justify-between sm:justify-end">
+        
+        {% if notifications.has_previous %}
+           <div hx-get="{% url 'notifications_list' %}?page={{notifications.previous_page_number}}"
+                hx-trigger="click"
+                hx-target="#notification-list"
+                hx-swap="outerHTML"
+            class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Previous</div> 
+        {% endif %}
+
+        {% if notifications.has_next %}
+           <div hx-get="{% url 'notifications_list' %}?page={{notifications.next_page_number}}" 
+                hx-trigger="click"
+                hx-target="#notification-list"
+                hx-swap="outerHTML"
+           class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Next</div> 
+        {% endif %}
+    </div>
+</nav>
+</div>

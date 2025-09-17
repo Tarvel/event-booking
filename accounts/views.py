@@ -79,7 +79,7 @@ def loginPage(request):
 
     return render(request, "accounts/login.html", context)
 
-
+@login_required(login_url="login")
 def logoutPage(request):
     logout(request)
     return redirect("home")
@@ -111,6 +111,10 @@ def profilePage(request):
         "todays_date": todays_date,
         "todays_time": todays_time,
     }
+
+    if request.htmx:
+        return render(request, "partials/registrations.html", context)
+
     return render(request, "accounts/profile.html", context)
 
 
@@ -165,3 +169,7 @@ def dashboard(request):
         "user": user,
     }
     return render(request, "accounts/dashboard.html", context)
+
+def password_change_done(request):
+    messages.success(request, "password changed sucessfully")
+    return redirect("profile")

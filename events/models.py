@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -18,6 +19,8 @@ class Events(models.Model):
     ]
 
     organizer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    image = CloudinaryField("image", blank=True, null=True)
 
     title = models.CharField()
     slug = models.SlugField(unique=True, blank=True, null=True)
@@ -53,6 +56,10 @@ class Events(models.Model):
         return Decimal(self.ticket_price) * Decimal(self.ticket_bought)
 
     def save(self, *args, **kwargs):
+
+        if not self.available_ticket:
+            self.available_ticket = self.max_capacity
+
         base_slug = slugify(self.title)
         slug = base_slug
         counter = 1

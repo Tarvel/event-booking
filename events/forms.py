@@ -8,7 +8,7 @@ class EventForm(forms.ModelForm):
             "title",
             "description",
             "category",
-            # "image",
+            "image",
             "start_date",
             "start_time",
             "end_date",

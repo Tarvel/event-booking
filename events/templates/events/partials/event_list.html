@@ -3,9 +3,13 @@
 {% for event in events %}
 <div class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-sm hover:-translate-y-1 flex flex-col">
     <a href="{% url 'event_detail' event.slug %}">
-    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2070&auto=format&fit=crop" alt="{{event.title}}" class="w-full h-48 object-cover">
+    {% if event.image %}
+        <img src="{{event.image.url}}" alt="{{event.title}}" class="w-full h-48 object-cover">
+    {% else %}
+        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2070&auto=format&fit=crop" alt="{{event.title}}" class="w-full h-48 object-cover">
+    {% endif %}
     <div class="p-4 md:p-6 flex flex-col flex-grow">
-        <h2 class="text-xl font-bold mb-2 text-slate-900">{{event.title}}</h2>
+        <h2 class="text-xl font-bold mb-2 text-slate-900">{{event.title|title}}</h2>
         
         <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-slate-500 mb-4 gap-2 sm:gap-4">
             <div class="flex items-center gap-1.5">
@@ -30,7 +34,13 @@
 
         <div class="mt-auto">
             
-            {% if event.available_ticket > 10 %}
+            {% if event.available_ticket <= 9 %}
+
+                <div class="inline-flex items-center gap-1.5 mb-4 px-3 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-700">
+                    <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
+                    Only {{event.available_ticket}} tickets left!
+                </div>
+            {% else %}
                 <div class="flex items-center gap-2 mb-4 text-sm font-medium text-slate-600">
                     <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
                     <span>{{event.available_ticket}} tickets available</span>
@@ -39,10 +49,7 @@
                 
             
             {% if event.available_ticket < 10 and event.available_ticket > 0 %}
-            <div class="inline-flex items-center gap-1.5 mb-4 px-3 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-700">
-                <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
-                Only {{event.available_ticket}} tickets left!
-            </div>
+            
             {% endif %}
 
             {% if event.available_ticket <= 0 %}

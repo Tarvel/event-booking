@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 
 {% block title %}
@@ -24,10 +25,20 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
               
                 {% comment %} Image Column {% endcomment %}
-                <div class="lg:col-span-5 mb-8 lg:mb-0">
-                    <div class="lg:sticky lg:top-28 space-y-6">
-                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Flyer for {{ event.title }}" class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
-                        
+               <div class="lg:col-span-5 mb-8 lg:mb-0">
+                <div class="lg:sticky lg:top-28 space-y-6">
+                    
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" 
+                            alt="Flyer for {{ event.title }}" 
+                            class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" 
+                            alt="Flyer for {{ event.title }}" 
+                            class="w-full object-cover rounded-xl shadow-lg aspect-[4/5]">
+                    {% endif %}
+
+                            
                         {% comment %} Hide ticket info if event is a draft {% endcomment %}
                         {% if  event.is_published %}
                             {% if event.available_ticket > 10 %}
@@ -132,9 +143,13 @@
                         </div>
                     </div>
 
+                    
+                    
+                        
+
                         <div class="flex items-start gap-4">
                             <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-lg font-medium">{{ event.start_time|date:"h:i A" }} - {{ event.end_time|date:"h:i A" }} (WAT)</span>
+                            <span class="text-lg font-medium">{{ event.start_time|date:"h:i A" }} {% if event.end_time %}- {{ event.end_time|date:"h:i A" }}{% endif %} (WAT)</span>
                         </div>
                         <div class="flex items-start gap-4">
                             <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -142,7 +157,7 @@
                         </div>
                         <div class="flex items-start gap-4">
                             <svg class="w-6 h-6 text-slate-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08 .402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-lg font-semibold">₦{{event.ticket_price}} <span class="text-sm font-normal text-slate-500">(Max Capacity: {{event.max_capacity}})</span></span>
+                            <span class="text-lg font-semibold">₦{{event.ticket_price|intcomma}} <span class="text-sm font-normal text-slate-500">(Max Capacity: {{event.max_capacity}})</span></span>
                         </div>
                     </div>
 

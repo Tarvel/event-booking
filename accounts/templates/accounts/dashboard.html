@@ -91,7 +91,7 @@
                         {% for event in events  %}
                         
                         {% if event.is_published %}
-                            <div class="p-4 flex items-center justify-between hover:bg-slate-50">
+                            <a href="{% url 'event_detail' event.slug %}" class="p-4 flex items-center justify-between hover:bg-slate-50">
                             <div>
                                 <p class="font-semibold text-slate-800">{{event.title}}</p>
                                 <p class="text-sm text-slate-500">{{ event.published_at|date:"j"}} {{ event.published_at|date:"M"}}, {{ event.published_at|date:"Y"}} · Published</p>
@@ -100,7 +100,7 @@
                                 <p class="font-semibold text-slate-800">{{event.ticket_bought}} / {{ event.max_capacity }} sold</p>
                                 <p class="text-sm text-green-600 font-medium">₦{{event.revenue}}</p>
                             </div>
-                        </div>
+                        </a>
                         {% endif %}
                             
                         
@@ -134,7 +134,7 @@
                             
                             {% if registration.event.organizer.email == user.email %}
                                 <li class="flex items-start gap-3">
-                                    <img src="https://i.pravatar.cc/150?u=1" alt="" class="h-10 w-10 rounded-full flex-shrink-0">
+                                    <img src="https://ui-avatars.com/api/?name={{ registration.user.first_name|default:'No'}}+{{ registration.user.last_name|default:'Name' }}&background=random&rounded=true&size=128" alt="" class="h-10 w-10 rounded-full flex-shrink-0">
                                     <div>
                                         <p class="text-sm text-slate-800"><strong class="font-semibold">{{registration.user.first_name}} {{registration.user.last_name}}</strong> registered for <strong class="font-semibold">{{registration.event.title}}</strong>.</p>
                                         <p class="text-xs text-slate-500">{{registration.updated_at|timesince}} ago {{registration.event.user.email}}</p>

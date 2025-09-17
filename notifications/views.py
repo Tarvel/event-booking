@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Notification
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
+@login_required(login_url="login")
 def notifications_partial(request):
     notifications = Notification.objects.filter(user=request.user).order_by(
         "-created_at"
@@ -16,10 +19,31 @@ def notifications_partial(request):
     return render(request, "partials/_notifications.html", context)
 
 
+@login_required(login_url="login")
 def notifications_list(request):
-    return render(request, "notifications/notifications.html")
+    status = request.GET.get("status", "all")
+    print(status)
+    notifications = (
+        Notification.objects.filter(user=request.user, is_read=False).order_by(
+            "-created_at"
+        )
+        if status == "unread"
+        else Notification.objects.filter(user=request.user).order_by("-created_at")
+    )
+    paginator = Paginator(notifications, 2)
+    page = request.GET.get("page", 1)
+    notif_obj = paginator.get_page(page)
+
+    context = {
+        "notifications": notif_obj,
+        "status": status,
+    }
+    if request.htmx:
+        return render(request, "notifications/partials/notification_htmx.html", context)
+    return render(request, "notifications/notifications.html", context)
 
 
+@login_required(login_url="login")
 def mark_notification_read(request, notif_id):
     mark = Notification.objects.get(id=notif_id)
     mark.is_read = True

@@ -1,6 +1,9 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 load_dotenv()
 
@@ -29,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "django_htmx",
     "tailwind",
     "theme",
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     "booking",
     "payment",
     "notifications",
+    "cloudinary",
 ]
 
 if DEBUG:
@@ -141,3 +146,9 @@ PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
 CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_NAME"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+)
