@@ -10,12 +10,11 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 
 ## Features
 - Generate and validate tickets with unique QR codes
-- Downloadable PDF receipts (using xhtml2pdf)
+- Downloadable PDF ticket (using xhtml2pdf)
+- PDF ticket gets sent to user email with django.core.mail
 - Partial page updates via **HTMX** for a smoother UX
 - Admin dashboard for attendee tracking and ticket scan logs
 - **Cloudinary** integration for image uploads
-- TailwindCSS for a responsive and modern UI
-
 
 ## Tech Stack
 - **Backend:** Django 5.2.5, Django HTMX, Django Tailwind
