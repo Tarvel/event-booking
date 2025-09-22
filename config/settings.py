@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -152,14 +153,9 @@ cloudinary.config(
 )
 
 DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DATABASE_ENGINE"),
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DATABASE_HOST"),
-        "PORT": os.getenv("DATABASE_PORT"),
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
 }
 
 EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
