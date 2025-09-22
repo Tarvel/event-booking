@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     "cloudinary",
 ]
 
-if DEBUG:
-    # Add django_browser_reload only in DEBUG mode
+if DEBUG is True:
     INSTALLED_APPS += ["django_browser_reload"]
 
 MIDDLEWARE = [
@@ -59,8 +58,7 @@ MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
 ]
 
-if DEBUG:
-    # Add django_browser_reload middleware only in DEBUG mode
+if DEBUG is True:
     MIDDLEWARE += [
         "django_browser_reload.middleware.BrowserReloadMiddleware",
     ]
@@ -143,7 +141,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
-CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]  # Change this shit later
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 
@@ -153,16 +151,16 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
 )
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("POSTGRES_DB"),
-#         "USER": os.getenv("POSTGRES_USER"),
-#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-#         "HOST": "db",  # because Django is outside Docker (for now)
-#         "PORT": "5432",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": "db",
+        "PORT": "5432",
+    }
+}
 
 EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

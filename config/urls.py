@@ -3,16 +3,15 @@ from django.urls import path, include
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('events.urls')),
-    path('', include('payment.urls')),
-    path('', include('notifications.urls'))
+    path("admin/", admin.site.urls),
+    path("", include("accounts.urls")),
+    path("", include("events.urls")),
+    path("", include("payment.urls")),
+    path("", include("notifications.urls")),
 ]
 
 
-if settings.DEBUG:
-    # Include django_browser_reload URLs only in DEBUG mode
+if settings.DEBUG is True:
     urlpatterns += [
         path("__reload__/", include("django_browser_reload.urls")),
     ]
