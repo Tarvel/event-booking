@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import hmac
 import hashlib
+from events.views import dt
 from django.db.models import F
 
 
@@ -168,5 +169,7 @@ def paystack_webhook(request):
                 status="success",
                 paid_at=timezone.now(),
             )
+            
+            dt(event.slug, registration.user)
 
     return HttpResponse(status=200)

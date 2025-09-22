@@ -135,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -152,3 +152,21 @@ cloudinary.config(
     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
     api_key=os.getenv("CLOUDINARY_API_KEY"),
 )
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("POSTGRES_DB"),
+#         "USER": os.getenv("POSTGRES_USER"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+#         "HOST": "db",  # because Django is outside Docker (for now)
+#         "PORT": "5432",
+#     }
+# }
+
+EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

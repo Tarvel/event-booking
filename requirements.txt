@@ -14,6 +14,7 @@ cloudinary==1.44.1
 cookiecutter==2.6.0
 cryptography==45.0.7
 cssselect2==0.8.0
+dj-database-url==3.0.1
 Django==5.2.5
 django-browser-reload==1.18.0
 django-htmx==1.23.2
@@ -21,6 +22,7 @@ django-tailwind==4.2.0
 dotenv==0.9.9
 flake8==7.3.0
 fonttools==4.59.2
+gunicorn==23.0.0
 honcho==2.0.0
 html5lib==1.1
 idna==3.10
@@ -36,6 +38,7 @@ packaging==25.0
 pathspec==0.12.1
 pillow==11.3.0
 platformdirs==4.4.0
+psycopg2-binary==2.9.10
 pycodestyle==2.14.0
 pycparser==2.22
 pydyf==0.11.0
@@ -65,5 +68,6 @@ tzlocal==5.3.1
 uritools==5.0.0
 urllib3==2.5.0
 webencodings==0.5.1
+whitenoise==6.10.0
 xhtml2pdf==0.2.17
 zopfli==0.2.3.post1
