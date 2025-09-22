@@ -345,8 +345,6 @@ def place_autocomplete(request):
     return JsonResponse(data, safe=False)
 
 
-#
-
 def dt(slug, user):
     reg = Registration.objects.filter(event__slug=slug).first()
     tic = Ticket.objects.get(registration=reg)
@@ -358,7 +356,6 @@ def dt(slug, user):
     img.save(buffer, format="PNG")
     img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
-    # Render HTML to PDF
     template = get_template("ticket.html")
     html = template.render(
         {
@@ -380,7 +377,7 @@ def dt(slug, user):
     )
 
     # Attach the PDF
-    filename = f'{reg.event.title.title()}_Ticket_For_{user.email}.pdf'
+    filename = f"{reg.event.title.title()}_Ticket_For_{user.email}.pdf"
     email.attach(filename, pdf_buffer.getvalue(), "application/pdf")
 
     email.send(fail_silently=False)
