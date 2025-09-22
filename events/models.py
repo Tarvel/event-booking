@@ -28,8 +28,9 @@ class Events(models.Model):
     category = models.CharField(choices=STATUS_CHOICES, default="other")
 
     start_date = models.DateField()
-    end_date = models.DateField(null=True, blank=True)
     start_time = models.TimeField()
+
+    end_date = models.DateField(null=True, blank=True)
     end_time = models.TimeField(null=True, blank=True)
 
     venue = models.CharField()
@@ -38,6 +39,7 @@ class Events(models.Model):
 
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     available_ticket = models.IntegerField(null=True, blank=True)
+    used_ticket = models.IntegerField(default=0)
     max_capacity = models.IntegerField(default=0)
 
     is_published = models.BooleanField(default=False)

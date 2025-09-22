@@ -1,0 +1,36 @@
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+    <div class="flex-grow">
+        <h3 class="text-lg font-bold text-slate-900">{{ event.title }}</h3>
+        <div class="flex items-center gap-2 mt-1 text-sm text-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+            </svg>
+            <span>{{ event.start_date|date:"F j, Y" }} at {{ event.start_time|time:"g:i A" }}</span>
+        </div>
+    </div>
+    
+    <div class="flex-shrink-0 w-full sm:w-64">
+   
+        <div class="flex justify-between items-baseline mb-1">
+            <span class="text-sm font-medium text-slate-600">Check-ins</span>
+            <span class="text-sm font-bold text-slate-800">
+                {{ event.used_ticket }} / {{event.max_capacity}}
+            </span>
+        </div>
+        
+        <div class="w-full bg-slate-200 rounded-full h-2 mb-4">
+
+            <div class="bg-green-600 h-2 rounded-full" style="width: {{event.percentage}}%"></div>
+            
+        </div>
+        
+        <a href="{% url 'validate_ticket' event.slug %}" class="w-full inline-flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
+            </svg>
+            Start Scanning
+        </a>
+    </div>
+
+</div>

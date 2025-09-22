@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Event Check-in
+{% endblock title %}
+    
+
+
+{% block main %}
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 sm:px-6 py-12 md:py-16">
+        
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Event Check-in</h1>
+            <p class="mt-2 text-lg text-slate-600">Select an event to begin scanning and validating tickets.</p>
+        </div>
+
+        <div class="space-y-10">
+
+            <div>
+                <h2 class="text-xl font-bold border-b border-slate-200 pb-3 mb-6 text-slate-900">Today's Events</h2>
+                <div class="space-y-4">
+                    {% for event in events %}
+                        {% include 'events/partials/_checkin_event_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <!-- Empty State -->
+            {% if not todays_events and not upcoming_events %}
+                <div class="text-center py-16 px-6 bg-white rounded-xl border border-slate-200">
+                    <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" />
+                    </svg>
+                    <h3 class="mt-2 text-lg font-semibold text-slate-900">No Active Events</h3>
+                    <p class="mt-1 text-sm text-slate-500">You do not have any upcoming events scheduled for check-in.</p>
+                    <a href="#" class="mt-6 inline-block bg-green-600 text-white font-semibold py-2.5 px-5 rounded-lg hover:bg-green-700 transition-colors">
+                        Create an Event
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+    </main>
+{% endblock main %}

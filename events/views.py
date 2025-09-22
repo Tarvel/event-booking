@@ -117,8 +117,12 @@ def download_ticket(request, slug):
 
 
 @login_required(login_url="login")
-def validateTicket(request):
-    if not request.user.is_organizer:
+def validateTicket(request, slug):
+    user = request.user
+    eventtos = Events.objects.filter(organizer=user, slug=slug)
+    eventt = eventtos.first()
+    print(eventt)
+    if not user.is_organizer or not eventtos.exists():
         messages.error(request, "UNAUTHORIZED")
         return redirect("home")
     if request.method == "POST":
@@ -126,12 +130,21 @@ def validateTicket(request):
         ticket = Ticket.objects.filter(unique_code=qr_data)
         print(ticket)
         actual_ticket = ticket.first()
+        event = actual_ticket.registration.event
         if ticket:
 
             if not actual_ticket.is_used:
+                # update ticket usage status and time
                 actual_ticket.is_used = True
                 actual_ticket.scanned_date = timezone.now()
+
+                # updated used ticekts
+                event.used_ticket += 1
+
+                # save event and ticket
+                event.save(update_fields=["available_ticket"])
                 actual_ticket.save(update_fields=["is_used", "scanned_date"])
+
                 return redirect("valid_ticket", actual_ticket.registration.event.slug)
 
             if actual_ticket.is_used:
@@ -139,7 +152,7 @@ def validateTicket(request):
         else:
             return redirect("invalid_ticket")
 
-    return render(request, "events/validate_ticket.html")
+    return render(request, "events/validate_ticket.html", {"event": eventt})
 
 
 @login_required(login_url="login")
@@ -188,7 +201,7 @@ def usedTik(request, slug):
 
 @login_required(login_url="login")
 def create_event(request):
-    user = request.user if request.user.is_authenticated else None
+    user = request.user
     if user.is_organizer is False:
         messages.error(request, "UNAUTHORIZED")
         return redirect("home")
@@ -319,6 +332,26 @@ def my_events(request):
         "events/my_events.html",
         {"events": events, "active_status": active_status},
     )
+
+
+@login_required(login_url="login")
+def checkPage(request):
+    user = request.user
+    if user.is_organizer is False:
+        messages.error(request, "UNAUTHORIZED")
+        return redirect("home")
+
+    events = Events.objects.filter(organizer=user).order_by(
+        "-start_date", "-start_time"
+    )
+
+    for e in events:
+        e.percentage = (e.used_ticket / e.max_capacity) * 100
+
+    context = {
+        "events": events,
+    }
+    return render(request, "events/check_in.html", context)
 
 
 # ths parts for nomatim autocomplete for venue in create event

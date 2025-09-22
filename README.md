@@ -44,3 +44,4 @@ python manage.py runserver
 - Improved understanding of **PDF signing & validation** with pyHanko
 - Leveraging **django-browser-reload** for faster local development
 - Strengthened knowledge of **forms, model relationships** in Django
+- Acess controls

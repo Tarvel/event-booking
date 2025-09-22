@@ -26,12 +26,20 @@ class Registration(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        while Registration.objects.filter(order_id=self.order_id).exclude(pk=self.pk).exists():
+        while (
+            Registration.objects.filter(order_id=self.order_id)
+            .exclude(pk=self.pk)
+            .exists()
+        ):
             unique_id = str(uuid.uuid4())[0:5]
             order_id = f"ord-{unique_id}"
             self.order_id = order_id
 
-        while Registration.objects.filter(reference=self.reference).exclude(pk=self.pk).exists():
+        while (
+            Registration.objects.filter(reference=self.reference)
+            .exclude(pk=self.pk)
+            .exists()
+        ):
             unique_id = str(uuid.uuid4())[0:5]
             reference = f"ref-{unique_id}"
             self.reference = reference
@@ -53,7 +61,11 @@ class Ticket(models.Model):
     scanned_date = models.DateTimeField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        while Ticket.objects.filter(unique_code=self.unique_code).exclude(pk=self.pk).exists():
+        while (
+            Ticket.objects.filter(unique_code=self.unique_code)
+            .exclude(pk=self.pk)
+            .exists()
+        ):
             unique_id = str(uuid.uuid4())[0:8]
             unique_code = f"TIK-{unique_id}"
 

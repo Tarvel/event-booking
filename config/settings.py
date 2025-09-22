@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
-CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]  # Change this shit later
+CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 
@@ -153,11 +153,11 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
 )
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
-}
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("DATABASE_URL")
+#     )
+# }
 
 EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

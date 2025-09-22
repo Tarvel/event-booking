@@ -32,6 +32,13 @@
                     <span class="text-red-500 text-sm mt-1">{{ form.email.errors.as_text }}</span>
                 {% endif %}
             </div>
+
+            <div class="mb-4"> 
+                <input hidden type="text" name="username"  value="{{username}}"  id="username"class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors" placeholder="you@example.com"> 
+                {% if form.username.errors %}
+                    <span class="text-red-500 text-sm mt-1">{{ form.username.errors.as_text }}</span>
+                {% endif %}
+            </div>
             
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-slate-600 mb-2">Password</label>

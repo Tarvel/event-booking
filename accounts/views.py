@@ -11,7 +11,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 import uuid
 from events.models import Events
-from booking.models import Registration
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -28,8 +27,6 @@ def registerPage(request):
             user.username = user.email
             user.save()
             login(request, user)
-
-            print(user.username, user.is_organizer)
 
             return redirect("home")
         else:
@@ -63,7 +60,6 @@ def loginPage(request):
                 login(request, user)
                 messages.info(request, f"You are now signed in as {user_obj.email}")
                 next_url = request.POST.get("next") or "home"
-                print(next_url)
                 return redirect(next_url)
             else:
                 messages.error(request, "Email or Password incorrect")

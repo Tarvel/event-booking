@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 
+{% block title %}
+    Scan - {{event.title|title}}
+{% endblock title %}
+    
+
+
 
 {% block main %}
     <main class="flex-grow flex items-center justify-center py-12 px-6">
@@ -16,7 +22,7 @@
     </main>
     
   
-    <form id="qr-form" method="post" action="{% url 'validate_ticket' %}">
+    <form id="qr-form" method="post" action="{% url 'validate_ticket' event.slug %}">
         {% csrf_token %}
         <input type="hidden" name="qr_data" id="qr-data">
     </form>
