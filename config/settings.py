@@ -137,8 +137,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Optional but useful if you also keep a top-level /static folder
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'theme', 'static'),  # adjust to your Tailwind app
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
