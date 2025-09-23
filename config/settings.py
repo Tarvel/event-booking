@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
-if DEBUG:
+if DEBUG is True:
     CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
 else:
     CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
@@ -157,7 +157,7 @@ cloudinary.config(
 )
 
 
-if not DEBUG:
+if DEBUG is False:
     DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))}
 
 EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
