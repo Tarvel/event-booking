@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                                        {% endif %}
+                    {% endif %}
 
                     <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
                         {{event.title|upper }}
@@ -229,7 +229,7 @@
 
             {% else %}
             
-            <div id="modal-content-confirm">
+            <div id="modal-content-update">
                  <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-amber-100 mb-6">
                     <svg class="h-8 w-8 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
                 </div>
@@ -245,21 +245,37 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let lat = parseFloat(document.getElementById("latitude").value);
-            let lon = parseFloat(document.getElementById("longitude").value);
+            const mapContainer = document.getElementById("map");
 
-            let map = L.map("map").setView([lat, lon], 15);
+            if (mapContainer) {
+                let lat = parseFloat(document.getElementById("latitude").value);
+                let lon = parseFloat(document.getElementById("longitude").value);
 
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-               
-            }).addTo(map);
+                let map = L.map("map", {
+                    zoomControl: true 
+                }).setView([lat, lon], 15);
 
-            L.marker([lat, lon]).addTo(map)
-            .bindPopup("{{ event.venue }}")
-            .openPopup();
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(map);
+
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup("{{ event.venue }}")
+                    .openPopup();
+
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 500);
+            }
         });
 
-        document.getElementById("pay-btn").addEventListener("click", function() {
+        
+
+    const getTicketBtn = document.getElementById('get-ticket-btn');
+    const ticketModal = document.getElementById('ticket-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+
+    {% if request.user.first_name and request.user.last_name %}
+    document.getElementById("pay-btn").addEventListener("click", function() {
     const btnContent = document.getElementById("btn-content");
 
     btnContent.innerHTML = `
@@ -270,10 +286,8 @@
         <span class="sr-only">Loading...</span>
     `;
 });
-    const getTicketBtn = document.getElementById('get-ticket-btn');
-    const ticketModal = document.getElementById('ticket-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
     const cancelBtn = document.getElementById('cancel-btn');
+    {% endif %}
 
     const openModal = () => {
         ticketModal.classList.remove('hidden');
@@ -294,7 +308,6 @@
         cancelBtn.addEventListener('click', closeModal);
     }
 
-    // Close modal if user clicks on the backdrop
     if (ticketModal) {
         ticketModal.addEventListener('click', (event) => {
             if (event.target === ticketModal) {

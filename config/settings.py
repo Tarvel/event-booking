@@ -134,8 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
 if DEBUG:
-    CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"] # Change this shit later
+    CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
 else:
     CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 LOGIN_URL = "login"
@@ -158,11 +158,7 @@ cloudinary.config(
 
 
 if not DEBUG:
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=os.getenv("DATABASE_URL")
-        )
-    }
+    DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))}
 
 EMAIL_BACKEND = "accounts.backends.email_backends.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

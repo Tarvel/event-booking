@@ -127,8 +127,7 @@ def validateTicket(request, slug):
         return redirect("home")
     if request.method == "POST":
         qr_data = request.POST.get("qr_data")
-        ticket = Ticket.objects.filter(unique_code=qr_data)
-        print(ticket)
+        ticket = Ticket.objects.filter(unique_code=qr_data, registration__event__slug=slug)
         actual_ticket = ticket.first()
         event = actual_ticket.registration.event
         if ticket:

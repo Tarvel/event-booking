@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 def notifications_partial(request):
     notifications = Notification.objects.filter(user=request.user).order_by(
         "-created_at"
-    )
+    )[0:3]
     unread = Notification.objects.filter(is_read=False)
     context = {
         "notifications": notifications,
