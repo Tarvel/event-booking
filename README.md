@@ -5,7 +5,7 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 
 
 ##  Live Demo
-(None for now)
+[Try it here](https://event-booking-h693.onrender.com)
 
 
 ## Features
@@ -23,16 +23,17 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 - **Media & Assets:** Cloudinary, Pillow
 - **PDF & QR:**  xhtml2pdf, qrcode
 - **Environment & Utilities:** python-dotenv, requests, arrow
-- **Others:** pyHanko (PDF signing), django-browser-reload (for live dev reloading)
+- **Others:** django-browser-reload (for live dev reloading)
 
 
 ## Installation
 ```bash
-git clone https://github.com/your-username/event-booking.git
+git clone https://github.com/Tarvel/event-booking.git
 cd event-booking
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+cp .env.example .env
+docker compose up --build
+docker compose exec django-web python manage.py createsuperuser
+
 ```
 ## What I Learned
 
@@ -44,4 +45,5 @@ python manage.py runserver
 - Improved understanding of **PDF signing & validation** with pyHanko
 - Leveraging **django-browser-reload** for faster local development
 - Strengthened knowledge of **forms, model relationships** in Django
-- Acess controls
+- integration of third party APId: Paystack and Cloudinary
+- Access controls
