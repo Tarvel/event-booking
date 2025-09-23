@@ -45,5 +45,5 @@ docker compose exec django-web python manage.py createsuperuser
 - Improved understanding of **PDF signing & validation** with pyHanko
 - Leveraging **django-browser-reload** for faster local development
 - Strengthened knowledge of **forms, model relationships** in Django
-- integration of third party APId: Paystack and Cloudinary
+- integration of third party APIs: **Paystack** and **Cloudinary**
 - Access controls
