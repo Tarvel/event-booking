@@ -1,560 +1,377 @@
 [
   {
     "model": "events.events",
-    
+    "pk": 1,
     "fields": {
-      "organizer": 1,
-      "title": "Annual Tech Conference 2025",
-      "description": "A premier gathering of tech enthusiasts, developers, and industry leaders.",
-      "start_date": "2025-10-26",
-      "end_date": "2025-10-28",
-      "start_time": "09:00:00",
-      "end_time": "17:00:00",
-      "venue": "Convention Center Hall A",
-      "ticket_price": 499.99,
-      "max_capacity": 1500,
-      "created_at": "2023-01-15",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Local Charity Run",
-      "description": "Run for a cause! All proceeds go to supporting local schools.",
-      "start_date": "2025-09-12",
-      "end_date": null,
-      "start_time": "08:30:00",
-      "end_time": "12:00:00",
-      "venue": "Community Park",
-      "ticket_price": 25.00,
-      "max_capacity": 500,
-      "created_at": "2023-03-01",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Web Development Workshop",
-      "description": "An intensive workshop covering the latest in front-end and back-end web development.",
-      "start_date": "2025-07-19",
-      "end_date": "2025-07-20",
-      "start_time": "10:00:00",
-      "end_time": "16:00:00",
-      "venue": "Tech Hub Meeting Room 3",
-      "ticket_price": 199.00,
-      "max_capacity": 50,
-      "created_at": "2023-04-10",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Summer Music Festival",
-      "description": "Three days of live music, food trucks, and good vibes!",
-      "start_date": "2025-08-09",
-      "end_date": "2025-08-11",
-      "start_time": "14:00:00",
-      "end_time": "23:00:00",
-      "venue": "Fairgrounds Open Area",
-      "ticket_price": 75.00,
-      "max_capacity": 5000,
-      "created_at": "2023-02-20",
-      "category": "music"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Art Exhibition: Modern Visions",
-      "description": "Featuring works from emerging and established contemporary artists.",
-      "start_date": "2025-09-01",
-      "end_date": "2025-09-30",
-      "start_time": "10:00:00",
-      "end_time": "18:00:00",
-      "venue": "City Art Gallery",
-      "ticket_price": 10.00,
-      "max_capacity": 200,
-      "created_at": "2023-05-05",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Data Science Summit",
-      "description": "Exploring the latest trends and applications in data science and AI.",
-      "start_date": "2025-11-05",
-      "end_date": "2025-11-06",
-      "start_time": "09:30:00",
-      "end_time": "17:30:00",
-      "venue": "Innovation Hub Auditorium",
-      "ticket_price": 350.00,
-      "max_capacity": 800,
-      "created_at": "2023-06-12",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Winter Holiday Market",
-      "description": "Crafts, gifts, and festive treats for the whole family.",
-      "start_date": "2025-12-01",
-      "end_date": "2025-12-24",
-      "start_time": "11:00:00",
-      "end_time": "20:00:00",
-      "venue": "Downtown Square",
-      "ticket_price": 0.00,
-      "max_capacity": 3000,
-      "created_at": "2023-07-01",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Community Gardening Day",
-      "description": "Help us beautify our local community garden.",
-      "start_date": "2025-09-20",
-      "end_date": null,
-      "start_time": "09:00:00",
-      "end_time": "13:00:00",
-      "venue": "Green Valley Community Garden",
-      "ticket_price": 0.00,
-      "max_capacity": 100,
-      "created_at": "2023-08-15",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Food Truck Rally",
-      "description": "A diverse selection of local food trucks. Come hungry!",
-      "start_date": "2025-10-15",
-      "end_date": null,
-      "start_time": "16:00:00",
-      "end_time": "21:00:00",
-      "venue": "Riverside Park",
-      "ticket_price": 5.00,
-      "max_capacity": 1000,
-      "created_at": "2023-09-01",
-      "category": "food"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Startup Pitch Competition",
-      "description": "Witness the next big ideas from emerging startups.",
-      "start_date": "2025-09-22",
-      "end_date": null,
-      "start_time": "18:00:00",
-      "end_time": "21:00:00",
-      "venue": "University Innovation Center",
-      "ticket_price": 15.00,
-      "max_capacity": 250,
-      "created_at": "2023-10-10",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Photography Basics Workshop",
-      "description": "Learn the fundamentals of digital photography.",
-      "start_date": "2025-07-06",
-      "end_date": null,
-      "start_time": "10:00:00",
-      "end_time": "14:00:00",
-      "venue": "Photo Studio A",
-      "ticket_price": 75.00,
-      "max_capacity": 20,
-      "created_at": "2023-11-01",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Yoga in the Park",
-      "description": "Relax and rejuvenate with an outdoor yoga session.",
-      "start_date": "2025-09-25",
-      "end_date": null,
+      "organizer": 2,
+      "image": "image/upload/v1758052069/cid-sample-2",
+      "title": "Mountain Adventure Retreat",
+      "slug": "mountain-adventure-retreat",
+      "description": "A weekend escape into the mountains with guided hikes, bonfires, and breathtaking views.",
+      "category": "sports",
+      "start_date": "2025-11-10",
       "start_time": "07:00:00",
-      "end_time": "08:00:00",
-      "venue": "Central Park Lawn",
-      "ticket_price": 0.00,
-      "max_capacity": 150,
-      "created_at": "2023-12-05",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Book Club Meeting: Sci-Fi Edition",
-      "description": "Discussing the latest sci-fi novels and classic masterpieces.",
-      "start_date": "2025-10-10",
-      "end_date": null,
-      "start_time": "19:00:00",
-      "end_time": "20:30:00",
-      "venue": "Public Library Meeting Room",
-      "ticket_price": 0.00,
-      "max_capacity": 30,
-      "created_at": "2025-01-01",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Jazz Night Live!",
-      "description": "An evening of smooth jazz performed by local artists.",
-      "start_date": "2025-09-08",
-      "end_date": null,
-      "start_time": "20:00:00",
-      "end_time": "23:00:00",
-      "venue": "The Blue Note Club",
-      "ticket_price": 20.00,
+      "end_date": "2025-11-12",
+      "end_time": "19:00:00",
+      "venue": "Blue Ridge Mountains",
+      "longitude": 6.5244,
+      "latitude": 3.3792,
+      "ticket_price": "15000.00",
+      "available_ticket": 80,
+      "used_ticket": 20,
       "max_capacity": 100,
-      "created_at": "2025-01-15",
-      "category": "music"
+      "is_published": true,
+      "published_at": "2025-09-24"
     }
   },
   {
     "model": "events.events",
-    
+    "pk": 2,
     "fields": {
-      "organizer": 1,
-      "title": "Digital Marketing Masterclass",
-      "description": "Learn advanced strategies for online marketing technology.",
-      "start_date": "2025-09-01",
-      "end_date": "2025-09-02",
-      "start_time": "09:00:00",
-      "end_time": "17:00:00",
-      "venue": "Business Innovation Center",
-      "ticket_price": 299.00,
-      "max_capacity": 80,
-      "created_at": "2025-02-01",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Kids' Science Fair",
-      "description": "A fun and educational event showcasing young scientists' projects.",
-      "start_date": "2025-09-18",
-      "end_date": null,
-      "start_time": "10:00:00",
-      "end_time": "15:00:00",
-      "venue": "School Gymnasium",
-      "ticket_price": 0.00,
-      "max_capacity": 300,
-      "created_at": "2025-02-10",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Outdoor Movie Night",
-      "description": "Enjoy a family-friendly movie under the stars.",
-      "start_date": "2025-08-31",
-      "end_date": null,
-      "start_time": "20:30:00",
-      "end_time": "22:30:00",
-      "venue": "Town Square Amphitheater",
-      "ticket_price": 5.00,
-      "max_capacity": 400,
-      "created_at": "2025-03-01",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "DIY Craft Workshop: Jewelry Making",
-      "description": "Create your own unique jewelry pieces.",
-      "start_date": "2025-09-27",
-      "end_date": null,
-      "start_time": "14:00:00",
-      "end_time": "17:00:00",
-      "venue": "Community Craft Room",
-      "ticket_price": 45.00,
-      "max_capacity": 15,
-      "created_at": "2025-03-15",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Historical Walking Tour",
-      "description": "Explore the rich history of our city with a guided tour.",
-      "start_date": "2025-09-04",
-      "end_date": null,
-      "start_time": "10:00:00",
-      "end_time": "12:00:00",
-      "venue": "Old Town Meeting Point",
-      "ticket_price": 12.00,
-      "max_capacity": 25,
-      "created_at": "2025-03-20",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Financial Planning Seminar",
-      "description": "Expert advice on investment, savings, and retirement planning.",
-      "start_date": "2025-08-03",
-      "end_date": null,
-      "start_time": "18:00:00",
-      "end_time": "20:00:00",
-      "venue": "Downtown Business Center",
-      "ticket_price": 0.00,
-      "max_capacity": 100,
-      "created_at": "2025-04-01",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Gardening for Beginners",
-      "description": "Learn how to start your own garden, even in small spaces.",
-      "start_date": "2025-09-11",
-      "end_date": null,
-      "start_time": "10:00:00",
-      "end_time": "12:00:00",
-      "venue": "Botanical Garden Education Room",
-      "ticket_price": 30.00,
-      "max_capacity": 20,
-      "created_at": "2025-04-05",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Board Game Marathon",
-      "description": "Join us for a day of classic and modern board games.",
-      "start_date": "2025-10-22",
-      "end_date": null,
-      "start_time": "11:00:00",
-      "end_time": "23:00:00",
-      "venue": "Gaming Cafe",
-      "ticket_price": 10.00,
-      "max_capacity": 70,
-      "created_at": "2025-04-10",
-      "category": "other"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Local Farmers Market",
-      "description": "Fresh produce, baked goods, and artisanal crafts from local vendors.",
-      "start_date": "2025-09-01",
-      "end_date": "2025-10-30",
-      "start_time": "08:00:00",
-      "end_time": "13:00:00",
-      "venue": "Main Street Plaza",
-      "ticket_price": 0.00,
-      "max_capacity": 500,
-      "created_at": "2025-04-15",
-      "category": "food"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Coding for Kids",
-      "description": "An introduction to programming concepts for young learners.",
-      "start_date": "2025-07-13",
-      "end_date": "2025-07-14",
-      "start_time": "09:00:00",
-      "end_time": "12:00:00",
-      "venue": "Library Computer Lab",
-      "ticket_price": 60.00,
-      "max_capacity": 20,
-      "created_at": "2025-04-20",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Virtual Reality Expo",
-      "description": "Experience the latest in VR/AR technology and gaming.",
-      "start_date": "2025-09-20",
-      "end_date": "2025-09-21",
-      "start_time": "10:00:00",
-      "end_time": "18:00:00",
-      "venue": "Exhibition Center Hall B",
-      "ticket_price": 80.00,
-      "max_capacity": 700,
-      "created_at": "2025-04-25",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Healthy Cooking Class",
-      "description": "Learn to prepare delicious and nutritious meals.",
-      "start_date": "2025-10-08",
-      "end_date": null,
-      "start_time": "17:00:00",
-      "end_time": "20:00:00",
-      "venue": "Community Kitchen",
-      "ticket_price": 50.00,
-      "max_capacity": 12,
-      "created_at": "2025-04-28",
-      "category": "food"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Stand-up Comedy Night",
-      "description": "Laugh out loud with local and touring comedians.",
-      "start_date": "2025-08-24",
-      "end_date": null,
-      "start_time": "20:00:00",
-      "end_time": "22:00:00",
-      "venue": "The Laugh Factory",
-      "ticket_price": 25.00,
-      "max_capacity": 150,
-      "created_at": "2025-05-01",
-      "category": "arts"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Pet Adoption Fair",
-      "description": "Find your new furry friend at our annual adoption event.",
-      "start_date": "2025-07-07",
-      "end_date": null,
-      "start_time": "11:00:00",
-      "end_time": "16:00:00",
-      "venue": "Animal Shelter Grounds",
-      "ticket_price": 0.00,
+      "organizer": 2,
+      "image": "image/upload/v1758052069/cid-sample-3",
+      "title": "Street Basketball Tournament",
+      "slug": "street-basketball-tournament",
+      "description": "Teams from around the city compete in an electrifying street basketball showdown.",
+      "category": "sports",
+      "start_date": "2025-10-20",
+      "start_time": "15:00:00",
+      "end_date": "2025-10-20",
+      "end_time": "21:00:00",
+      "venue": "Downtown Arena",
+      "longitude": 6.521,
+      "latitude": 3.377,
+      "ticket_price": "2000.00",
+      "available_ticket": 150,
+      "used_ticket": 50,
       "max_capacity": 200,
-      "created_at": "2025-05-05",
-      "category": "other"
+      "is_published": true,
+      "published_at": "2025-09-24"
     }
   },
   {
     "model": "events.events",
-    
+    "pk": 3,
     "fields": {
-      "organizer": 1,
-      "title": "Astronomy Night",
-      "description": "Observe celestial wonders with telescopes and expert guidance.",
-      "start_date": "2025-08-17",
-      "end_date": null,
-      "start_time": "21:00:00",
-      "end_time": "23:00:00",
-      "venue": "Observatory Hill",
-      "ticket_price": 15.00,
-      "max_capacity": 50,
-      "created_at": "2025-05-10",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "AI in Healthcare Symposium",
-      "description": "Discussing the impact of artificial intelligence on modern healthcare.",
-      "start_date": "2025-10-10",
-      "end_date": "2025-10-11",
-      "start_time": "09:00:00",
-      "end_time": "17:00:00",
-      "venue": "Medical Research Institute",
-      "ticket_price": 400.00,
-      "max_capacity": 600,
-      "created_at": "2025-05-15",
-      "category": "technology"
-    }
-  },
-  {
-    "model": "events.events",
-    
-    "fields": {
-      "organizer": 1,
-      "title": "Parenting Workshop: Positive Discipline",
-      "description": "Strategies for fostering healthy child development and behavior.",
-      "start_date": "2025-09-28",
-      "end_date": null,
+      "organizer": 2,
+      "image": "image/upload/v1758052069/cid-sample-4",
+      "title": "Waffles & Fruit Brunch",
+      "slug": "waffles-fruit-brunch",
+      "description": "A delightful Sunday brunch featuring freshly made waffles, seasonal fruits, and coffee.",
+      "category": "food",
+      "start_date": "2025-10-05",
       "start_time": "10:00:00",
+      "end_date": "2025-10-05",
       "end_time": "14:00:00",
-      "venue": "Family Resource Center",
-      "ticket_price": 40.00,
-      "max_capacity": 30,
-      "created_at": "2025-05-20",
-      "category": "other"
+      "venue": "City Café",
+      "longitude": 6.528,
+      "latitude": 3.375,
+      "ticket_price": "3500.00",
+      "available_ticket": 100,
+      "used_ticket": 30,
+      "max_capacity": 130,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 4,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/cid-sample-5",
+      "title": "Sneaker Culture Expo",
+      "slug": "sneaker-culture-expo",
+      "description": "An exhibition for sneaker lovers showcasing rare kicks, custom designs, and streetwear brands.",
+      "category": "arts",
+      "start_date": "2025-12-02",
+      "start_time": "11:00:00",
+      "end_date": "2025-12-04",
+      "end_time": "20:00:00",
+      "venue": "Expo Center Hall A",
+      "longitude": 6.522,
+      "latitude": 3.379,
+      "ticket_price": "7000.00",
+      "available_ticket": 300,
+      "used_ticket": 120,
+      "max_capacity": 420,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 5,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/dessert-on-a-plate",
+      "title": "Dessert Lovers Meetup",
+      "slug": "dessert-lovers-meetup",
+      "description": "Sweet treats and networking — an evening of cakes, pastries, and creative desserts.",
+      "category": "food",
+      "start_date": "2025-10-28",
+      "start_time": "17:00:00",
+      "end_date": "2025-10-28",
+      "end_time": "21:00:00",
+      "venue": "Sweet Tooth Café",
+      "longitude": 6.519,
+      "latitude": 3.371,
+      "ticket_price": "2500.00",
+      "available_ticket": 80,
+      "used_ticket": 20,
+      "max_capacity": 100,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 6,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/woman-on-a-football-field",
+      "title": "Women’s Football Match",
+      "slug": "womens-football-match",
+      "description": "A competitive women’s football match bringing energy and spirit to the field.",
+      "category": "sports",
+      "start_date": "2025-11-12",
+      "start_time": "16:00:00",
+      "end_date": "2025-11-12",
+      "end_time": "18:00:00",
+      "venue": "National Stadium",
+      "longitude": 6.51,
+      "latitude": 3.36,
+      "ticket_price": "1000.00",
+      "available_ticket": 400,
+      "used_ticket": 50,
+      "max_capacity": 450,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 7,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/balloons",
+      "title": "Children’s Fun Fair",
+      "slug": "childrens-fun-fair",
+      "description": "A colorful fair with games, rides, balloons, and snacks for kids and families.",
+      "category": "other",
+      "start_date": "2025-12-20",
+      "start_time": "09:00:00",
+      "end_date": "2025-12-20",
+      "end_time": "19:00:00",
+      "venue": "City Park",
+      "longitude": 6.529,
+      "latitude": 3.389,
+      "ticket_price": "500.00",
+      "available_ticket": 500,
+      "used_ticket": 120,
+      "max_capacity": 620,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 8,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/sea-turtle",
+      "title": "Marine Conservation Talk",
+      "slug": "marine-conservation-talk",
+      "description": "Experts discuss ocean conservation, sea turtle preservation, and marine biodiversity.",
+      "category": "technology",
+      "start_date": "2025-11-18",
+      "start_time": "13:00:00",
+      "end_date": "2025-11-18",
+      "end_time": "16:00:00",
+      "venue": "Oceanic Research Center",
+      "longitude": 6.512,
+      "latitude": 3.365,
+      "ticket_price": "2000.00",
+      "available_ticket": 200,
+      "used_ticket": 50,
+      "max_capacity": 250,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 9,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/jazz",
+      "title": "Evening Jazz Night",
+      "slug": "evening-jazz-night",
+      "description": "A soulful night of live jazz performances with top local artists.",
+      "category": "arts",
+      "start_date": "2025-10-30",
+      "start_time": "19:30:00",
+      "end_date": "2025-10-30",
+      "end_time": "23:00:00",
+      "venue": "Downtown Jazz Bar",
+      "longitude": 6.51,
+      "latitude": 3.37,
+      "ticket_price": "6000.00",
+      "available_ticket": 150,
+      "used_ticket": 40,
+      "max_capacity": 190,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 10,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/bike",
+      "title": "City Cycling Marathon",
+      "slug": "city-cycling-marathon",
+      "description": "Join thousands of cyclists for the annual city-wide cycling marathon.",
+      "category": "sports",
+      "start_date": "2025-11-01",
+      "start_time": "07:00:00",
+      "end_date": "2025-11-01",
+      "end_time": "14:00:00",
+      "venue": "Main Square",
+      "longitude": 6.514,
+      "latitude": 3.368,
+      "ticket_price": "3000.00",
+      "available_ticket": 350,
+      "used_ticket": 70,
+      "max_capacity": 420,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 11,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/beach-boat",
+      "title": "Summer Beach Party",
+      "slug": "summer-beach-party",
+      "description": "Dance, drinks, and relaxation by the ocean with a sunset boat cruise.",
+      "category": "music",
+      "start_date": "2025-12-15",
+      "start_time": "15:00:00",
+      "end_date": "2025-12-15",
+      "end_time": "23:00:00",
+      "venue": "Palm Beach",
+      "longitude": 6.511,
+      "latitude": 3.36,
+      "ticket_price": "8000.00",
+      "available_ticket": 250,
+      "used_ticket": 90,
+      "max_capacity": 340,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 12,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/spices",
+      "title": "World of Spices Workshop",
+      "slug": "world-of-spices-workshop",
+      "description": "Discover the secrets of global cuisines and spices in this hands-on workshop.",
+      "category": "food",
+      "start_date": "2025-11-08",
+      "start_time": "11:00:00",
+      "end_date": "2025-11-08",
+      "end_time": "15:00:00",
+      "venue": "Gourmet Kitchen Studio",
+      "longitude": 6.519,
+      "latitude": 3.362,
+      "ticket_price": "4500.00",
+      "available_ticket": 90,
+      "used_ticket": 20,
+      "max_capacity": 110,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 13,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/kitten-playing",
+      "title": "Pet Adoption Day",
+      "slug": "pet-adoption-day",
+      "description": "Meet adorable cats and dogs looking for loving homes. Adoption and donation opportunities available.",
+      "category": "other",
+      "start_date": "2025-10-25",
+      "start_time": "09:00:00",
+      "end_date": "2025-10-25",
+      "end_time": "17:00:00",
+      "venue": "Animal Shelter Grounds",
+      "longitude": 6.515,
+      "latitude": 3.37,
+      "ticket_price": "0.00",
+      "available_ticket": 200,
+      "used_ticket": 50,
+      "max_capacity": 250,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 14,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/dance-2",
+      "title": "Street Dance Festival",
+      "slug": "street-dance-festival",
+      "description": "Experience the energy of dance crews battling it out in the streets.",
+      "category": "arts",
+      "start_date": "2025-11-22",
+      "start_time": "14:00:00",
+      "end_date": "2025-11-22",
+      "end_time": "21:00:00",
+      "venue": "City Square",
+      "longitude": 6.52,
+      "latitude": 3.365,
+      "ticket_price": "2500.00",
+      "available_ticket": 300,
+      "used_ticket": 80,
+      "max_capacity": 380,
+      "is_published": true,
+      "published_at": "2025-09-24"
+    }
+  },
+  {
+    "model": "events.events",
+    "pk": 15,
+    "fields": {
+      "organizer": 2,
+      "image": "image/upload/v1758052069/landscape-panorama",
+      "title": "Photography Walk",
+      "slug": "photography-walk",
+      "description": "Capture breathtaking landscapes and city views on this guided photography walk.",
+      "category": "arts",
+      "start_date": "2025-10-18",
+      "start_time": "08:00:00",
+      "end_date": "2025-10-18",
+      "end_time": "12:00:00",
+      "venue": "Riverfront Promenade",
+      "longitude": 6.517,
+      "latitude": 3.363,
+      "ticket_price": "2000.00",
+      "available_ticket": 70,
+      "used_ticket": 15,
+      "max_capacity": 85,
+      "is_published": true,
+      "published_at": "2025-09-24"
     }
   }
 ]
