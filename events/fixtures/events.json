@@ -21,7 +21,8 @@
       "used_ticket": 20,
       "max_capacity": 100,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -46,7 +47,8 @@
       "used_ticket": 50,
       "max_capacity": 200,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -71,7 +73,8 @@
       "used_ticket": 30,
       "max_capacity": 130,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -96,7 +99,8 @@
       "used_ticket": 120,
       "max_capacity": 420,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -121,7 +125,8 @@
       "used_ticket": 20,
       "max_capacity": 100,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -146,7 +151,8 @@
       "used_ticket": 50,
       "max_capacity": 450,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -171,7 +177,8 @@
       "used_ticket": 120,
       "max_capacity": 620,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -196,7 +203,8 @@
       "used_ticket": 50,
       "max_capacity": 250,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -221,7 +229,8 @@
       "used_ticket": 40,
       "max_capacity": 190,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -246,7 +255,8 @@
       "used_ticket": 70,
       "max_capacity": 420,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -271,7 +281,8 @@
       "used_ticket": 90,
       "max_capacity": 340,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -296,7 +307,8 @@
       "used_ticket": 20,
       "max_capacity": 110,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -321,7 +333,8 @@
       "used_ticket": 50,
       "max_capacity": 250,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -346,7 +359,8 @@
       "used_ticket": 80,
       "max_capacity": 380,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   },
   {
@@ -371,7 +385,8 @@
       "used_ticket": 15,
       "max_capacity": 85,
       "is_published": true,
-      "published_at": "2025-09-24"
+      "published_at": "2025-09-24",
+      "created_at": "2025-09-24"
     }
   }
 ]
