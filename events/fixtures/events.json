@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/cid-sample-2.png",
+      "image": "cld-sample-2",
       "title": "Mountain Adventure Retreat",
       "slug": "mountain-adventure-retreat",
       "description": "A weekend escape into the mountains with guided hikes, bonfires, and breathtaking views.",
@@ -30,7 +30,7 @@
     "pk": 2,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/cid-sample-3.png",
+      "image": "cld-sample-3",
       "title": "Street Basketball Tournament",
       "slug": "street-basketball-tournament",
       "description": "Teams from around the city compete in an electrifying street basketball showdown.",
@@ -56,7 +56,7 @@
     "pk": 3,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/cid-sample-4.png",
+      "image": "cld-sample-4",
       "title": "Waffles & Fruit Brunch",
       "slug": "waffles-fruit-brunch",
       "description": "A delightful Sunday brunch featuring freshly made waffles, seasonal fruits, and coffee.",
@@ -82,7 +82,7 @@
     "pk": 4,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/cid-sample-5.png",
+      "image": "cld-sample-5",
       "title": "Sneaker Culture Expo",
       "slug": "sneaker-culture-expo",
       "description": "An exhibition for sneaker lovers showcasing rare kicks, custom designs, and streetwear brands.",
@@ -108,7 +108,7 @@
     "pk": 5,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/dessert-on-a-plate.png",
+      "image": "samples/dessert-on-a-plate",
       "title": "Dessert Lovers Meetup",
       "slug": "dessert-lovers-meetup",
       "description": "Sweet treats and networking — an evening of cakes, pastries, and creative desserts.",
@@ -134,7 +134,7 @@
     "pk": 6,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/woman-on-a-football-field.png",
+      "image": "samples/woman-on-a-football-field",
       "title": "Women’s Football Match",
       "slug": "womens-football-match",
       "description": "A competitive women’s football match bringing energy and spirit to the field.",
@@ -160,7 +160,7 @@
     "pk": 7,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/balloons.png",
+      "image": "samples/balloons",
       "title": "Children’s Fun Fair",
       "slug": "childrens-fun-fair",
       "description": "A colorful fair with games, rides, balloons, and snacks for kids and families.",
@@ -186,7 +186,7 @@
     "pk": 8,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/sea-turtle.png",
+      "image": "samples/sea-turtle",
       "title": "Marine Conservation Talk",
       "slug": "marine-conservation-talk",
       "description": "Experts discuss ocean conservation, sea turtle preservation, and marine biodiversity.",
@@ -212,7 +212,7 @@
     "pk": 9,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/jazz.png",
+      "image": "samples/jazz",
       "title": "Evening Jazz Night",
       "slug": "evening-jazz-night",
       "description": "A soulful night of live jazz performances with top local artists.",
@@ -238,7 +238,7 @@
     "pk": 10,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/bike.png",
+      "image": "samples/bike",
       "title": "City Cycling Marathon",
       "slug": "city-cycling-marathon",
       "description": "Join thousands of cyclists for the annual city-wide cycling marathon.",
@@ -264,7 +264,7 @@
     "pk": 11,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/beach-boat.png",
+      "image": "samples/beach-boat",
       "title": "Summer Beach Party",
       "slug": "summer-beach-party",
       "description": "Dance, drinks, and relaxation by the ocean with a sunset boat cruise.",
@@ -290,7 +290,7 @@
     "pk": 12,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/spices.png",
+      "image": "samples/spices",
       "title": "World of Spices Workshop",
       "slug": "world-of-spices-workshop",
       "description": "Discover the secrets of global cuisines and spices in this hands-on workshop.",
@@ -316,7 +316,7 @@
     "pk": 13,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/kitten-playing.png",
+      "image": "samples/kitten-playing",
       "title": "Pet Adoption Day",
       "slug": "pet-adoption-day",
       "description": "Meet adorable cats and dogs looking for loving homes. Adoption and donation opportunities available.",
@@ -342,7 +342,7 @@
     "pk": 14,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/dance-2.png",
+      "image": "samples/dance-2",
       "title": "Street Dance Festival",
       "slug": "street-dance-festival",
       "description": "Experience the energy of dance crews battling it out in the streets.",
@@ -368,7 +368,7 @@
     "pk": 15,
     "fields": {
       "organizer": 2,
-      "image": "image/upload/v1758052069/landscape-panorama.png",
+      "image": "samples/landscape-panorama",
       "title": "Photography Walk",
       "slug": "photography-walk",
       "description": "Capture breathtaking landscapes and city views on this guided photography walk.",
