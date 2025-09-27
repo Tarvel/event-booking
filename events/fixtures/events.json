@@ -212,7 +212,7 @@
     "pk": 9,
     "fields": {
       "organizer": 2,
-      "image": "samples/jazz",
+      "image": "samples/people/jazz",
       "title": "Evening Jazz Night",
       "slug": "evening-jazz-night",
       "description": "A soulful night of live jazz performances with top local artists.",
@@ -264,7 +264,7 @@
     "pk": 11,
     "fields": {
       "organizer": 2,
-      "image": "samples/beach-boat",
+      "image": "samples/landscapes/beach-boat",
       "title": "Summer Beach Party",
       "slug": "summer-beach-party",
       "description": "Dance, drinks, and relaxation by the ocean with a sunset boat cruise.",
@@ -290,7 +290,7 @@
     "pk": 12,
     "fields": {
       "organizer": 2,
-      "image": "samples/spices",
+      "image": "samples/food/spices",
       "title": "World of Spices Workshop",
       "slug": "world-of-spices-workshop",
       "description": "Discover the secrets of global cuisines and spices in this hands-on workshop.",
@@ -316,7 +316,7 @@
     "pk": 13,
     "fields": {
       "organizer": 2,
-      "image": "samples/kitten-playing",
+      "image": "samples/animals/kitten-playing",
       "title": "Pet Adoption Day",
       "slug": "pet-adoption-day",
       "description": "Meet adorable cats and dogs looking for loving homes. Adoption and donation opportunities available.",
@@ -368,7 +368,7 @@
     "pk": 15,
     "fields": {
       "organizer": 2,
-      "image": "samples/landscape-panorama",
+      "image": "samples/landscapes/landscape-panorama",
       "title": "Photography Walk",
       "slug": "photography-walk",
       "description": "Capture breathtaking landscapes and city views on this guided photography walk.",
