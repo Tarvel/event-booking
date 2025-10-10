@@ -161,6 +161,11 @@ def paystack_webhook(request):
                 registration=registration,
             )
 
+            paid = Payment.objects.filter(payment_reference=payment_reference).first()
+
+            if paid:
+                return HttpResponse(status=200)
+
             payment = Payment.objects.create(
                 registration=registration,
                 user=user,
@@ -169,7 +174,7 @@ def paystack_webhook(request):
                 status="success",
                 paid_at=timezone.now(),
             )
-            
-            dt(event.slug, registration.user)
 
-    return HttpResponse(status=200)
+            dt(registration.event.slug, registration.user)
+
+            return HttpResponse(status=201)

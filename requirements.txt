@@ -17,6 +17,7 @@ cssselect2==0.8.0
 dj-database-url==3.0.1
 Django==5.2.5
 django-browser-reload==1.18.0
+django-environ==0.12.0
 django-htmx==1.23.2
 django-tailwind==4.2.0
 dotenv==0.9.9
@@ -50,7 +51,6 @@ pypdf==6.0.0
 pyphen==0.17.2
 python-bidi==0.6.6
 python-dateutil==2.9.0.post0
-python-dotenv==1.1.1
 python-slugify==8.0.4
 PyYAML==6.0.2
 qrcode==8.2

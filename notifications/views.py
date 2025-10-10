@@ -54,8 +54,8 @@ def mark_notification_read(request, notif_id):
 
 @login_required(login_url="login")
 def mark_all_read(request):
-    notifications = Notification.objects.all()
+    notifications = Notification.objects.filter(is_read=False)
     for notification in notifications:
         notification.is_read = True
-        notification.save()
+        notification.save(update_fields=["is_read"])
         return redirect('notifications_list')
