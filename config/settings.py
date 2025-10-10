@@ -1,28 +1,27 @@
-import environ
-import os
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+load_dotenv()
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    DEBUG=(bool, False),
-)
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-SECRET_KEY = env("SECRET_KEY")
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
+DEBUG = False
 
-if DEBUG:
-    ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -89,6 +88,9 @@ TAILWIND_APP_NAME = "theme"
 WSGI_APPLICATION = "config.wsgi.application"
 
 
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -98,6 +100,8 @@ DATABASES = {
 
 AUTH_USER_MODEL = "accounts.User"
 
+# Password validation
+# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -115,6 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -127,8 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Optional but useful if you also keep a top-level /static folder
 STATICFILES_DIRS = [
@@ -141,22 +148,26 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-PAYSTACK_SECRET_KEY = env("PAYSTACK_SECRET_KEY")
+PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
 CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 
 cloudinary.config(
-    cloud_name=env("CLOUDINARY_NAME"),
-    api_secret=env("CLOUDINARY_API_SECRET"),
-    api_key=env("CLOUDINARY_API_KEY"),
+    cloud_name=os.getenv("CLOUDINARY_NAME"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
 )
 
-DATABASES = {"default": dj_database_url.config(default=env("DATABASE_URL"))}
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
