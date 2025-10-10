@@ -166,15 +166,16 @@ def paystack_webhook(request):
             if paid:
                 return HttpResponse(status=200)
 
-            payment = Payment.objects.create(
-                registration=registration,
-                user=user,
-                payment_reference=payment_reference,
-                amount=registration.event.ticket_price,
-                status="success",
-                paid_at=timezone.now(),
-            )
+            else:
+                payment = Payment.objects.create(
+                    registration=registration,
+                    user=user,
+                    payment_reference=payment_reference,
+                    amount=registration.event.ticket_price,
+                    status="success",
+                    paid_at=timezone.now(),
+                )
 
-            dt(registration.event.slug, registration.user)
+                dt(registration.event.slug, registration.user)
 
-            return HttpResponse(status=201)
+                return HttpResponse(status=201)
