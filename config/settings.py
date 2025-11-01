@@ -149,7 +149,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
-CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]  # Change this shit later
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com/"]  # Change this shit later
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 
