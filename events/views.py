@@ -11,6 +11,8 @@ from .models import Events
 from booking.models import Registration, Ticket
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, EmailMessage
+from events.utils.emails import send_ticket_email_with_pdf_async
+
 
 User = get_user_model()
 
@@ -378,38 +380,4 @@ def place_autocomplete(request):
 
 
 def dt(slug, user):
-    reg = Registration.objects.filter(event__slug=slug).first()
-    tic = Ticket.objects.get(registration=reg)
-    ticket_code = tic.unique_code
-
-    # Generate QR code
-    img = qrcode.make(ticket_code)
-    buffer = BytesIO()
-    img.save(buffer, format="PNG")
-    img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-    template = get_template("ticket.html")
-    html = template.render(
-        {
-            "user": user,
-            "qr_image": img_base64,
-            "reg": reg,
-        }
-    )
-
-    pdf_buffer = BytesIO()
-    pisa.CreatePDF(html, dest=pdf_buffer)
-
-    # Create the email
-    email = EmailMessage(
-        "Your Event Ticket",
-        "Please find attached your ticket.",
-        "ayodeji.tbbtnd@gmail.com",
-        [user.email],
-    )
-
-    # Attach the PDF
-    filename = f"{reg.event.title.title()}_Ticket_For_{user.email}.pdf"
-    email.attach(filename, pdf_buffer.getvalue(), "application/pdf")
-
-    email.send(fail_silently=False)
+    send_ticket_email_with_pdf_async(slug, user)

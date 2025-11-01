@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Event Ticket</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f7f8fa;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #209930;
+      color: #ffffff;
+      text-align: center;
+      padding: 25px 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .content {
+      padding: 25px 30px;
+      line-height: 1.6;
+    }
+
+    .content h2 {
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .ticket-box {
+      background-color: #f9fafb;
+      border: 1px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 15px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .ticket-box strong {
+      display: block;
+      font-size: 18px;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #209930;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #146b1f;
+    }
+
+    .footer {
+      background-color: #f3f4f6;
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .qr {
+      margin-top: 15px;
+    }
+
+    .qr img {
+      width: 120px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Your Ticket Has Arrived!</h1>
+    </div>
+
+    <div class="content">
+      <p>Hi {{ name }},</p>
+
+      <p>Thank you for registering for <strong>{{ ticket_name }}</strong>!</p>
+      <p>We’re excited to have you join us. Your event ticket is attached to this email as a PDF file.</p>
+
+      <div class="ticket-box">
+        <strong>Event:</strong> {{ ticket_name }}<br>
+        <strong>Date:</strong> {{ current_date|date:"F j, Y" }}
+      </div>
+
+      {% if qr_image %}
+      <div class="qr">
+        <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
+      </div>
+      {% endif %}
+
+      <p>You can also download or print the attached ticket to show at the venue.</p>
+
+      <p style="margin-top: 25px;">
+        <a href="#" class="btn">Download Ticket</a>
+      </p>
+
+      <p style="margin-top: 30px;">See you soon,<br>The Events Team</p>
+    </div>
+
+    <div class="footer">
+      © {{ current_date|date:"Y" }} Events Co. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

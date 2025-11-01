@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "payment",
     "notifications",
     "cloudinary",
+    "anymail",
 ]
 
 if DEBUG is True:
