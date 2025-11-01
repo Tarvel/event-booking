@@ -96,17 +96,17 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Your Ticket Has Arrived!</h1>
+      <h1>Your Ticket Has Arrived</h1>
     </div>
 
     <div class="content">
       <p>Hi {{ name }},</p>
 
-      <p>Thank you for registering for <strong>{{ ticket_name }}</strong>!</p>
+      <p>Thank you for registering for <strong>{{ event }}</strong>!</p>
       <p>We’re excited to have you join us. Your event ticket is attached to this email as a PDF file.</p>
 
       <div class="ticket-box">
-        <strong>Event:</strong> {{ ticket_name }}<br>
+        <strong>Event:</strong> {{ event }}<br>
         <strong>Date:</strong> {{ current_date|date:"F j, Y" }}
       </div>
 
@@ -119,14 +119,14 @@
       <p>You can also download or print the attached ticket to show at the venue.</p>
 
       <p style="margin-top: 25px;">
-        <a href="#" class="btn">Download Ticket</a>
+        <a href="#" class="btn">View Event Details</a>
       </p>
 
       <p style="margin-top: 30px;">See you soon,<br>The Events Team</p>
     </div>
 
     <div class="footer">
-      © {{ current_date|date:"Y" }} Events Co. All rights reserved.
+      © {{ date|date:"Y" }} Events Co. All rights reserved.
     </div>
   </div>
 </body>
