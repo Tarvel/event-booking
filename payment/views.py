@@ -150,17 +150,6 @@ def paystack_webhook(request):
             event.save(update_fields=["available_ticket"])
             event.refresh_from_db()
 
-            unique_code = f"TIK-{str(uuid.uuid4())[0:8]}"
-            ticket = Ticket.objects.create(
-                registration=registration, unique_code=unique_code
-            )
-
-            notification = Notification.objects.create(
-                user=user,
-                notification_type="ticket_ready",
-                registration=registration,
-            )
-
             paid = Payment.objects.filter(payment_reference=payment_reference).first()
 
             if paid:
@@ -174,6 +163,17 @@ def paystack_webhook(request):
                     amount=registration.event.ticket_price,
                     status="success",
                     paid_at=timezone.now(),
+                )
+
+                unique_code = f"TIK-{str(uuid.uuid4())[0:8]}"
+                ticket = Ticket.objects.create(
+                    registration=registration, unique_code=unique_code
+                )
+
+                notification = Notification.objects.create(
+                    user=user,
+                    notification_type="ticket_ready",
+                    registration=registration,
                 )
 
                 dt(registration.event.slug, registration.user)
