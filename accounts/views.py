@@ -75,6 +75,7 @@ def loginPage(request):
 
     return render(request, "accounts/login.html", context)
 
+
 @login_required(login_url="login")
 def logoutPage(request):
     logout(request)
@@ -117,22 +118,32 @@ def profilePage(request):
 @login_required(login_url="login")
 def update_profile(request):
     user = request.user
-    form = UpdateProfileForm(instance=user)
-    method = request.method
-    if method == "POST":
+
+    if request.method == "POST":
         form = UpdateProfileForm(request.POST, instance=user)
         if form.is_valid():
-            form.email = form.cleaned_data["username"]
             user = form.save(commit=False)
             user.username = user.email
             user.save()
 
             messages.success(request, "Profile updated successfully")
-            return redirect("profile")
-        else:
-            form = UpdateProfileForm()
 
-    context = {"form": form}
+            next_url = request.POST.get("next")
+
+            if next_url != "None":
+                return redirect(next_url)
+            else:
+                return redirect("profile")
+
+    else:
+        form = UpdateProfileForm(instance=user)
+
+    referer_url = request.META.get("HTTP_REFERER")
+
+    context = {
+        "form": form,
+        "next_url": referer_url,
+    }
     return render(request, "accounts/edit_profile.html", context)
 
 
@@ -165,6 +176,7 @@ def dashboard(request):
         "user": user,
     }
     return render(request, "accounts/dashboard.html", context)
+
 
 def password_change_done(request):
     messages.success(request, "password changed sucessfully")
