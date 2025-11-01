@@ -3,15 +3,15 @@
     "model": "events.events",
     "pk": 1,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "cld-sample-2",
       "title": "Mountain Adventure Retreat",
       "slug": "mountain-adventure-retreat",
       "description": "A weekend escape into the mountains with guided hikes, bonfires, and breathtaking views.",
       "category": "sports",
-      "start_date": "2025-11-10",
+      "start_date": "2026-11-10",
       "start_time": "07:00:00",
-      "end_date": "2025-11-12",
+      "end_date": "2026-11-12",
       "end_time": "19:00:00",
       "venue": "Blue Ridge Mountains",
       "longitude": 6.5244,
@@ -21,23 +21,23 @@
       "used_ticket": 20,
       "max_capacity": 100,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 2,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "cld-sample-3",
       "title": "Street Basketball Tournament",
       "slug": "street-basketball-tournament",
       "description": "Teams from around the city compete in an electrifying street basketball showdown.",
       "category": "sports",
-      "start_date": "2025-10-20",
+      "start_date": "2026-10-20",
       "start_time": "15:00:00",
-      "end_date": "2025-10-20",
+      "end_date": "2026-10-20",
       "end_time": "21:00:00",
       "venue": "Downtown Arena",
       "longitude": 6.521,
@@ -47,23 +47,23 @@
       "used_ticket": 50,
       "max_capacity": 200,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 3,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "cld-sample-4",
       "title": "Waffles & Fruit Brunch",
       "slug": "waffles-fruit-brunch",
       "description": "A delightful Sunday brunch featuring freshly made waffles, seasonal fruits, and coffee.",
       "category": "food",
-      "start_date": "2025-10-05",
+      "start_date": "2026-10-05",
       "start_time": "10:00:00",
-      "end_date": "2025-10-05",
+      "end_date": "2026-10-05",
       "end_time": "14:00:00",
       "venue": "City Café",
       "longitude": 6.528,
@@ -73,23 +73,23 @@
       "used_ticket": 30,
       "max_capacity": 130,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 4,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "cld-sample-5",
       "title": "Sneaker Culture Expo",
       "slug": "sneaker-culture-expo",
       "description": "An exhibition for sneaker lovers showcasing rare kicks, custom designs, and streetwear brands.",
       "category": "arts",
-      "start_date": "2025-12-02",
+      "start_date": "2026-12-02",
       "start_time": "11:00:00",
-      "end_date": "2025-12-04",
+      "end_date": "2026-12-04",
       "end_time": "20:00:00",
       "venue": "Expo Center Hall A",
       "longitude": 6.522,
@@ -99,23 +99,23 @@
       "used_ticket": 120,
       "max_capacity": 420,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 5,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/dessert-on-a-plate",
       "title": "Dessert Lovers Meetup",
       "slug": "dessert-lovers-meetup",
       "description": "Sweet treats and networking — an evening of cakes, pastries, and creative desserts.",
       "category": "food",
-      "start_date": "2025-10-28",
+      "start_date": "2026-10-28",
       "start_time": "17:00:00",
-      "end_date": "2025-10-28",
+      "end_date": "2026-10-28",
       "end_time": "21:00:00",
       "venue": "Sweet Tooth Café",
       "longitude": 6.519,
@@ -125,23 +125,23 @@
       "used_ticket": 20,
       "max_capacity": 100,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 6,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/woman-on-a-football-field",
       "title": "Women’s Football Match",
       "slug": "womens-football-match",
       "description": "A competitive women’s football match bringing energy and spirit to the field.",
       "category": "sports",
-      "start_date": "2025-11-12",
+      "start_date": "2026-11-12",
       "start_time": "16:00:00",
-      "end_date": "2025-11-12",
+      "end_date": "2026-11-12",
       "end_time": "18:00:00",
       "venue": "National Stadium",
       "longitude": 6.51,
@@ -151,23 +151,23 @@
       "used_ticket": 50,
       "max_capacity": 450,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 7,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/balloons",
       "title": "Children’s Fun Fair",
       "slug": "childrens-fun-fair",
       "description": "A colorful fair with games, rides, balloons, and snacks for kids and families.",
       "category": "other",
-      "start_date": "2025-12-20",
+      "start_date": "2026-12-20",
       "start_time": "09:00:00",
-      "end_date": "2025-12-20",
+      "end_date": "2026-12-20",
       "end_time": "19:00:00",
       "venue": "City Park",
       "longitude": 6.529,
@@ -177,23 +177,23 @@
       "used_ticket": 120,
       "max_capacity": 620,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 8,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/sea-turtle",
       "title": "Marine Conservation Talk",
       "slug": "marine-conservation-talk",
       "description": "Experts discuss ocean conservation, sea turtle preservation, and marine biodiversity.",
       "category": "technology",
-      "start_date": "2025-11-18",
+      "start_date": "2026-11-18",
       "start_time": "13:00:00",
-      "end_date": "2025-11-18",
+      "end_date": "2026-11-18",
       "end_time": "16:00:00",
       "venue": "Oceanic Research Center",
       "longitude": 6.512,
@@ -203,23 +203,23 @@
       "used_ticket": 50,
       "max_capacity": 250,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 9,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/people/jazz",
       "title": "Evening Jazz Night",
       "slug": "evening-jazz-night",
       "description": "A soulful night of live jazz performances with top local artists.",
       "category": "arts",
-      "start_date": "2025-10-30",
+      "start_date": "2026-10-30",
       "start_time": "19:30:00",
-      "end_date": "2025-10-30",
+      "end_date": "2026-10-30",
       "end_time": "23:00:00",
       "venue": "Downtown Jazz Bar",
       "longitude": 6.51,
@@ -229,23 +229,23 @@
       "used_ticket": 40,
       "max_capacity": 190,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 10,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/bike",
       "title": "City Cycling Marathon",
       "slug": "city-cycling-marathon",
       "description": "Join thousands of cyclists for the annual city-wide cycling marathon.",
       "category": "sports",
-      "start_date": "2025-11-01",
+      "start_date": "2026-11-01",
       "start_time": "07:00:00",
-      "end_date": "2025-11-01",
+      "end_date": "2026-11-01",
       "end_time": "14:00:00",
       "venue": "Main Square",
       "longitude": 6.514,
@@ -255,23 +255,23 @@
       "used_ticket": 70,
       "max_capacity": 420,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 11,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/landscapes/beach-boat",
       "title": "Summer Beach Party",
       "slug": "summer-beach-party",
       "description": "Dance, drinks, and relaxation by the ocean with a sunset boat cruise.",
       "category": "music",
-      "start_date": "2025-12-15",
+      "start_date": "2026-12-15",
       "start_time": "15:00:00",
-      "end_date": "2025-12-15",
+      "end_date": "2026-12-15",
       "end_time": "23:00:00",
       "venue": "Palm Beach",
       "longitude": 6.511,
@@ -281,23 +281,23 @@
       "used_ticket": 90,
       "max_capacity": 340,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 12,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/food/spices",
       "title": "World of Spices Workshop",
       "slug": "world-of-spices-workshop",
       "description": "Discover the secrets of global cuisines and spices in this hands-on workshop.",
       "category": "food",
-      "start_date": "2025-11-08",
+      "start_date": "2026-11-08",
       "start_time": "11:00:00",
-      "end_date": "2025-11-08",
+      "end_date": "2026-11-08",
       "end_time": "15:00:00",
       "venue": "Gourmet Kitchen Studio",
       "longitude": 6.519,
@@ -307,23 +307,23 @@
       "used_ticket": 20,
       "max_capacity": 110,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 13,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/animals/kitten-playing",
       "title": "Pet Adoption Day",
       "slug": "pet-adoption-day",
       "description": "Meet adorable cats and dogs looking for loving homes. Adoption and donation opportunities available.",
       "category": "other",
-      "start_date": "2025-10-25",
+      "start_date": "2026-10-25",
       "start_time": "09:00:00",
-      "end_date": "2025-10-25",
+      "end_date": "2026-10-25",
       "end_time": "17:00:00",
       "venue": "Animal Shelter Grounds",
       "longitude": 6.515,
@@ -333,23 +333,23 @@
       "used_ticket": 50,
       "max_capacity": 250,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 14,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/dance-2",
       "title": "Street Dance Festival",
       "slug": "street-dance-festival",
       "description": "Experience the energy of dance crews battling it out in the streets.",
       "category": "arts",
-      "start_date": "2025-11-22",
+      "start_date": "2026-11-22",
       "start_time": "14:00:00",
-      "end_date": "2025-11-22",
+      "end_date": "2026-11-22",
       "end_time": "21:00:00",
       "venue": "City Square",
       "longitude": 6.52,
@@ -359,23 +359,23 @@
       "used_ticket": 80,
       "max_capacity": 380,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   },
   {
     "model": "events.events",
     "pk": 15,
     "fields": {
-      "organizer": 2,
+      "organizer": 1,
       "image": "samples/landscapes/landscape-panorama",
       "title": "Photography Walk",
       "slug": "photography-walk",
       "description": "Capture breathtaking landscapes and city views on this guided photography walk.",
       "category": "arts",
-      "start_date": "2025-10-18",
+      "start_date": "2026-10-18",
       "start_time": "08:00:00",
-      "end_date": "2025-10-18",
+      "end_date": "2026-10-18",
       "end_time": "12:00:00",
       "venue": "Riverfront Promenade",
       "longitude": 6.517,
@@ -385,8 +385,8 @@
       "used_ticket": 15,
       "max_capacity": 85,
       "is_published": true,
-      "published_at": "2025-09-24",
-      "created_at": "2025-09-24"
+      "published_at": "2026-09-24",
+      "created_at": "2026-09-24"
     }
   }
 ]
