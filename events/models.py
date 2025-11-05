@@ -38,6 +38,7 @@ class Events(models.Model):
     latitude = models.FloatField(null=True, blank=True)
 
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    ticket_bought = models.IntegerField(default=0)
     available_ticket = models.IntegerField(null=True, blank=True)
     used_ticket = models.IntegerField(default=0)
     max_capacity = models.IntegerField(default=0)
@@ -46,12 +47,6 @@ class Events(models.Model):
     published_at = models.DateField(blank=True, null=True)
 
     created_at = models.DateField(auto_now_add=True)
-
-    @property
-    def ticket_bought(self):
-        if self.max_capacity is None or self.available_ticket is None:
-            return 0
-        return int(self.max_capacity) - int(self.available_ticket)
 
     @property
     def revenue(self):

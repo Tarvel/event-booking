@@ -156,6 +156,10 @@ def paystack_webhook(request):
                 return HttpResponse(status=200)
 
             else:
+                event.ticket_bought += 1
+                event.save(update_fields=["ticket_bought"])
+                event.refresh_from_db()
+
                 payment = Payment.objects.create(
                     registration=registration,
                     user=user,
