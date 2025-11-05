@@ -25,6 +25,9 @@ def registerPage(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.email
+            if User.objects.filter(email=user.email).first():
+                messages.error(request, "Email exists, Please use a different email address")
+                return redirect("register")
             user.save()
             login(request, user)
 
