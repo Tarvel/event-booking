@@ -2,14 +2,15 @@
 
 set -e  # exit on error
 
-echo "Applying database migrations..."
-python manage.py migrate --noinput
+if [ "${RUN_MIGRATIONS_ON_STARTUP:-0}" = "1" ]; then
+	echo "Applying database migrations..."
+	python manage.py migrate --noinput
+fi
 
-echo "Collecting static files..."
-python manage.py collectstatic --noinput
-
-echo "loading fixture data"
-python manage.py loaddata events.json
+if [ "${LOAD_FIXTURES_ON_STARTUP:-0}" = "1" ]; then
+	echo "Loading fixture data..."
+	python manage.py loaddata events.json
+fi
 
 echo "Starting server..."
 exec gunicorn config.wsgi --log-file -
