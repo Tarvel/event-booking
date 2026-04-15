@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -160,11 +160,11 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
 )
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
-}
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("DATABASE_URL")
+#     )
+# }
 
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = "smtp.gmail.com"
