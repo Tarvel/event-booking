@@ -5,7 +5,7 @@ A ticketing platform with QR-based ticket validation, downloadable tickets and s
 
 
 ##  Live Demo
-[Try it here](https://event-booking-h693.onrender.com)
+[Try it here](https://event-book-efb7e3b59b4c.herokuapp.com)
 
 
 ## Features
