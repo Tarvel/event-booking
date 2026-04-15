@@ -87,7 +87,7 @@ def event_detail(request, slug):
     return render(request, "events/event_detail.html", context)
 
 
-def download_ticket(request, slug):S
+def download_ticket(request, slug):
     reg = Registration.objects.filter(event__slug=slug).first()
     tic = Ticket.objects.get(registration=reg)
     ticket_code = tic.unique_code
