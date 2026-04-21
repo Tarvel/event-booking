@@ -1,2 +1,2 @@
 release: python manage.py migrate --noinput
-web: ./entrypoint.sh
+web: WEB_CONCURRENCY=1 ./entrypoint.sh
