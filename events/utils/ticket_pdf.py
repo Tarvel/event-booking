@@ -1,11 +1,11 @@
 import base64
 import logging
 import os
-import shutil
 from io import BytesIO
 
 import qrcode
 import requests
+import weasyprint
 from django.template.loader import get_template
 
 from booking.models import Ticket
@@ -58,64 +58,13 @@ def build_ticket_html(registration, user):
 
 
 def render_ticket_pdf_bytes(html: str) -> bytes:
-    try:
-        from playwright.sync_api import Error as PlaywrightError
-        from playwright.sync_api import sync_playwright
-    except ImportError as exc:
-        raise RuntimeError(
-            "Playwright is not installed. Install dependencies and run "
-            "'python -m playwright install chromium'."
-        ) from exc
+    """Render ticket HTML to PDF using WeasyPrint.
 
-    def resolve_chromium_executable() -> str | None:
-        env_path = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH")
-        if env_path and os.path.exists(env_path):
-            return env_path
-
-        for candidate in (
-            "chromium",
-            "chromium-browser",
-            "google-chrome",
-            "google-chrome-stable",
-        ):
-            path = shutil.which(candidate)
-            if path:
-                return path
-
-        return None
-
-    with sync_playwright() as p:
-        launch_kwargs = {
-            "headless": True,
-            "args": ["--no-sandbox", "--disable-dev-shm-usage"],
-        }
-        browser_path = resolve_chromium_executable()
-        if browser_path:
-            launch_kwargs["executable_path"] = browser_path
-
-        try:
-            browser = p.chromium.launch(**launch_kwargs)
-        except PlaywrightError as exc:
-            if "Executable doesn't exist" in str(exc):
-                raise RuntimeError(
-                    "Chromium browser binary not found. "
-                    "Run 'python -m playwright install chromium' "
-                    "or set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH."
-                ) from exc
-            raise
-
-        page = browser.new_page(viewport={"width": 1120, "height": 780})
-        page.set_content(html, wait_until="networkidle")
-        pdf_bytes = page.pdf(
-            print_background=True,
-            width="210mm",
-            height="148mm",
-            margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
-            prefer_css_page_size=True,
-        )
-        browser.close()
-
-    return pdf_bytes
+    WeasyPrint uses Cairo/Pango for rendering, which supports modern CSS
+    including gradients, table-cell layout, border-radius, and base64
+    images — producing output near-identical to a web browser.
+    """
+    return weasyprint.HTML(string=html).write_pdf()
 
 
 def generate_ticket_pdf_bytes(registration, user) -> bytes:

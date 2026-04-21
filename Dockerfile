@@ -29,7 +29,6 @@ CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
 # stage  two: production
 FROM python:3.11-slim
 
-ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 
 RUN useradd -m -r appuser && \
    mkdir /app && \
@@ -45,9 +44,11 @@ WORKDIR /app
 # Copy application code
 COPY --chown=appuser:appuser . .
 
-RUN mkdir -p /ms-playwright && \
-   python -m playwright install --with-deps chromium && \
-   chown -R appuser:appuser /ms-playwright
+# WeasyPrint system dependencies (Cairo, Pango, GDK-Pixbuf)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 \
+    libgdk-pixbuf2.0-0 libffi-dev libcairo2 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
