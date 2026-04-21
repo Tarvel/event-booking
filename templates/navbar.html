@@ -1,134 +1,167 @@
-<header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-slate-200">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="{% url 'home' %}" class="text-2xl font-extrabold text-green-600">EventBook</a>
-        
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-            <a href="{% url 'home' %}" class="hover:text-green-600 transition-colors">Events</a>
-            <a href="https://babatunde-taiye.fly.dev/about" class="hover:text-green-600 transition-colors">About</a>
-            <a href="https://babatunde-taiye.fly.dev/contact" class="hover:text-green-600 transition-colors">Contact</a>
-        </div>
-        
-        <!-- Right Section: Auth Links or User Menu -->
-        <div class="flex items-center gap-4">
-            
-            {% if request.user.is_authenticated %}
-            
-            {% comment %} Notif bell-> {% endcomment %}
-            <div class="relative">
+<header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200/80">
+    <nav class="container mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="flex-shrink-0 text-xl font-bold text-brand-600 tracking-tight">EventBook</a>
 
-            <button id="notification-menu-button"
-                    class="relative p-2 text-slate-500 hover:text-slate-800 rounded-full hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                <span class="sr-only">View notifications</span>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-5-5.917V5a1 1 0 00-2 0v.083A6 6 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                
-                <span id="notif-badge"
-                    class="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-                </span>
-               
-                
-            </button>
-
-            <div id="notification-menu"
-                class="hidden absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200">
-            
-            {% if request.user.is_authenticated  %}
-                 <div id="notifications"
-                    hx-get="{% url 'notifications_partial' %}"
-                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                    hx-trigger="load, every 10s"
-                    hx-swap="innerHTML">
-                    {% include "partials/_notifications.html" with notifications=request.user.notifications.all %}
-                </div>
-            {% endif %}
-                
-               
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-1">
+                <a href="{% url 'home' %}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all">Events</a>
+                <a href="https://babatunde-taiye.fly.dev/about" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all">About</a>
+                <a href="https://babatunde-taiye.fly.dev/contact" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all">Contact</a>
             </div>
-        </div>
 
+            <!-- Right Section -->
+            <div class="flex items-center gap-2 sm:gap-3">
 
+                {% if request.user.is_authenticated %}
 
-            <div class="relative">
-                <button id="profile-menu-button" class="flex items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-9 w-9 rounded-full" src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'No'}}+{{ request.user.last_name|default:'Name' }}&background=random&rounded=true&size=128" 
+                <!-- Notification Bell -->
+                <div class="relative">
+                    <button id="notification-menu-button"
+                            class="relative p-2 text-gray-500 hover:text-gray-900 rounded-xl hover:bg-gray-100 transition-all"
+                            aria-label="View notifications">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-5-5.917V5a1 1 0 00-2 0v.083A6 6 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span id="notif-badge" class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5"></span>
+                    </button>
+
+                    <div id="notification-menu"
+                        class="hidden absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 z-50 overflow-hidden">
+
+                    {% if request.user.is_authenticated %}
+                         <div id="notifications"
+                            hx-get="{% url 'notifications_partial' %}"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-trigger="load, every 10s"
+                            hx-swap="innerHTML">
+                            {% include "partials/_notifications.html" with notifications=request.user.notifications.all %}
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+
+                <!-- Profile Menu -->
+                <div class="relative">
+                    <button id="profile-menu-button" class="flex items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="h-8 w-8 rounded-full ring-2 ring-gray-100" src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'U'}}&background=16a34a&color=fff&rounded=true&size=128&bold=true"
      alt="{{ user.get_full_name }}" >
-                </button>
+                    </button>
 
-                
-                <div id="profile-menu" class="hidden absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border border-slate-200">
-                 
-                    <div class="px-4 py-3 border-b border-slate-200">
-                        <p class="text-sm font-semibold text-slate-900">{{request.user.first_name}} {{request.user.last_name}}</p>
-                        <p class="truncate text-sm text-slate-500">{{request.user.email}}</p>
-                    </div>
-                    {% comment %} Menu Links {% endcomment %}
-                    <div class="py-1">
-                        <a href="{% url 'profile' %}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">View Profile</a>
-                        
-                        {% if request.user.is_organizer %}
-                            <a href="{% url 'dashboard' %}" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">Dashboard</a>
-                        {% endif %}
-                            
-                    </div>
-
-                    <div class="py-1">
-                        <a href="{% url 'logout' %}" class="block w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-100">
-                            Logout
-                        </a>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 z-50 overflow-hidden">
+                        <div class="px-4 py-3 bg-gray-50 border-b border-gray-100">
+                            <p class="text-sm font-semibold text-gray-900">{{request.user.first_name}} {{request.user.last_name}}</p>
+                            <p class="truncate text-xs text-gray-500 mt-0.5">{{request.user.email}}</p>
+                        </div>
+                        <div class="py-1">
+                            <a href="{% url 'profile' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                                View Profile
+                            </a>
+                            {% if request.user.is_organizer %}
+                                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                    <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                                    Dashboard
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="border-t border-gray-100">
+                            <a href="{% url 'logout' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+                                Sign Out
+                            </a>
+                        </div>
                     </div>
                 </div>
+
+                {% else %}
+
+                <a href="{% url 'login' %}" class="hidden sm:inline-flex px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Sign In</a>
+                <a href="{% url 'register' %}" class="bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-700 transition-all shadow-sm hover:shadow-md active:scale-[0.98]">Get Started</a>
+
+                {% endif %}
+
+                <!-- Mobile Hamburger -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle menu">
+                    <div class="w-5 h-5 flex flex-col justify-center items-center gap-[5px]" id="hamburger-icon">
+                        <span class="hamburger-line block w-5 h-[2px] bg-gray-700 rounded-full origin-center"></span>
+                        <span class="hamburger-line block w-5 h-[2px] bg-gray-700 rounded-full origin-center"></span>
+                        <span class="hamburger-line block w-5 h-[2px] bg-gray-700 rounded-full origin-center"></span>
+                    </div>
+                </button>
             </div>
-
-            {% else %}
-
-            <a href="{% url 'login' %}" class="text-sm font-medium text-slate-600 hover:text-green-600 transition-colors">Login</a>
-            <a href="{% url 'register' %}" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors shadow-sm">Register</a>
-
-            {% endif %}
         </div>
     </nav>
 </header>
 
+<!-- Mobile Menu (outside header to prevent layout push) -->
+<div id="mobile-menu" class="hidden fixed inset-x-0 top-16 z-40 md:hidden">
+    <div class="bg-white border-b border-gray-200 shadow-lg">
+        <nav class="container mx-auto px-4 py-3 space-y-1">
+            <a href="{% url 'home' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors">Events</a>
+            <a href="https://babatunde-taiye.fly.dev/about" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors">About</a>
+            <a href="https://babatunde-taiye.fly.dev/contact" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors">Contact</a>
+            {% if not request.user.is_authenticated %}
+            <div class="pt-3 mt-3 border-t border-gray-100 space-y-2">
+                <a href="{% url 'login' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors">Sign In</a>
+                <a href="{% url 'register' %}" class="block text-center bg-brand-600 text-white px-4 py-2.5 rounded-lg text-base font-semibold hover:bg-brand-700 transition-colors">Get Started</a>
+            </div>
+            {% endif %}
+        </nav>
+    </div>
+    <!-- Backdrop -->
+    <div id="mobile-menu-backdrop" class="flex-grow bg-black/20 min-h-screen"></div>
+</div>
+
 <script>
+    // Profile & Notification dropdowns
     const profileMenuButton = document.getElementById('profile-menu-button');
     const profileMenu = document.getElementById('profile-menu');
     const notificationMenuButton = document.getElementById('notification-menu-button');
     const notificationMenu = document.getElementById('notification-menu');
 
     if (profileMenuButton) {
-        profileMenuButton.addEventListener('click', (event) => {
-            event.stopPropagation();
+        profileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
             profileMenu.classList.toggle('hidden');
-            if (notificationMenu) notificationMenu.classList.add('hidden'); 
+            if (notificationMenu) notificationMenu.classList.add('hidden');
         });
     }
-
     if (notificationMenuButton) {
-        notificationMenuButton.addEventListener('click', (event) => {
-            event.stopPropagation();
+        notificationMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
             notificationMenu.classList.toggle('hidden');
-            if (profileMenu) profileMenu.classList.add('hidden'); 
+            if (profileMenu) profileMenu.classList.add('hidden');
         });
     }
-
-    window.addEventListener('click', (event) => {
-        if (profileMenuButton && !profileMenuButton.contains(event.target) && profileMenu && !profileMenu.contains(event.target)) {
-            profileMenu.classList.add('hidden');
-        }
-        if (notificationMenuButton && !notificationMenuButton.contains(event.target) && notificationMenu && !notificationMenu.contains(event.target)) {
-            notificationMenu.classList.add('hidden');
-        }
+    window.addEventListener('click', (e) => {
+        if (profileMenuButton && !profileMenuButton.contains(e.target) && profileMenu && !profileMenu.contains(e.target)) profileMenu.classList.add('hidden');
+        if (notificationMenuButton && !notificationMenuButton.contains(e.target) && notificationMenu && !notificationMenu.contains(e.target)) notificationMenu.classList.add('hidden');
     });
 
-    document.body.addEventListener("htmx:afterRequest", function(evt) {
-    if (evt.detail.elt.tagName === "A" && evt.detail.elt.href) {
-            window.location = evt.detail.elt.href;
-        }
-    });
+    // Mobile hamburger
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
 
+    function toggleMobileMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            hamburgerIcon.classList.add('hamburger-open');
+            document.body.style.overflow = 'hidden';
+        } else {
+            mobileMenu.classList.add('hidden');
+            hamburgerIcon.classList.remove('hamburger-open');
+            document.body.style.overflow = '';
+        }
+    }
+
+    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', toggleMobileMenu);
 </script>

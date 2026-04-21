@@ -2,80 +2,216 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Event Ticket</title>
+    <style>
+        @page { size: A5 landscape; margin: 0; }
+        body { font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; color: #fff; }
+
+        .ticket {
+            width: 560px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        /* Background image region */
+        .ticket-hero {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+        }
+        .ticket-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Dark gradient overlay for readability */
+        .ticket-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.35) 0%,
+                rgba(0,0,0,0.6) 50%,
+                rgba(0,0,0,0.85) 100%
+            );
+        }
+        .ticket-hero-content {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px 24px;
+        }
+        .ticket-hero-content small {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+        .ticket-hero-content h1 {
+            font-size: 22px;
+            margin: 6px 0 0 0;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        .ticket-type-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 3px 10px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Dashed perforation separator */
+        .ticket-perforation {
+            border-top: 2px dashed #ddd;
+            position: relative;
+            height: 0;
+        }
+
+        /* Bottom panel = details + QR */
+        .ticket-bottom {
+            background: #ffffff;
+            color: #1a1a1a;
+            display: table;
+            width: 100%;
+        }
+
+        .ticket-details {
+            display: table-cell;
+            vertical-align: top;
+            padding: 18px 24px;
+            width: 65%;
+        }
+        .detail-grid {
+            display: table;
+            width: 100%;
+        }
+        .detail-row {
+            display: table-row;
+        }
+        .detail-item {
+            display: table-cell;
+            padding-bottom: 12px;
+            vertical-align: top;
+        }
+        .detail-item.right {
+            text-align: right;
+        }
+        .detail-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #999;
+            margin-bottom: 2px;
+        }
+        .detail-value {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        .ticket-qr {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            width: 35%;
+            padding: 16px;
+            border-left: 2px dashed #ddd;
+            background: #fafafa;
+        }
+        .ticket-qr img {
+            width: 120px;
+            height: 120px;
+        }
+        .ticket-qr p {
+            font-size: 8px;
+            color: #999;
+            margin: 6px 0 0 0;
+            letter-spacing: 0.5px;
+        }
+
+        .ticket-footer {
+            background: #f0f0f0;
+            padding: 8px 24px;
+            text-align: center;
+            font-size: 8px;
+            color: #aaa;
+            letter-spacing: 1px;
+            border-top: 1px solid #e5e5e5;
+        }
+    </style>
 </head>
 <body>
+    <div class="ticket">
+        <!-- Hero: Event image background with gradient overlay -->
+        <div class="ticket-hero">
+            {% if event_image %}
+            <img src="data:image/jpeg;base64,{{ event_image }}" alt="Event">
+            {% else %}
+            <div style="width:100%; height:100%; background: linear-gradient(135deg, #166534, #059669);"></div>
+            {% endif %}
+            <div class="ticket-hero-overlay"></div>
+            <div class="ticket-hero-content">
+                <small>YOUR TICKET TO</small>
+                <h1>{{ reg.event.title|upper }}</h1>
+                <span class="ticket-type-badge">{% if reg.event.ticket_price > 0 %}PAID · ₦{{ reg.event.ticket_price|floatformat:0 }}{% else %}FREE RSVP{% endif %}</span>
+            </div>
+        </div>
 
-    <center>
-        <table width="380" border="1" cellpadding="20" cellspacing="0">
-            
-            <tr>
-                <td colspan="2" align="center">
-                    <p><small>YOU'RE GOING TO</small></p>
-                    <h1><strong>{{reg.event.title|upper }}</strong></h1>
-                </td>
-            </tr>
+        <!-- Perforation line -->
+        <div class="ticket-perforation"></div>
 
-            <tr>
-                <td colspan="2" align="center">
-                    <img src="data:image/png;base64,{{ qr_image}}" />
-                    <p><small>Scan this at the gate</small></p>
-                </td>
-            </tr>
+        <!-- Bottom panel: Details + QR -->
+        <div class="ticket-bottom">
+            <div class="ticket-details">
+                <div class="detail-grid">
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <div class="detail-label">Attendee</div>
+                            <div class="detail-value">{{ user.first_name }} {{ user.last_name }}</div>
+                        </div>
+                        <div class="detail-item right">
+                            <div class="detail-label">Order</div>
+                            <div class="detail-value">#{{ reg.order_id }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <div class="detail-label">Venue</div>
+                            <div class="detail-value">{{ reg.event.venue|title }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <div class="detail-label">Date</div>
+                            <div class="detail-value">{{ reg.event.start_date|date:"M j, Y" }}{% if reg.event.end_date %} – {{ reg.event.end_date|date:"M j, Y" }}{% endif %}</div>
+                        </div>
+                        <div class="detail-item right">
+                            <div class="detail-label">Time</div>
+                            <div class="detail-value">{{ reg.event.start_time|date:"h:i A" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <tr>
-                <td colspan="2">
-                    <hr>
-                </td>
-            </tr>
+            <div class="ticket-qr">
+                <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
+                <p>SCAN AT GATE</p>
+            </div>
+        </div>
 
-            <tr>
-                
-                <td>
-                    <small>NAME</small><br>
-                    <b>{{user.first_name}} {{user.last_name}}</b>
-                </td>
-                
-                <td align="right">
-                    <small>TICKET TYPE</small><br>
-                    <b>FREE RSVP</b>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <small>VENUE</small><br>
-                    <b>{{ reg.event.venue|title }}</b>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <small>DATE</small><br>
-                    
-                    <b>{% if reg.event.start_date %}Start: {% endif %}{{ reg.event.start_date|date:"M" }} {{ reg.event.start_date|date:"j" }}, {{ reg.event.start_date|date:"Y" }}</b>
-                    <br>
-                    {% if reg.event.end_date %}
-                    <b>End: {{ reg.event.end_date|date:"M" }} {{ reg.event.end_date|date:"j" }}, {{ reg.event.end_date|date:"Y" }}</b>
-                    {% endif %}
-                </td>
-                <td align="right">
-                    <small>TIME</small><br>
-                    <b>{{ reg.event.start_time|date:"h:i A" }} - {{ reg.event.end_time|date:"h:i A" }} (WAT)</b>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <small>ORDER #</small><br>
-                    <b>#{{reg.order_id}}</b>
-                </td>
-                <td align="right">
-                    <small>REGISTERED</small><br>
-                    <b>{{ reg.registered_at|date:"M" }} {{ reg.registered_at|date:"j" }}, {{ reg.registered_at|date:"Y" }} </b>
-                </td>
-            </tr>
-            
-        </table>
-    </center>
-
+        <div class="ticket-footer">
+            EVENTBOOK · eventbook.com
+        </div>
+    </div>
 </body>
 </html>

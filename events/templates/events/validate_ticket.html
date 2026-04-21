@@ -1,81 +1,54 @@
 {% extends 'base.html' %}
 
-
-{% block title %}
-    Scan - {{event.title|title}}
-{% endblock title %}
-    
-
-
+{% block title %}Scan — {{ event.title|title }}{% endblock title %}
 
 {% block main %}
-    <main class="flex-grow flex items-center justify-center py-12 px-6">
-        <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-            <div class="text-center">
-                <h1 class="text-3xl font-extrabold text-slate-900">Ticket Scanner</h1>
-                <p class="mt-2 text-slate-600">Align the ticket's QR code within the frame to validate.</p>
+<main class="flex-grow flex items-center justify-center py-8 px-4">
+    <div class="max-w-sm w-full">
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+            <div class="text-center mb-6">
+                <h1 class="text-xl font-bold text-gray-900">Ticket Scanner</h1>
+                <p class="mt-1 text-sm text-gray-500">Align the QR code within the frame.</p>
             </div>
-            
-            
-            <div id="qr-reader" class="w-full mt-8 rounded-xl overflow-hidden border-2 border-slate-300 bg-slate-950"></div>
+            <div id="qr-reader" class="w-full rounded-xl overflow-hidden border-2 border-gray-300 bg-gray-950"></div>
         </div>
-    </main>
-    
-  
-    <form id="qr-form" method="post" action="{% url 'validate_ticket' event.slug %}">
-        {% csrf_token %}
-        <input type="hidden" name="qr_data" id="qr-data">
-    </form>
+    </div>
+</main>
 
+<form id="qr-form" method="post" action="{% url 'validate_ticket' event.slug %}">
+    {% csrf_token %}
+    <input type="hidden" name="qr_data" id="qr-data">
+</form>
 
-
-    <script>
+<script>
     let html5QrCode;
-
-    function onScanSuccess(decodedText, decodedResult) {
+    function onScanSuccess(decodedText) {
         const readerDiv = document.getElementById("qr-reader");
-        readerDiv.innerHTML = `<div class="p-8 text-center text-green-500 font-semibold">Scan successful! Validating...</div>`;
-        readerDiv.style.borderColor = '#22c55e';
-
-        console.log("Scanned:", decodedText);
+        readerDiv.innerHTML = `<div class="p-8 text-center text-brand-600 font-semibold text-sm">✓ Scan successful! Validating...</div>`;
+        readerDiv.style.borderColor = '#16a34a';
         document.getElementById("qr-data").value = decodedText;
-
-
         html5QrCode.stop().then(() => {
             document.getElementById("qr-form").submit();
-        }).catch(err => {
-            console.error("Failed to stop scanner:", err);
-            
+        }).catch(() => {
             document.getElementById("qr-form").submit();
         });
     }
-
     document.addEventListener("DOMContentLoaded", function () {
         if (typeof Html5Qrcode === "undefined") {
-            console.error("html5-qrcode library not loaded!");
-            document.getElementById("qr-reader").innerText = "Error: QR Scanner library could not be loaded.";
+            document.getElementById("qr-reader").innerText = "Error: QR Scanner could not load.";
             return;
         }
-
         html5QrCode = new Html5Qrcode("qr-reader");
-
         Html5Qrcode.getCameras().then(devices => {
             if (devices && devices.length) {
-                html5QrCode.start(
-                    { facingMode: "environment" }, 
-                    { fps: 10, qrbox: { width: 250, height: 250 } },
-                    onScanSuccess
-                ).catch(err => {
-                    console.error("QR start error:", err);
-                    document.getElementById("qr-reader").innerText = "Error starting camera. Please grant permission and refresh.";
+                html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 250 } }, onScanSuccess).catch(err => {
+                    document.getElementById("qr-reader").innerText = "Error starting camera. Please grant permission.";
                 });
             } else {
-                console.error("No cameras found");
-                document.getElementById("qr-reader").innerText = "No cameras found on this device.";
+                document.getElementById("qr-reader").innerText = "No cameras found.";
             }
-        }).catch(err => {
-            console.error("Camera error:", err);
-            document.getElementById("qr-reader").innerText = "Could not access camera. Please check permissions.";
+        }).catch(() => {
+            document.getElementById("qr-reader").innerText = "Could not access camera.";
         });
     });
 </script>

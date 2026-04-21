@@ -1,206 +1,163 @@
 {% extends 'base.html' %}
 
-
-{% block title %}
-
-{% if page == "edit" %}
-    Edit Event
-{% else %}
-Create Event
-{% endif %}
-     
-{% endblock title %}
-    
+{% block title %}{% if page == "edit" %}Edit Event{% else %}Create Event{% endif %} — EventBook{% endblock title %}
 
 {% block main %}
-    
-    <main class="flex-grow container mx-auto px-6 py-12 md:py-16">
-        <div class="max-w-4xl mx-auto">
+<main class="flex-grow container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <div class="max-w-3xl mx-auto">
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">
+                {% if page == "edit" %}Update Event{% else %}Create a New Event{% endif %}
+            </h1>
+        </div>
 
-            <div class="mb-8 text-center">
-                <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">
-                {% if page == "edit" %}
-                    Update Event
-                {% else %}
-                    Create a New Event
-                {% endif %}
-                    </h1>
+        <form action="" enctype="multipart/form-data" method="post" class="bg-white p-5 sm:p-8 rounded-2xl border border-gray-200 space-y-8">
+            {% csrf_token %}
+
+            <!-- Event Details -->
+            <div class="space-y-4">
+                <h2 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">Event Details</h2>
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1.5">Event Title</label>
+                    <input type="text" value="{{ form.title.value|default:'' }}" name="title" id="title" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors" placeholder="e.g., Annual Tech Summit 2024">
+                </div>
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1.5">Description</label>
+                    <textarea name="description" id="description" rows="4" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors resize-none" placeholder="Tell attendees about this event...">{{ form.description.value|default:'' }}</textarea>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+                        <select id="category" name="category" required class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="music" {% if form.category.value == "music" %}selected{% endif %}>🎵 Music</option>
+                            <option value="technology" {% if form.category.value == "technology" %}selected{% endif %}>💻 Technology</option>
+                            <option value="food" {% if form.category.value == "food" %}selected{% endif %}>🍔 Food & Drink</option>
+                            <option value="arts" {% if form.category.value == "arts" %}selected{% endif %}>🎨 Art & Culture</option>
+                            <option value="sports" {% if form.category.value == "sports" %}selected{% endif %}>⚽ Sports & Fitness</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Event Image / Flyer</label>
+                        <label for="image" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl px-4 py-6 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-colors">
+                            <svg class="h-8 w-8 text-gray-400 mb-2" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12A2.25 2.25 0 0120.25 20.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd"/></svg>
+                            <span class="text-sm font-semibold text-brand-600">Upload a file</span>
+                            <span class="text-xs text-gray-400 mt-1">PNG, JPG up to 10MB</span>
+                            <input id="image" name="image" type="file" class="sr-only">
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <form action="" enctype="multipart/form-data" method="post" class="space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-                {% csrf_token %}
-                
-                <div class="space-y-6">
-                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Event Details</h2>
-                    
+            <!-- Date & Time -->
+            <div class="space-y-4">
+                <h2 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">Date & Time</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div>
-                        <label for="title" class="block text-sm font-medium text-slate-600 mb-2">Event Title</label>
-                        <input type="text" value="{{form.title.value|default:''}}" name="title" id="title" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., Annual Tech Summit 2024">
+                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1.5">Start Date</label>
+                        <input type="date" name="start_date" id="start_date" value="{{ form.start_date.value|date:'Y-m-d' }}" class="w-full px-3 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
-                    
                     <div>
-                        <label for="description" class="block text-sm font-medium text-slate-600 mb-2">Description</label>
-                        <textarea name="description" id="description" rows="5" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Tell your attendees all about this event...">{{ form.description.value|default:'' }}</textarea>
+                        <label for="start_time" class="block text-sm font-medium text-gray-700 mb-1.5">Start Time</label>
+                        <input type="time" name="start_time" id="start_time" value="{{ form.start_time.value|time:'H:i' }}" class="w-full px-3 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="category" class="block text-sm font-medium text-slate-600 mb-2">Category</label>
-                            <select id="category" name="category" required
-                                class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                                <option value="" disabled selected>Select a category</option>
-                                <option value="music" {% if form.category.value == "music" %}selected{% endif %}>Music</option>
-                                <option value="technology" {% if form.category.value == "technology" %}selected{% endif %}>Technology</option>
-                                <option value="food" {% if form.category.value == "food" %}selected{% endif %}>Food & Drink</option>
-                                <option value="arts" {% if form.category.value == "arts" %}selected{% endif %}>Art & Culture</option>
-                                <option value="sports" {% if form.category.value == "sports" %}selected{% endif %}>Sports & Fitness</option>
-
-                            </select>
-
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-2">Event Image / Flyer</label>
-                            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-slate-900/25 px-6 py-10">
-                                <div class="text-center">
-                                    <svg class="mx-auto h-12 w-12 text-slate-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12A2.25 2.25 0 0120.25 20.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" /></svg>
-                                    <div class="mt-4 flex text-sm leading-6 text-slate-600">
-                                        <label for="image" class="relative cursor-pointer rounded-md font-semibold text-green-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-offset-2 hover:text-green-500">
-                                            <span>Upload a file</span>
-                                            <input id="image" name="image" type="file" class="sr-only">
-                                        </label>
-                                        <p class="pl-1">or drag and drop</p>
-                                    </div>
-                                    <p class="text-xs leading-5 text-slate-500">PNG, JPG, GIF up to 10MB</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-6">
-                     <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Date & Time</h2>
-                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                             <label for="start_date" class="block text-sm font-medium text-slate-600 mb-2">Start Date</label>
-                             <input type="date" name="start_date" id="start_date" value="{{form.start_date.value|date:'Y-m-d' }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        </div>
-                        <div>
-                            <label for="start_time" class="block text-sm font-medium text-slate-600 mb-2">Start Time</label>
-                            <input type="time" name="start_time" id="start_time" value="{{ form.start_time.value|time:'H:i' }}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        </div>
-                        <div>
-                            <label for="end_date" class="block text-sm font-medium text-slate-600 mb-2">End Date <span class="text-slate-400">(Optional)</span></label>
-                            <input type="date" name="end_date" id="end_date" value="{{form.end_date.value|date:'Y-m-d'}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                       </div>
-                       <div>
-                           <label for="end_time" class="block text-sm font-medium text-slate-600 mb-2">End Time <span class="text-slate-400">(Optional)</span></label>
-                           <input type="time" name="end_time" id="end_time" value="{{form.end_time.value|time:'H:i'}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                       </div>
-                     </div>
-                </div>
-
-                <div class="space-y-6">
-                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Location</h2>
                     <div>
-                        <label for="venue" class="block text-sm font-medium text-slate-600 mb-2">Venue / Address</label>
-                        <input type="text" name="venue" id="venue" value="{{form.venue.value|default:''}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., 123 Main Street, Anytown, USA">
-                        <p class="mt-2 text-xs text-slate-500">Your venue will be determined automatically. (be patient)</p>
-
-                        <input type="hidden" name="latitude" id="latitude">
-                        <input type="hidden" name="longitude" id="longitude">
+                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1.5">End Date <span class="text-gray-400 text-xs">(Opt.)</span></label>
+                        <input type="date" name="end_date" id="end_date" value="{{ form.end_date.value|date:'Y-m-d' }}" class="w-full px-3 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
-
-                    <ul id="suggestions" class="bg-white border rounded mt-2"></ul>
-                    
-                </div>
-
-                <div class="space-y-6">
-                    <h2 class="text-xl font-bold border-b border-slate-200 pb-3 text-slate-900">Tickets & Capacity</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                             <label for="ticket_price" class="block text-sm font-medium text-slate-600 mb-2">Ticket Price</label>
-                             <div class="relative">
-                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <span class="text-slate-500 sm:text-sm">₦</span>
-                                </div>
-                                <input type="number" name="ticket_price" id="ticket_price" value="{{form.ticket_price.value|default:''}}" class="w-full pl-7 pr-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="0.00">
-                             </div>
-                        </div>
-                        <div>
-                            <label for="max_capacity" class="block text-sm font-medium text-slate-600 mb-2">Total Tickets Available</label>
-                            <input type="number" name="max_capacity" id="max_capacity" value="{{form.max_capacity.value|default:''}}" class="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., 500">
-                        </div>
+                    <div>
+                        <label for="end_time" class="block text-sm font-medium text-gray-700 mb-1.5">End Time <span class="text-gray-400 text-xs">(Opt.)</span></label>
+                        <input type="time" name="end_time" id="end_time" value="{{ form.end_time.value|time:'H:i' }}" class="w-full px-3 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
                 </div>
-                
-                {% if page == "edit" %}
-                 <div class="pt-6 flex justify-end gap-4 border-t border-slate-200">
-                    
+            </div>
 
-                    <button type="submit" 
-                        class="bg-green-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all">
-                        Update Event
-                    </button>
-
+            <!-- Location -->
+            <div class="space-y-4">
+                <h2 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">Location</h2>
+                <div>
+                    <label for="venue" class="block text-sm font-medium text-gray-700 mb-1.5">Venue / Address</label>
+                    <input type="text" name="venue" id="venue" value="{{ form.venue.value|default:'' }}" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="e.g., 123 Main Street, Anytown">
+                    <p class="mt-1.5 text-xs text-gray-400">Location will auto-detect from your address.</p>
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
                 </div>
-                    {% else %}
-                     <div class="pt-6 flex justify-end gap-4 border-t border-slate-200">
-                    <button type="submit" name="action" value="draft" 
-                        class="bg-slate-100 text-slate-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-slate-200 transition-colors">
-                        Save as Draft
-                    </button>
+                <ul id="suggestions" class="bg-white border border-gray-200 rounded-xl mt-1 overflow-hidden divide-y divide-gray-100 empty:hidden"></ul>
+            </div>
 
-                    <button type="submit" name="action" value="publish" 
-                        class="bg-green-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all">
-                        Publish Event
-                    </button>
-
+            <!-- Tickets & Capacity -->
+            <div class="space-y-4">
+                <h2 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">Tickets & Capacity</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="ticket_price" class="block text-sm font-medium text-gray-700 mb-1.5">Ticket Price</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400 text-sm pointer-events-none">₦</span>
+                            <input type="number" name="ticket_price" id="ticket_price" value="{{ form.ticket_price.value|default:'' }}" class="w-full pl-8 pr-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="max_capacity" class="block text-sm font-medium text-gray-700 mb-1.5">Total Tickets</label>
+                        <input type="number" name="max_capacity" id="max_capacity" value="{{ form.max_capacity.value|default:'' }}" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="e.g., 500">
+                    </div>
                 </div>
-                {% endif %}
-                    
-               
-            </form>
-        </div>
-    </main>
+            </div>
 
+            <!-- Visibility -->
+            <div class="space-y-4">
+                <h2 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">Visibility</h2>
+                <label for="is_private" class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
+                    <div>
+                        <p class="text-sm font-medium text-gray-900">Private Event</p>
+                        <p class="text-xs text-gray-500 mt-0.5">Only accessible via direct link. Hidden from public listings.</p>
+                    </div>
+                    <input type="checkbox" id="is_private" name="is_private" {% if form.is_private.value %}checked{% endif %} class="h-5 w-5 rounded border-gray-300 text-brand-600 focus:ring-brand-500">
+                </label>
+            </div>
 
-    <script>
-        function debounce(fn, delay) {
+            <!-- Actions -->
+            {% if page == "edit" %}
+            <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-100">
+                <a href="{% url 'event_detail' form.instance.slug %}" class="text-center bg-gray-100 text-gray-700 font-semibold py-2.5 px-5 rounded-xl hover:bg-gray-200 transition-colors text-sm">Cancel</a>
+                <button type="submit" class="bg-brand-600 text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200 transition-all active:scale-[0.98] text-sm">Update Event</button>
+            </div>
+            {% else %}
+            <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-100">
+                <button type="submit" name="action" value="draft" class="bg-gray-100 text-gray-700 font-semibold py-2.5 px-5 rounded-xl hover:bg-gray-200 transition-colors text-sm">Save as Draft</button>
+                <button type="submit" name="action" value="publish" class="bg-brand-600 text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200 transition-all active:scale-[0.98] text-sm">Publish Event</button>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</main>
+
+<script>
+    function debounce(fn, delay) {
         let timer;
         return function(...args) {
             clearTimeout(timer);
             timer = setTimeout(() => fn.apply(this, args), delay);
         };
-        }
-
-        document.getElementById("venue").addEventListener(
-        "input",
-        debounce(async function() {
-            const query = this.value;
-            if (query.length < 3) return;
-
-            const response = await fetch(`/autocomplete/?q=${query}`);
-            const results = await response.json();
-
-            let suggestions = document.getElementById("suggestions");
-            suggestions.innerHTML = "";
-            results.forEach(place => {
+    }
+    document.getElementById("venue").addEventListener("input", debounce(async function() {
+        const query = this.value;
+        if (query.length < 3) return;
+        const response = await fetch(`/autocomplete/?q=${query}`);
+        const results = await response.json();
+        let suggestions = document.getElementById("suggestions");
+        suggestions.innerHTML = "";
+        results.forEach(place => {
             let li = document.createElement("li");
             li.textContent = place.display_name;
-            li.className = "p-2 cursor-pointer hover:bg-gray-100";
+            li.className = "px-4 py-3 cursor-pointer hover:bg-gray-50 text-sm text-gray-700 transition-colors";
             li.onclick = () => {
                 document.getElementById("venue").value = place.display_name;
                 suggestions.innerHTML = "";
-
                 document.getElementById("latitude").value = place.lat;
                 document.getElementById("longitude").value = place.lon;
             };
             suggestions.appendChild(li);
-            });
-        }, 400)
-        );
-    </script>
-
-
+        });
+    }, 400));
+</script>
 {% endblock main %}
-    

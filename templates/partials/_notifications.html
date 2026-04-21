@@ -1,8 +1,8 @@
-<div class="p-4 border-b border-slate-200">
-    <h3 class="font-semibold text-slate-900">Notifications</h3>
+<div class="px-4 py-3 border-b border-gray-100">
+    <h3 class="font-semibold text-gray-900 text-sm">Notifications</h3>
 </div>
 
-<div class="divide-y divide-slate-200">
+<div class="divide-y divide-gray-100 max-h-80 overflow-y-auto">
     {% for notification in notifications %}
         <div id="notif-{{ notification.id }}">
 
@@ -11,23 +11,16 @@
                 hx-post="{% url 'mark_notification_read' notification.id %}"
                 hx-trigger="click"
                 hx-swap="none"
-                   class="flex items-center gap-4 p-4 hover:bg-slate-50">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
-                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                             stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18m-3 .75h18A2.25 2.25 0 0021 16.5V7.5A2.25 2.25 0 0018.75 5.25H5.25A2.25 2.25 0 003 7.5v9A2.25 2.25 0 005.25 18.75z" />
-                        </svg>
+                   class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                        <svg class="w-4 h-4 {% if not notification.is_read %}text-emerald-600{% else %}text-gray-400{% endif %}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
                     </div>
-                    <div class="flex-grow">
-                        <p class="text-sm text-slate-800">
-                            Your ticket for <strong>{{ notification.registration.event.title }}</strong> is ready!
-                        </p>
-                        <p class="text-xs text-slate-500">{{ notification.created_at|timesince }} ago</p>
+                    <div class="flex-grow min-w-0">
+                        <p class="text-xs text-gray-800">Your ticket for <strong>{{ notification.registration.event.title }}</strong> is ready!</p>
+                        <p class="text-[10px] text-gray-400 mt-0.5">{{ notification.created_at|timesince }} ago</p>
                     </div>
                     {% if not notification.is_read %}
-                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                    <span class="flex-shrink-0 w-2 h-2 rounded-full bg-brand-500"></span>
                     {% endif %}
                 </a>
             {% endif %}
@@ -37,56 +30,37 @@
                 hx-post="{% url 'mark_notification_read' notification.id %}"
                 hx-trigger="click"
                 hx-swap="none"
-                class="flex items-center gap-4 p-4 hover:bg-slate-50">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
-                        <svg {% if not notification.is_read %}class="w-6 h-6 text-green-600"{% else %}class="w-6 h-6 text-slate-600"{% endif %}
-                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                             stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18M-4.5 12h22.5" />
-                        </svg>
+                class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                        <svg class="w-4 h-4 {% if not notification.is_read %}text-blue-600{% else %}text-gray-400{% endif %}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18"/></svg>
                     </div>
-                    <div class="flex-grow">
-                        <p class="text-sm text-slate-600">
-                            <strong>{{ notification.registration.event.title }}</strong>
-                            is starting in {{ notification.message }} days.
-                        </p>
-                        <p class="text-xs text-slate-500">{{ notification.created_at|timesince }} ago</p>
+                    <div class="flex-grow min-w-0">
+                        <p class="text-xs text-gray-800"><strong>{{ notification.registration.event.title }}</strong> starts in {{ notification.message }} days.</p>
+                        <p class="text-[10px] text-gray-400 mt-0.5">{{ notification.created_at|timesince }} ago</p>
                     </div>
                     {% if not notification.is_read %}
-                        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                    <span class="flex-shrink-0 w-2 h-2 rounded-full bg-brand-500"></span>
                     {% endif %}
                 </a>
             {% endif %}
         </div>
     {% empty %}
-        <p class="p-4 text-sm text-slate-500">No notifications</p>
+        <p class="px-4 py-8 text-center text-xs text-gray-400">No notifications</p>
     {% endfor %}
-
-    {% if notifications %}
-    <div class="p-2 border-t border-slate-200">
-        <a href="{% url 'notifications_list' %}"
-           class="block w-full text-center text-sm font-semibold text-green-600 hover:bg-slate-100 rounded-md py-2">
-            View all notifications
-        </a>
-    </div>
-    {% endif %}
 </div>
 
+{% if notifications %}
+<div class="p-2 border-t border-gray-100">
+    <a href="{% url 'notifications_list' %}" class="block w-full text-center text-xs font-semibold text-brand-600 hover:bg-gray-50 rounded-lg py-2 transition-colors">View all</a>
+</div>
+{% endif %}
 
-
-
-{% comment %} Unread notifications count badge {% endcomment %}
 {% for notification in notifications %}
 {% if not notification.is_read %}
-<span id="notif-badge"
-      hx-swap-oob="true"
-      class="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+<span id="notif-badge" hx-swap-oob="true" class="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
     {% if unread.count > 0 %}
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-    {% else %}
-
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
     {% endif %}
 </span>
 {% endif %}

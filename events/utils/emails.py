@@ -1,22 +1,23 @@
-import base64
 import logging
 import threading
-from io import BytesIO
 
-import qrcode
 from django.conf import settings
-from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.template.loader import render_to_string, get_template
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
-from xhtml2pdf import pisa
-from booking.models import Registration, Ticket
+from booking.models import Registration
+from events.utils.ticket_pdf import generate_ticket_pdf_bytes
 
 logger = logging.getLogger(__name__)
 
 
 def _send_email(
-    subject: str, to_email: str, html_template: str, context: dict, attachments=None
+    subject: str,
+    to_email: str,
+    html_template: str,
+    context: dict,
+    attachments=None,
 ) -> bool:
     """Handles rendering and sending HTML + text email."""
     try:
@@ -41,7 +42,12 @@ def _send_email(
         return True
 
     except Exception as exc:
-        logger.exception("Failed to send email '%s' to %s: %s", subject, to_email, exc)
+        logger.exception(
+            "Failed to send email '%s' to %s: %s",
+            subject,
+            to_email,
+            exc,
+        )
         return False
 
 
@@ -71,28 +77,24 @@ def send_ticket_email_async(to_email, name, ticket_name):
 def send_ticket_email_with_pdf(slug, user):
     """Generate PDF ticket and send via email."""
     try:
-        reg = Registration.objects.filter(event__slug=slug, user=user).first()
+        reg = (
+            Registration.objects.filter(
+                event__slug=slug,
+                user=user,
+                status="approved",
+            )
+            .select_related("event")
+            .first()
+        )
         if not reg:
             logger.warning(
-                "No registration found for slug '%s' and user '%s'", slug, user.email
+                "No registration found for slug '%s' and user '%s'",
+                slug,
+                user.email,
             )
             return False
 
-        ticket = Ticket.objects.get(registration=reg)
-        ticket_code = ticket.unique_code
-
-        # Generate QR code
-        img = qrcode.make(ticket_code)
-        buffer = BytesIO()
-        img.save(buffer, format="PNG")
-        img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-        # Render PDF from template
-        template = get_template("ticket.html")
-        html = template.render({"user": user, "qr_image": img_base64, "reg": reg})
-
-        pdf_buffer = BytesIO()
-        pisa.CreatePDF(html, dest=pdf_buffer)
+        pdf_bytes = generate_ticket_pdf_bytes(registration=reg, user=user)
 
         filename = f"{reg.event.title.title()}_Ticket_For_{user.email}.pdf"
 
@@ -108,7 +110,7 @@ def send_ticket_email_with_pdf(slug, user):
             to_email=user.email,
             html_template="emails/ticket_email.html",
             context=context,
-            attachments=[(filename, pdf_buffer.getvalue(), "application/pdf")],
+            attachments=[(filename, pdf_bytes, "application/pdf")],
         )
 
     except Exception as exc:

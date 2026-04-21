@@ -1,64 +1,117 @@
-{% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock title %}</title>
-    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+    <meta name="description" content="EventBook — Discover, book, and manage events with QR-based ticketing.">
+    <title>{% block title %}EventBook{% endblock title %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
-    <script src="https://unpkg.com/html5-qrcode"></script>
-    {% comment %} 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> {% endcomment %}
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
                     },
+                    colors: {
+                        brand: {
+                            50:  '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        @keyframes slide-in {
-        0% {
-            transform: translateX(calc(100% + 1rem)) translateY(20px);
+        /* Slide-in animation for toasts */
+        @keyframes slide-in-right {
+            0% { transform: translateX(120%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-in-top {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes progress-shrink {
+            0% { width: 100%; }
+            100% { width: 0%; }
+        }
+        .animate-slide-in-right {
+            animation: slide-in-right 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+        }
+        .animate-slide-in-top {
+            animation: slide-in-top 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+        }
+        .toast-progress {
+            animation: progress-shrink 5s linear forwards;
+        }
+
+        /* Hamburger animation */
+        .hamburger-line {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hamburger-open .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-open .hamburger-line:nth-child(2) {
             opacity: 0;
         }
-        100% {
-            transform: translateX(0) translateY(0);
-            opacity: 1;
+        .hamburger-open .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
-        }
-        .animate-slide-in {
-        animation: slide-in 0.2s ease-out forwards;
-        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Hide scrollbar for filter pills */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
-
+    {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-white text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen flex flex-col">
 
     {% include 'navbar.html' %}
 
     {% include 'partials/_flash_alerts.html' %}
-    
-    {% block main %}
-        
-    {% endblock main %}
-        
 
-    <footer class="bg-slate-50 mt-auto py-8 border-t border-slate-200">
-        <div class="container mx-auto px-6 text-center text-slate-500">
-            <p>&copy; 2025 EventBook. All rights reserved.</p>
+    {% block main %}{% endblock main %}
+
+    <footer class="mt-auto bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <a href="{% url 'home' %}" class="text-xl font-bold text-brand-600">EventBook</a>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="{% url 'home' %}" class="hover:text-gray-900 transition-colors">Events</a>
+                    <a href="https://babatunde-taiye.fly.dev/about" class="hover:text-gray-900 transition-colors">About</a>
+                    <a href="https://babatunde-taiye.fly.dev/contact" class="hover:text-gray-900 transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-100 text-center">
+                <p class="text-sm text-gray-400">&copy; 2025 EventBook. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -66,26 +119,21 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const alerts = document.querySelectorAll('.flash-alert');
-        
         alerts.forEach(alert => {
             const closeButton = alert.querySelector('.flash-alert-close');
-            
             const dismissAlert = () => {
                 alert.style.opacity = '0';
-                alert.style.transform = 'translateY(-20px)';
-                setTimeout(() => {
-                    alert.remove();
-                }, 300);
+                alert.style.transform = 'translateX(120%)';
+                setTimeout(() => alert.remove(), 300);
             };
             const timer = setTimeout(dismissAlert, 5000);
-
             if (closeButton) {
                 closeButton.addEventListener('click', () => {
-                    clearTimeout(timer); 
+                    clearTimeout(timer);
                     dismissAlert();
                 });
             }
         });
     });
-    </script>
+</script>
 </html>

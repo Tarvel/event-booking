@@ -13,4 +13,4 @@ if [ "${LOAD_FIXTURES_ON_STARTUP:-0}" = "1" ]; then
 fi
 
 echo "Starting server..."
-exec gunicorn config.wsgi --log-file -
+exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --log-file -

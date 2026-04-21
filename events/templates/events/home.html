@@ -1,99 +1,168 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block title %}
-    Home
-{% endblock title %}
-    
-
+{% block title %}EventBook — Discover Events{% endblock title %}
 
 {% block main %}
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <section>
-            <!-- Hero Section -->
-            <div class="text-center mb-12">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Discover Your Next Experience</h1>
-                <p class="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto">Find and book events happening near you</p>
+<main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+            <div class="max-w-2xl">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">Discover Your Next Experience</h1>
+                <p class="mt-3 text-base sm:text-lg text-brand-100 max-w-xl">Find and book events happening near you. From concerts to conferences, your next adventure starts here.</p>
             </div>
+        </div>
+    </section>
 
-           <!-- Filters -->
-        
-            <form  method="post" action="" >
+    <!-- Filters & Content -->
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
-                {% csrf_token %}
+        <!-- Date Filter Pills -->
+        <div class="mb-4 sm:mb-6" id="date-filters">
+            <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+                <button data-date="all" class="filter-date active flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition-all whitespace-nowrap cursor-pointer">All Dates</button>
+                <button data-date="today" class="filter-date flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition-all whitespace-nowrap cursor-pointer">Today</button>
+                <button data-date="week" class="filter-date flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition-all whitespace-nowrap cursor-pointer">This Week</button>
+                <button data-date="month" class="filter-date flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition-all whitespace-nowrap cursor-pointer">This Month</button>
+            </div>
+        </div>
 
-                <div class="mb-12 space-y-6">
-                
-                    <!-- Date Filter -->
-                    <div id="date-filter-nav" class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
-                        <button type="submit" name="date" value="all" {% if active_date == "all" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-green-600 text-white shadow-md hover:bg-green-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200" {% endif %}>All Dates</button>
-                        <button type="submit" name="date" value="today" {% if active_date == "today" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-green-600 text-white shadow-md hover:bg-green-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200" {% endif %}>Today</button>
-                        <button type="submit" name="date" value="week" {% if active_date == "week" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-green-600 text-white shadow-md hover:bg-green-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200" {% endif %}>This Week</button>
-                        <button type="submit" name="date" value="month" {% if active_date == "month" %}class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 bg-green-600 text-white shadow-md hover:bg-green-700" {% else %} class="date-filter-btn px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 text-slate-600 hover:bg-slate-200" {% endif %}>This Month</button>
-                    </div>
+        <!-- Category Tabs -->
+        <div class="mb-6 sm:mb-8" id="category-filters">
+            <div class="flex gap-1 overflow-x-auto no-scrollbar pb-px -mx-4 px-4 sm:mx-0 sm:px-0 border-b border-gray-200">
 
-                    <!-- For Category -->
-                    <div id="category-filter-nav" hx-swap-oob="true" class="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:gap-x-6 md:gap-8 border-b border-slate-200">
-                        <button type="submit" name="category" value="all" {% if active_category == "all" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>All Categories</button>
-                        <button type="submit" name="category" value="music" {% if active_category == "music" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Music</button>
-                        <button type="submit" name="category" value="technology" {% if active_category == "technology" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Technology</button>
-                        <button type="submit" name="category" value="arts"  {% if active_category == "arts" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Art & Culture</button>
-                        <button type="submit" name="category" value="food" {% if active_category == "food" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Food & Drink</button>
-                        <button type="submit" name="category" value="sports" {% if active_category == "sports" %} class="category-filter-btn pb-3 text-sm md:text-base font-semibold border-b-2 transition-colors duration-200 text-green-600 border-green-500" {% else %} class="category-filter-btn pb-3 text-sm md:text-base font-medium border-b-2 transition-colors duration-200 text-slate-500 border-transparent hover:text-slate-900 hover:border-slate-300" {% endif %}>Sports & Fitness</button>
-                    </div>
+                <button data-category="all" class="filter-cat active flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    All
+                </button>
 
-                </div>
-            </form>
+                <button data-category="music" class="filter-cat flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 1.651a.75.75 0 01.298.599V16.303a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.403-4.909l2.311-.66a1.5 1.5 0 001.088-1.442V6.994l-9 2.572v9.737a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.402-4.909l2.31-.66a1.5 1.5 0 001.088-1.442V5.25a.75.75 0 01.544-.721l10.5-3a.75.75 0 01.456.122z"/></svg>
+                    Music
+                </button>
 
-            <!-- all Event lists -->
-            <div id="event-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                {% include 'events/partials/event_list.html' %}
-                    </div>
+                <button data-category="technology" class="filter-cat flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+                    Technology
+                </button>
 
-                </div>
-            </form>
+                <button data-category="arts" class="filter-cat flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+                    Arts & Culture
+                </button>
 
+                <button data-category="food" class="filter-cat flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.38a48.474 48.474 0 00-6-.37c-2.032 0-4.034.126-6 .37m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265z" /></svg>
+                    Food & Drink
+                </button>
 
-        </section>
-    </main>
+                <button data-category="sports" class="filter-cat flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap -mb-px cursor-pointer">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 00-.584.859 6.753 6.753 0 006.138 5.6 6.73 6.73 0 002.743 1.346A6.707 6.707 0 019.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a.75.75 0 000 1.5h12.75a.75.75 0 000-1.5h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.707 6.707 0 01-1.112-3.173 6.73 6.73 0 002.743-1.347 6.753 6.753 0 006.139-5.6.75.75 0 00-.585-.858 47.077 47.077 0 00-3.07-.543V2.62a.75.75 0 00-.658-.744 49.22 49.22 0 00-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 00-.657.744zm0 2.629c0 3.246 2.412 5.933 5.534 6.358v1.142c-1.476.326-2.7 1.266-3.395 2.537H8.54c-.207 0-.375.168-.375.375V19.5h7.5v-2.625a.375.375 0 00-.375-.375h-.739c-.695-1.271-1.918-2.21-3.395-2.537v-1.142c3.122-.425 5.535-3.112 5.535-6.358V4.09a47.68 47.68 0 00-11.19 0v1.16z" clip-rule="evenodd"/></svg>
+                    Sports & Fitness
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Event Grid -->
+        <div id="event-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {% include 'events/partials/event_list.html' %}
+        </div>
+    </div>
+</main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    
-    let buttons = document.querySelectorAll("button[name='date']");
+(function() {
+    let activeCategory = '{{ active_category }}';
+    let activeDate = '{{ active_date }}';
+    const grid = document.getElementById('event-grid');
 
-    buttons.forEach(button => {
-        button.addEventListener("click", function () {
-            
-            let val = this.value;
+    // --- Style helpers ---
+    const DATE_ACTIVE = 'bg-gray-900 text-white shadow-md';
+    const DATE_IDLE   = 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:bg-gray-50';
+    const CAT_ACTIVE  = 'text-brand-600 border-brand-600';
+    const CAT_IDLE    = 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300';
 
-            document.cookie = "tempDate=" + val + "; max-age=3600; path=/";
+    function setActive(btn, group, activeCls, idleCls) {
+        document.querySelectorAll(group).forEach(b => {
+            activeCls.split(' ').forEach(c => b.classList.remove(c));
+            idleCls.split(' ').forEach(c => b.classList.add(c));
+        });
+        idleCls.split(' ').forEach(c => btn.classList.remove(c));
+        activeCls.split(' ').forEach(c => btn.classList.add(c));
+    }
 
-            if (window.location.hostname === "localhost") {
-                console.log("Stored in cookie:", val);
-            }
+    // --- Fetch & render ---
+    async function loadEvents() {
+        const url = `/?category=${activeCategory}&date=${activeDate}`;
+        history.pushState(null, '', url);
+
+        // Show skeleton
+        grid.style.opacity = '0.5';
+        grid.style.pointerEvents = 'none';
+
+        try {
+            const resp = await fetch(url, {
+                headers: { 'HX-Request': 'true' }
+            });
+            const html = await resp.text();
+            grid.innerHTML = html;
+        } catch (e) {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-16 px-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Something went wrong</h3>
+                    <p class="mt-1 text-sm text-gray-500">Please try again.</p>
+                </div>`;
+        } finally {
+            grid.style.opacity = '1';
+            grid.style.pointerEvents = '';
+        }
+    }
+
+    // --- Wire up date pills ---
+    document.querySelectorAll('.filter-date').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeDate = btn.dataset.date;
+            setActive(btn, '.filter-date', DATE_ACTIVE, DATE_IDLE);
+            loadEvents();
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    let buttons = document.querySelectorAll("button[name='category']");
-
-    buttons.forEach(button => {
-        button.addEventListener( "click", function () {
-            let val = this.value;
-
-            document.cookie = "tempCategory=" + val + "; max=age=3600; path=/";
-
-            if (window.location.hostname === "localhost") {
-                console.log("Stored in cookie:", val);
-            }
+    // --- Wire up category tabs ---
+    document.querySelectorAll('.filter-cat').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeCategory = btn.dataset.category;
+            setActive(btn, '.filter-cat', CAT_ACTIVE, CAT_IDLE);
+            loadEvents();
         });
     });
-});
+
+    // --- Set initial active states from server context ---
+    document.querySelectorAll('.filter-date').forEach(btn => {
+        if (btn.dataset.date === activeDate) {
+            setActive(btn, '.filter-date', DATE_ACTIVE, DATE_IDLE);
+        }
+    });
+    document.querySelectorAll('.filter-cat').forEach(btn => {
+        if (btn.dataset.category === activeCategory) {
+            setActive(btn, '.filter-cat', CAT_ACTIVE, CAT_IDLE);
+        }
+    });
+
+    // --- Handle browser back/forward ---
+    window.addEventListener('popstate', () => {
+        const params = new URLSearchParams(window.location.search);
+        activeCategory = params.get('category') || 'all';
+        activeDate = params.get('date') || 'all';
+
+        document.querySelectorAll('.filter-date').forEach(btn => {
+            if (btn.dataset.date === activeDate) setActive(btn, '.filter-date', DATE_ACTIVE, DATE_IDLE);
+        });
+        document.querySelectorAll('.filter-cat').forEach(btn => {
+            if (btn.dataset.category === activeCategory) setActive(btn, '.filter-cat', CAT_ACTIVE, CAT_IDLE);
+        });
+        loadEvents();
+    });
+})();
 </script>
-
 {% endblock main %}

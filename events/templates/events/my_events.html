@@ -1,63 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cloudinary_thumb %}
 
-
-{% block title %}
-    My Events
-{% endblock title %}
-    
-
+{% block title %}My Events — EventBook{% endblock title %}
 
 {% block main %}
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <section>
-            <!-- Page Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-center sm:text-left mb-8">
-                <div>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Your Events</h1>
-                    <p class="mt-2 text-lg text-slate-600">Manage your published events and drafts.</p>
-                </div>
-                <a href="{% url 'create_event' %}" class="mt-4 sm:mt-0 inline-block bg-green-600 text-white font-bold py-2.5 px-5 rounded-lg hover:bg-green-700 transition-all">
-                    Create New Event
-                </a>
-            </div>
+<main class="flex-grow container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Your Events</h1>
+            <p class="mt-1 text-sm text-gray-500">Manage your published events and drafts.</p>
+        </div>
+        <a href="{% url 'create_event' %}" class="inline-flex items-center justify-center gap-2 bg-brand-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:bg-brand-700 text-sm transition-all active:scale-[0.98]">
+            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            New Event
+        </a>
+    </div>
 
-            <!-- Status Tabs -->
-            <div class="mb-8 border-b border-slate-200">
-                <nav class="flex -mb-px gap-6" aria-label="Tabs">
-                    <a href="?status=published" 
-                       class="shrink-0 border-b-2 px-1 pb-4 text-sm font-medium
-                              {% if active_status != 'drafts' %}
-                                  text-green-600 border-green-500
-                              {% else %}
-                                  text-slate-500 border-transparent hover:text-slate-700 hover:border-slate-300
-                              {% endif %}">
-                        Published
-                    </a>
-                    <a href="?status=drafts" 
-                       class="shrink-0 border-b-2 px-1 pb-4 text-sm font-medium
-                              {% if active_status == 'drafts' %}
-                                  text-green-600 border-green-500
-                              {% else %}
-                                  text-slate-500 border-transparent hover:text-slate-700 hover:border-slate-300
-                              {% endif %}">
-                        Drafts
-                    </a>
-                </nav>
-            </div>
+    <!-- Status Tabs -->
+    <div class="mb-6 border-b border-gray-200">
+        <nav class="flex gap-1 -mb-px overflow-x-auto no-scrollbar">
+            <a href="?status=published" class="flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-all {% if active_status != 'drafts' %}text-brand-600 border-brand-600{% else %}text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300{% endif %}">Published</a>
+            <a href="?status=drafts" class="flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-all {% if active_status == 'drafts' %}text-brand-600 border-brand-600{% else %}text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300{% endif %}">Drafts</a>
+        </nav>
+    </div>
 
-            <!-- Event List -->
-            <div id="event-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                
-                {% comment %} 
-                NOTE: This now includes a modified partial.
-                The backend should pass the filtered list of events (published or drafts)
-                to this template.
-                {% endcomment %}
-                {% include 'events/partials/_my_event_card.html' %}
-
-            </div>
-        </section>
-    </main>
+    <div id="event-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        {% include 'events/partials/_my_event_card.html' %}
+    </div>
+</main>
 {% endblock main %}

@@ -1,43 +1,23 @@
 {% extends 'base.html' %}
 
-    
+{% block title %}Ticket Validated{% endblock title %}
+
 {% block main %}
-
-<main class="flex-grow flex items-center justify-center py-12 px-6">
-        <div class="max-w-md w-full mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
-            
-            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-green-100 mb-6">
-                <svg class="h-12 w-12 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-            </div>
-            
-            <h1 class="text-3xl font-extrabold text-slate-900 mb-3">Ticket Validated</h1>
-            <p class="text-slate-600 mb-8">
-                Access granted. Welcome!
-            </p>
-
-            <hr class="my-8 border-slate-200">
-
-            <div class="text-left space-y-4">
-                <div>
-                    <label class="text-sm font-medium text-slate-500">Event</label>
-                    <p class="text-lg font-semibold text-slate-900">{{reg.event.title}}</p>
-                </div>
-                <div>
-                    <label class="text-sm font-medium text-slate-500">Attendee</label>
-                    <p class="text-lg font-semibold text-slate-900">{{reg.user.first_name}} {{reg.user.last_name}}</p>
-                </div>
-                <div>
-                    <label class="text-sm font-medium text-slate-500">Order #</label>
-                    <p class="font-mono text-slate-700">{{reg.order_id}}</p>
-                </div>
-            </div>
-
-            <a href="{% url 'validate_ticket' %}" class="mt-10 block w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
-                Scan Next Ticket
-            </a>
+<main class="flex-grow flex items-center justify-center py-8 px-4">
+    <div class="max-w-sm w-full bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
+        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mb-5">
+            <svg class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
         </div>
-    </main> 
+        <h1 class="text-xl font-bold text-gray-900 mb-2">Ticket Validated</h1>
+        <p class="text-sm text-gray-500 mb-6">Access granted. Welcome!</p>
 
+        <div class="text-left space-y-3 p-4 bg-gray-50 rounded-xl mb-6">
+            <div><p class="text-xs font-medium text-gray-400">Event</p><p class="text-sm font-semibold text-gray-900">{{ reg.event.title }}</p></div>
+            <div><p class="text-xs font-medium text-gray-400">Attendee</p><p class="text-sm font-semibold text-gray-900">{{ reg.user.first_name }} {{ reg.user.last_name }}</p></div>
+            <div><p class="text-xs font-medium text-gray-400">Order #</p><p class="text-sm font-mono text-gray-700">{{ reg.order_id }}</p></div>
+        </div>
+
+        <a href="{% url 'validate_ticket' reg.event.slug %}" class="block w-full bg-brand-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:bg-brand-700 transition-all active:scale-[0.98] text-sm">Scan Next Ticket</a>
+    </div>
+</main>
 {% endblock main %}

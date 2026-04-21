@@ -29,20 +29,26 @@ CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
 # stage  two: production
 FROM python:3.11-slim
 
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
 RUN useradd -m -r appuser && \
    mkdir /app && \
    chown -R appuser /app
- 
+
 # Copy the Python dependencies from the builder stage
 COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
- 
+
 # Set the working directory
 WORKDIR /app
- 
+
 # Copy application code
 COPY --chown=appuser:appuser . .
- 
+
+RUN mkdir -p /ms-playwright && \
+   python -m playwright install --with-deps chromium && \
+   chown -R appuser:appuser /ms-playwright
+
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
@@ -51,12 +57,12 @@ RUN mkdir -p /app/staticfiles && chown -R appuser:appuser /app/staticfiles
 
 # Switch to non-root user
 USER appuser
- 
+
 # Expose the application port
 EXPOSE 8000 
 
 # Make entry file executable
-RUN chmod +x  /app/build.sh
- 
+RUN chmod +x /app/entrypoint.sh
+
 # Start the application using Gunicorn
-CMD ["/app/build.sh"]
+CMD ["/app/entrypoint.sh"]

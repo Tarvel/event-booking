@@ -44,6 +44,7 @@ class Events(models.Model):
     max_capacity = models.IntegerField(default=0)
 
     is_published = models.BooleanField(default=False)
+    is_private = models.BooleanField(default=False)
     published_at = models.DateField(blank=True, null=True)
 
     created_at = models.DateField(auto_now_add=True)
@@ -70,3 +71,10 @@ class Events(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["is_private", "start_date", "category"]),
+            models.Index(fields=["start_date"]),
+            models.Index(fields=["category"]),
+        ]

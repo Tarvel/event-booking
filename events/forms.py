@@ -18,4 +18,5 @@ class EventForm(forms.ModelForm):
             "longitude",
             "ticket_price",
             "max_capacity",
+            "is_private",
         ]

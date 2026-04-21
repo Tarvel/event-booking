@@ -1,82 +1,100 @@
 {% load static %}
-    
+{% load cloudinary_thumb %}
+
 {% for event in events %}
-<div class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-sm hover:-translate-y-1 flex flex-col">
-    <a href="{% url 'event_detail' event.slug %}">
-    {% if event.image %}
-        <img src="{{event.image.url}}" alt="{{event.title}}" class="w-full h-48 object-cover">
-    {% else %}
-        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2070&auto=format&fit=crop" alt="{{event.title}}" class="w-full h-48 object-cover">
-    {% endif %}
-    <div class="p-4 md:p-6 flex flex-col flex-grow">
-        <h2 class="text-xl font-bold mb-2 text-slate-900">{{event.title|title}}</h2>
-        
-        <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-slate-500 mb-4 gap-2 sm:gap-4">
-            <div class="flex items-center gap-1.5">
-                <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
-                <span>{{ event.start_date|date:"jS"}}
-                    
-                    {% if event.end_date %}    
-                    {% with start_month=event.start_date|date:"M" end_month=event.end_date|date:"M" %}
-                    {% if start_month != end_month %}
-                    {{ event.start_date|date:"M" }}
-                    {% endif %}
-                    {% endwith %}
-                    {% endif %}
-                    {% if event.end_date %}- {{ event.end_date|date:"jS"}}{% endif %} {% if event.end_date %}{{ event.end_date|date:"M, Y" }}{% else %}{{ event.start_date|date:"M, Y" }}{% endif %}</span>
-                            </div>
-            
-            <div class="flex items-center gap-1.5">
-                <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
-                <span>{{ event.venue }}</span>
-            </div>
-        </div>
-
-        <div class="mt-auto">
-            
-            {% if event.available_ticket <= 9 %}
-
-                <div class="inline-flex items-center gap-1.5 mb-4 px-3 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-700">
-                    <svg xmlns="http://www.w.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.934l-6.5 11.9a1 1 0 001.64 1.064l6.5-11.9a1 1 0 00-.368-1.614z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10.868 3.868a1 1 0 00-1.45-.385l-6.5 11.9a1 1 0 101.64 1.064l6.5-11.9a1 1 0 00-.19-1.679z" clip-rule="evenodd" /><path d="M11.636 14.142a1 1 0 01.364-1.614l6.5-11.9a1 1 0 011.64 1.064l-6.5 11.9a1 1 0 01-1.276.55z" /></svg>
-                    Only {{event.available_ticket}} tickets left!
-                </div>
+<div class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-300">
+    <a href="{% url 'event_detail' event.slug %}" class="block">
+        <div class="relative overflow-hidden">
+            {% if event.image %}
+                {% cloud_thumb event.image 400 300 as thumb_url %}
+                <img src="{{ thumb_url }}"
+                     alt="{{ event.title }}"
+                     class="w-full h-44 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                     loading="lazy" decoding="async">
             {% else %}
-                <div class="flex items-center gap-2 mb-4 text-sm font-medium text-slate-600">
-                    <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM2 12a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z" /></svg>
-                    <span>{{event.available_ticket}} tickets available</span>
-                </div>
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=400&auto=format&fit=crop"
+                     alt="{{ event.title }}"
+                     class="w-full h-44 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                     loading="lazy" decoding="async">
             {% endif %}
-                
-            
-            {% if event.available_ticket < 10 and event.available_ticket > 0 %}
-            
-            {% endif %}
+
+            <!-- Category badge -->
+            <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white/90 backdrop-blur-sm text-gray-800 shadow-sm">
+                {% if event.category == "music" %}
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.952 1.651a.75.75 0 01.298.599V16.303a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.403-4.909l2.311-.66a1.5 1.5 0 001.088-1.442V6.994l-9 2.572v9.737a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.402-4.909l2.31-.66a1.5 1.5 0 001.088-1.442V5.25a.75.75 0 01.544-.721l10.5-3a.75.75 0 01.456.122z"/></svg>
+                {% elif event.category == "technology" %}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+                {% elif event.category == "arts" %}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+                {% elif event.category == "food" %}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.38a48.474 48.474 0 00-6-.37c-2.032 0-4.034.126-6 .37m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265z" /></svg>
+                {% elif event.category == "sports" %}
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 00-.584.859 6.753 6.753 0 006.138 5.6 6.73 6.73 0 002.743 1.346A6.707 6.707 0 019.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a.75.75 0 000 1.5h12.75a.75.75 0 000-1.5h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.707 6.707 0 01-1.112-3.173 6.73 6.73 0 002.743-1.347 6.753 6.753 0 006.139-5.6.75.75 0 00-.585-.858 47.077 47.077 0 00-3.07-.543V2.62a.75.75 0 00-.658-.744 49.22 49.22 0 00-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 00-.657.744zm0 2.629c0 3.246 2.412 5.933 5.534 6.358v1.142c-1.476.326-2.7 1.266-3.395 2.537H8.54c-.207 0-.375.168-.375.375V19.5h7.5v-2.625a.375.375 0 00-.375-.375h-.739c-.695-1.271-1.918-2.21-3.395-2.537v-1.142c3.122-.425 5.535-3.112 5.535-6.358V4.09a47.68 47.68 0 00-11.19 0v1.16z" clip-rule="evenodd"/></svg>
+                {% else %}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
+                {% endif %}
+                {{ event.get_category_display }}
+            </span>
 
             {% if event.available_ticket <= 0 %}
-            <div class="flex items-center gap-2 mb-4 text-sm font-bold text-red-600">
-                    <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
-                <span>SOLD OUT</span>
-            </div>
+            <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-red-500 text-white shadow-sm">
+                SOLD OUT
+            </span>
+            {% elif event.available_ticket <= 9 %}
+            <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500 text-white shadow-sm">
+                {{ event.available_ticket }} left
+            </span>
             {% endif %}
-
-            <a href="{% url 'event_detail' event.slug %}" class="inline-block w-full text-center bg-green-100 text-green-700 font-semibold px-4 py-2 rounded-lg text-sm group-hover:bg-green-600 group-hover:text-white transition-colors">View Details</a>
         </div>
-    </div></a>
+
+        <div class="p-4">
+            <!-- Date pill -->
+            <div class="flex items-center gap-2 text-xs font-medium text-brand-600 mb-2">
+                <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+                <span>{{ event.start_date|date:"M j" }}{% if event.end_date and event.end_date != event.start_date %} – {{ event.end_date|date:"M j" }}{% endif %}, {{ event.start_date|date:"Y" }}</span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-bold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-brand-700 transition-colors">{{ event.title|title }}</h3>
+
+            <!-- Venue -->
+            <div class="flex items-center gap-1.5 text-xs text-gray-500 mb-3">
+                <svg class="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                <span class="truncate">{{ event.venue }}</span>
+            </div>
+
+            <!-- Price & CTA -->
+            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                {% if event.ticket_price > 0 %}
+                <span class="text-sm font-bold text-gray-900">₦{{ event.ticket_price|floatformat:0 }}</span>
+                {% else %}
+                <span class="text-sm font-bold text-brand-600">Free</span>
+                {% endif %}
+                <span class="text-xs font-semibold text-brand-600 group-hover:text-brand-700 transition-colors flex items-center gap-1">
+                    View
+                    <svg class="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+{% empty %}
+<div class="col-span-full text-center py-16 px-6">
+    <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18"/></svg>
+    <h3 class="mt-3 text-lg font-semibold text-gray-900">No events found</h3>
+    <p class="mt-1 text-sm text-gray-500">Try adjusting your filters or check back later.</p>
 </div>
 {% endfor %}
 
 {% if events.has_next %}
-  <div 
-    hx-get="{% url 'home' %}?page={{ events.next_page_number }}"
+  <div
+    hx-get="{% url 'home' %}?page={{ events.next_page_number }}&category={{ active_category }}&date={{ active_date }}"
     hx-trigger="revealed"
     hx-swap="outerHTML"
-    class="col-span-full text-center">
-    <div role="status">
-        <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w.org/2000/svg">
-            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-        </svg>
-        <span class="sr-only">Loading...</span>
+    class="col-span-full flex justify-center py-8">
+    <div class="flex items-center gap-2 text-sm text-gray-500">
+        <svg class="animate-spin h-5 w-5 text-brand-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        Loading more events...
     </div>
   </div>
 {% endif %}

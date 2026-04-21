@@ -10,28 +10,21 @@ from datetime import datetime
 from .models import Events
 from booking.models import Registration, Ticket
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail, EmailMessage
 from events.utils.emails import send_ticket_email_with_pdf_async
-
+from events.utils.ticket_pdf import generate_ticket_pdf_bytes
 
 User = get_user_model()
 
-from django.template.loader import get_template
-import qrcode
-from io import BytesIO
-import base64
-from xhtml2pdf import pisa
-
 
 def home(request):
-    method = request.method
-    category = request.COOKIES.get("tempCategory") or "all"
-    date = request.COOKIES.get("tempDate") or "all"
+    category = request.GET.get("category", "all")
+    date = request.GET.get("date", "all")
 
     filters = Q()
     compared_date = datetime.now().date()
 
     filters &= Q(start_date__gte=compared_date)
+    filters &= Q(is_private=False)
 
     if category and category != "all":
         filters &= Q(category=category)
@@ -87,34 +80,36 @@ def event_detail(request, slug):
     return render(request, "events/event_detail.html", context)
 
 
+@login_required(login_url="login")
 def download_ticket(request, slug):
-    reg = Registration.objects.filter(event__slug=slug).first()
-    tic = Ticket.objects.get(registration=reg)
-    ticket_code = tic.unique_code
     user = request.user
-
-    img = qrcode.make(ticket_code)
-
-    buffer = BytesIO()
-    img.save(buffer, format="PNG")
-    img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-    template = get_template("ticket.html")
-    html = template.render(
-        {
-            "user": user,
-            "qr_image": img_base64,
-            "reg": reg,
-        }
+    reg = (
+        Registration.objects.filter(
+            event__slug=slug,
+            user=user,
+            status="approved",
+        )
+        .select_related("event")
+        .first()
     )
 
-    pisa.CreatePDF(html, dest=buffer)
-    response = HttpResponse(buffer.getvalue(), content_type="application/pdf")
-    buffer.close()
+    if not reg:
+        messages.error(request, "No approved ticket found for this event")
+        return redirect("profile")
 
-    response["Content-Disposition"] = (
-        f'attachment; filename="{reg.event.title.title()}_Ticket_For_{user.email}.pdf"'
-    )
+    try:
+        pdf_bytes = generate_ticket_pdf_bytes(registration=reg, user=user)
+    except Exception:
+        messages.error(
+            request,
+            "Ticket download is temporarily unavailable. "
+            "Please try again shortly.",
+        )
+        return redirect("event_detail", slug)
+
+    response = HttpResponse(pdf_bytes, content_type="application/pdf")
+    filename = f"{reg.event.title.title()}_Ticket_For_{user.email}.pdf"
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response
 
 
@@ -231,6 +226,7 @@ def create_event(request):
                 longitude=cd["longitude"],
                 ticket_price=cd["ticket_price"],
                 max_capacity=cd["max_capacity"],
+                is_private=cd.get("is_private", False),
             )
 
             if action == "publish":
@@ -290,6 +286,7 @@ def edit_event(request, slug):
                 actual_event.longitude = cd["longitude"]
                 actual_event.ticket_price = cd["ticket_price"]
                 actual_event.max_capacity = cd["max_capacity"]
+                actual_event.is_private = cd.get("is_private", False)
 
                 actual_event.save()
                 messages.success(request, "Event has been updated")

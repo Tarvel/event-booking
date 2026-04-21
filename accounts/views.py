@@ -31,7 +31,7 @@ def registerPage(request):
             user.save()
             login(request, user)
 
-            return redirect("home")
+            return redirect("update_profile")
         else:
             form = RegisterForm()
 
