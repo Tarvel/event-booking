@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -150,7 +150,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PAYSTACK_SECRET_KEY = os.getenv("PAYSTACK_SECRET_KEY")
-CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com/", "https://*.ngrok-free.app"]  # Change this shit later
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+    "https://*.ngrok-free.app",
+    "https://*.vercel.app",
+]
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 
@@ -162,7 +166,7 @@ cloudinary.config(
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     )
 }
 
