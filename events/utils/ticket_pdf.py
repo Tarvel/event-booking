@@ -5,12 +5,24 @@ from io import BytesIO
 
 import qrcode
 import requests
-import weasyprint
 from django.template.loader import get_template
 
 from booking.models import Ticket
 
 logger = logging.getLogger(__name__)
+
+# Try to import weasyprint, fallback if C libraries are missing
+try:
+    import weasyprint
+except (ImportError, OSError) as e:
+    weasyprint = None
+    logger.warning("WeasyPrint could not be loaded: %s. Will fall back to xhtml2pdf.", e)
+
+# Try to import xhtml2pdf for fallback
+try:
+    from xhtml2pdf import pisa
+except ImportError:
+    pisa = None
 
 
 def _build_qr_base64(ticket_code: str) -> str:
@@ -58,13 +70,22 @@ def build_ticket_html(registration, user):
 
 
 def render_ticket_pdf_bytes(html: str) -> bytes:
-    """Render ticket HTML to PDF using WeasyPrint.
+    """Render ticket HTML to PDF using WeasyPrint (if available) or xhtml2pdf (fallback)."""
+    if weasyprint is not None:
+        try:
+            return weasyprint.HTML(string=html).write_pdf()
+        except Exception as e:
+            logger.exception("WeasyPrint rendering failed, trying xhtml2pdf fallback: %s", e)
 
-    WeasyPrint uses Cairo/Pango for rendering, which supports modern CSS
-    including gradients, table-cell layout, border-radius, and base64
-    images — producing output near-identical to a web browser.
-    """
-    return weasyprint.HTML(string=html).write_pdf()
+    if pisa is not None:
+        result = BytesIO()
+        pisa_status = pisa.pisaDocument(BytesIO(html.encode("utf-8")), result)
+        if not pisa_status.err:
+            return result.getvalue()
+        else:
+            raise RuntimeError(f"xhtml2pdf rendering failed: {pisa_status.err}")
+
+    raise RuntimeError("No PDF rendering engine available. Install WeasyPrint or xhtml2pdf.")
 
 
 def generate_ticket_pdf_bytes(registration, user) -> bytes:
