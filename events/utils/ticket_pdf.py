@@ -5,6 +5,7 @@ from io import BytesIO
 
 import qrcode
 import requests
+from django.conf import settings
 from django.template.loader import get_template
 
 from booking.models import Ticket
@@ -71,9 +72,14 @@ def build_ticket_html(registration, user):
 
 def render_ticket_pdf_bytes(html: str) -> bytes:
     """Render ticket HTML to PDF using WeasyPrint (if available) or xhtml2pdf (fallback)."""
-    if weasyprint is not None:
+    use_weasyprint = weasyprint is not None and not os.getenv("VERCEL")
+
+    if use_weasyprint:
         try:
-            return weasyprint.HTML(string=html).write_pdf()
+            return weasyprint.HTML(
+                string=html,
+                base_url=str(settings.BASE_DIR),
+            ).write_pdf()
         except Exception as e:
             logger.exception("WeasyPrint rendering failed, trying xhtml2pdf fallback: %s", e)
 

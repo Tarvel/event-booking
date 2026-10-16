@@ -1,5 +1,4 @@
 import logging
-import threading
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -67,11 +66,7 @@ def send_ticket_email(to_email: str, name: str, ticket_name: str) -> bool:
 
 
 def send_ticket_email_async(to_email, name, ticket_name):
-    threading.Thread(
-        target=send_ticket_email,
-        args=(to_email, name, ticket_name),
-        daemon=True,
-    ).start()
+    return send_ticket_email(to_email, name, ticket_name)
 
 
 def send_ticket_email_with_pdf(slug, user):
@@ -121,9 +116,5 @@ def send_ticket_email_with_pdf(slug, user):
 
 
 def send_ticket_email_with_pdf_async(slug, user):
-    """Send ticket email with PDF asynchronously."""
-    threading.Thread(
-        target=send_ticket_email_with_pdf,
-        args=(slug, user),
-        daemon=True,
-    ).start()
+    """Send ticket email with PDF before the request returns."""
+    return send_ticket_email_with_pdf(slug, user)

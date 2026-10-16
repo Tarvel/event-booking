@@ -181,4 +181,5 @@ EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 ANYMAIL = {
     "SENDGRID_API_KEY": os.environ.get("SENDGRID_API_KEY"),
 }
-DEFAULT_FROM_EMAIL = "tarvelb.stud@gmail.com"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "tarvelb.stud@gmail.com")
+EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", "20"))
