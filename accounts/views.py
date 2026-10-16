@@ -17,6 +17,8 @@ User = get_user_model()
 
 
 def registerPage(request):
+    if request.user.is_authenticated:
+        return redirect("home")
     username = str(uuid.uuid4())
     form = RegisterForm()
     method = request.method
@@ -43,6 +45,8 @@ def registerPage(request):
 
 
 def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect("home")
     form = LoginForm()
     method = request.method
     if method == "POST":
