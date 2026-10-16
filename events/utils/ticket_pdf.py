@@ -7,6 +7,7 @@ import qrcode
 import requests
 from django.conf import settings
 from django.template.loader import get_template
+from PIL import Image, ImageOps
 
 from booking.models import Ticket
 
@@ -45,8 +46,12 @@ def _build_event_image_base64(registration):
 
         image_response = requests.get(image_url, timeout=10)
         if image_response.status_code == 200:
+            image = Image.open(BytesIO(image_response.content)).convert("RGB")
+            image = ImageOps.fit(image, (1540, 380), method=Image.Resampling.LANCZOS)
+            image_buffer = BytesIO()
+            image.save(image_buffer, format="JPEG", quality=90, optimize=True)
             event_image_base64 = base64.b64encode(
-                image_response.content
+                image_buffer.getvalue()
             ).decode("utf-8")
     except Exception:
         logger.exception("Unable to fetch event image for ticket render")
